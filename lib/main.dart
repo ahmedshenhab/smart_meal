@@ -14,7 +14,7 @@ import 'firebase_options.dart';
 //// ahmed
 
 void main() async {
-  late Widget startWidget;
+  late Widget  startWidget;
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-       designSize: const Size(360, 690),
+      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
