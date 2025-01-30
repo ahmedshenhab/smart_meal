@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'constant/constant.dart';
@@ -14,7 +15,7 @@ import 'firebase_options.dart';
 //// ahmed
 
 void main() async {
-  late Widget  startWidget;
+  late Widget startWidget;
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -30,6 +31,13 @@ void main() async {
 
     startWidget = const MealLoginScreen();
   }
+  // SystemChrome.setEnabledSystemUIMode(
+  //   SystemUiMode.immersive,
+  // );
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   statusBarColor:  Colors.transparent, // Set the status bar color
+  //   statusBarIconBrightness: Brightness.dark, // For white icons
+  // ));
 
   runApp(MyApp(
     startWidget: startWidget,

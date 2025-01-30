@@ -84,8 +84,8 @@ TextFormField buildLoginField(
   required TextInputType type,
 }) {
   return TextFormField(
-    // autovalidateMode: AutovalidateMode.,
-    style: const TextStyle(fontSize: 18),
+    // autovalidateMode: AutovalidateMode.onUserInteraction,
+    style: TextStyle(fontSize: 16.sp),
     readOnly: readOnly,
     onFieldSubmitted: onSubmit,
     obscureText: isHiddenPassword,
@@ -93,8 +93,8 @@ TextFormField buildLoginField(
     keyboardType: type,
     validator: validator,
     decoration: InputDecoration(
-      errorStyle: const TextStyle(
-        fontSize: 15,
+      errorStyle: TextStyle(
+        fontSize: 12.sp,
         fontWeight: FontWeight.bold,
       ),
       suffixIcon: sufixIconBotton,
@@ -102,13 +102,13 @@ TextFormField buildLoginField(
       hintText: hintText,
       hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontFamily: 'Poppins',
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w100,
             color: Constant.fieldColorHint,
           ),
       // border: OutlineInputBorder(),
       enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 1.w),
       ),
       focusedBorder: const UnderlineInputBorder(
         borderSide: BorderSide(color: Constant.gray),
@@ -128,7 +128,7 @@ Future<bool?> buildshowToast({
       timeInSecForIosWeb: 1,
       backgroundColor: color,
       textColor: Colors.white,
-      fontSize: 16.0);
+      fontSize: 13.0.sp);
 }
 
 ElevatedButton elevatedCategory(
@@ -141,17 +141,15 @@ ElevatedButton elevatedCategory(
     onPressed: () {},
     style: ElevatedButton.styleFrom(
       backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.r)),
     ),
     child: Text(
       text,
       style: theme.textTheme.bodyMedium!
-          .copyWith(color: textColor, fontFamily: 'Sofia Pro', fontSize: 18),
+          .copyWith(color: textColor, fontFamily: 'Sofia Pro', fontSize: 18.sp),
     ),
   );
 }
-
-
 
 // TextFormField buildtextFormField({
 //   void Function(String)? onSubmit,

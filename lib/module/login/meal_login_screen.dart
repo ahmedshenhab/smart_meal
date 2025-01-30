@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:smart_meal/constant/constant.dart';
 import 'package:smart_meal/data/network/local/shared_pref/cach_helper.dart';
 import 'package:smart_meal/module/meal_layout/meal_layout.dart';
@@ -60,53 +63,54 @@ class MealLoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           MealLoginCubit cubit = MealLoginCubit.get(context);
-          // final mediaQuery = MediaQuery.of(context);
+          final mediaQuery = MediaQuery.of(context);
           return Scaffold(
             backgroundColor: Constant.scaffoldBackgroundheavy,
             body: SingleChildScrollView(
               child: Column(
-                children: [ 
-                  
+                children: [
                   SizedBox(
-                    height: 40.h,
-                    // height: 40,
+                    height: mediaQuery.size.height * 0.05,
                   ),
                   // Logo Section
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'assets/images/logoLogin.png',
-                          width: 175,
-                          height: 120,
-                        ),
-                        TextButton(
-                            // style:
-                            //     TextButton.styleFrom(padding: EdgeInsets.zero),
-                            onPressed: () {},
-                            child: Text('Later',
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  fontSize: 18,
-                                  fontFamily: 'SofiaSans',
-                                  color: Constant.logInLaterColor,
-                                ))),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/logoLogin.png',
+                        // width: mediaQuery.size.width * 0.3,
+                        // height: mediaQuery.size.height * 0.09,
+                        width: 120.w,
+                        height: 100.h,
+                      ),
+                      TextButton(
+                          style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              overlayColor: Colors.transparent),
+                          onPressed: () {},
+                          child: Text('Later',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                fontSize: 17.sp,
+                                fontFamily: 'SofiaSans',
+                                color: Constant.logInLaterColor,
+                              ))),
+                    ],
                   ),
 
-                  SizedBox(height: 20),
-
+                  SizedBox(
+                    height: mediaQuery.size.height * 0.028,
+                  ),
                   // Login Card Section
                   Container(
                     // margin: EdgeInsets.symmetric(horizontal: 20),
-                    width: 350.w,
-                    height: 550.h,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    width: mediaQuery.size.width * 0.93,
+                    height: mediaQuery.size.height * 0.75,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mediaQuery.size.width / 24),
+
                     decoration: BoxDecoration(
                       color: Constant.white,
-                      borderRadius: BorderRadius.circular(45),
+                      borderRadius: BorderRadius.circular(45.r),
                     ),
                     child: Form(
                       key: formState,
@@ -114,17 +118,58 @@ class MealLoginScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Center(
+                            child: Text('login with',
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 24.sp,
+                                )),
+                          ),
+                          SizedBox(
+                            height: mediaQuery.size.height * 0.04,
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  cubit.signInWithGoogle(context);
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/Google.svg',
+                                  width: mediaQuery.size.width / 8,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  log(mediaQuery.size.width.toString());
+                                  log((mediaQuery.size.width * 0.5).toString());
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/facebook.svg',
+                                  width: mediaQuery.size.width / 8,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: mediaQuery.size.height * 0.07,
+                          ),
                           Transform.translate(
-                            offset: Offset(0, -80),
+                            offset: Offset(0, -mediaQuery.size.height * 0.01),
                             child: Center(
-                              child: Text('Log in',
+                              child: Text('-OR-',
                                   style: theme.textTheme.bodyMedium!.copyWith(
+                                    fontSize: 18.sp,
                                     fontFamily: 'Poppins',
-                                    fontSize: 24.sp,
+                                    color: Constant.orColor,
                                   )),
                             ),
                           ),
-                          // SizedBox(height: 100),
+
+                          SizedBox(height: mediaQuery.size.height * 0.02),
 
                           buildLoginField(
                             context,
@@ -143,7 +188,7 @@ class MealLoginScreen extends StatelessWidget {
                             },
                             type: TextInputType.emailAddress,
                           ),
-                          SizedBox(height: 40),
+                          SizedBox(height: mediaQuery.size.height / 30),
 
                           buildLoginField(context,
                               controller: passwordController,
@@ -157,8 +202,8 @@ class MealLoginScreen extends StatelessWidget {
                               type: TextInputType.visiblePassword,
                               sufixIconBotton: IconButton(
                                   // splashColor: Colors.transparent,
-                                  // highlightColor: Colors.transparent,
-                                  // hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
                                   onPressed: () {
                                     cubit.togglePasswordVisibility();
                                   },
@@ -167,84 +212,75 @@ class MealLoginScreen extends StatelessWidget {
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     color: Constant.fieldprefixColor,
-                                    size: 25,
+                                    size: 20.h,
                                   ))),
 
-                          SizedBox(height: 14),
-
-                          // // Forgot Password
-                          TextButton(
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero),
-                              onPressed: () {},
-                              child: Text('forgot password ?',
-                                  style: theme.textTheme.bodyMedium!.copyWith(
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    color: Constant.logInLaterColor,
-                                    decoration: TextDecoration.underline,
-                                    decorationThickness: 0.9,
-                                  ))),
-
-                          SizedBox(height: 40),
+                          SizedBox(height: mediaQuery.size.height * 0.06),
 
                           // Log In Button
-                          SizedBox(
-                            width: 327,
-                            height: 53,
-                            child: state is! MealLoginLoadingState
-                                ? ElevatedButton(
-                                    onPressed: () {
-                                      if (formState.currentState!.validate()) {
-                                        cubit.userLogin(
-                                          password: passwordController.text,
-                                          email: emailController.text,
-                                        );
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Constant.deepOrange,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
+                          Center(
+                            child: SizedBox(
+                              width: mediaQuery.size.width * 0.80,
+                              height: mediaQuery.size.height * 0.055,
+                              // width: 300.w,
+                              // height: 40.h,
+                              child: state is! MealLoginLoadingState
+                                  ? ElevatedButton(
+                                      onPressed: () {
+                                        if (formState.currentState!
+                                            .validate()) {
+                                          cubit.userLogin(
+                                            password: passwordController.text,
+                                            email: emailController.text,
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Constant.deepOrange,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r),
+                                        ),
                                       ),
-                                    ),
-                                    child: Text(
-                                      'Log in',
-                                      style: theme.textTheme.bodyMedium!
-                                          .copyWith(
-                                              fontFamily: 'SofiaSans',
-                                              fontSize: 20,
-                                              color: Constant.white),
-                                    ),
-                                  )
-                                : Center(child: CircularProgressIndicator()),
+                                      child: Text(
+                                        'Log in',
+                                        style: theme.textTheme.bodyMedium!
+                                            .copyWith(
+                                                fontFamily: 'SofiaSans',
+                                                fontSize: 20.sp,
+                                                color: Constant.white),
+                                      ),
+                                    )
+                                  : Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive()),
+                            ),
                           ),
 
-                          SizedBox(
-                            height: 4,
-                          ),
+                          // SizedBox(height: mediaQuery.size.height * 0.01),
+
                           Transform.translate(
-                            offset: Offset(0, 15),
+                            offset: Offset(0, mediaQuery.size.height * 0.03),
                             child: Center(
                               child: RichText(
                                 text: TextSpan(
-                                  text: "don't have an account ",
+                                  text: "don't have an account? ",
                                   style: theme.textTheme.bodyMedium!.copyWith(
                                       fontFamily: 'SofiaSans',
-                                      fontSize: 14,
-                                      height: 0,
+                                      fontSize: 14.sp,
+                                      // height: 0,
                                       color: Constant.allreadyHaveAcountColor),
                                   children: [
                                     TextSpan(
-                                      text: 'Sign in',
+                                      text: 'Register',
                                       style: theme.textTheme.bodyMedium!
                                           .copyWith(
                                               decoration:
                                                   TextDecoration.underline,
-                                              decorationThickness: 0.7,
+                                              decorationThickness: 0.7.w,
                                               fontFamily: 'SofiaSans',
-                                              fontSize: 18,
-                                              height: 0,
+                                              fontSize: 18.sp,
+                                              // height: 0,
                                               color: Constant
                                                   .allreadyHaveAcountColor),
                                       recognizer: TapGestureRecognizer()
@@ -263,6 +299,7 @@ class MealLoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(height: mediaQuery.size.height * 0.04),
                         ],
                       ),
                     ),
