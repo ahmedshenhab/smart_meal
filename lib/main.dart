@@ -1,16 +1,16 @@
 import 'dart:developer';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'constant/constant.dart';
 import 'constant/observer.dart';
 import 'data/network/local/shared_pref/cach_helper.dart';
+import 'firebase_options.dart';
 import 'module/login/meal_login_screen.dart';
 import 'module/meal_layout/meal_layout.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 //// ahmed
 
