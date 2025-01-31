@@ -4,73 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'constant/constant.dart';
 
-Stack buildHome1(BuildContext context) {
-  return Stack(alignment: const AlignmentDirectional(-0.9, -0.3), children: [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 7),
-      child: Container(
-        width: double.infinity,
-        height: 250,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.white,
-        ),
-        child: Container(
-          // width: 288,
-          // height: 248,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              // fit: BoxFit.fitHeight,
-              alignment: AlignmentDirectional(1.3, 0),
-              image: AssetImage('assets/images/main_image.png'),
-            ),
-          ),
-        ),
-      ),
-    ),
-    Column(
-      children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Text('   Searching For\n   a Mail ?',
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.bodyMedium!),
-        const SizedBox(
-          height: 10,
-        ),
-        Text('Let US Cock\nFor You',
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Constant.brown,
-                )),
-        const SizedBox(
-          height: 25,
-        ),
-      ],
-    ),
-    Positioned(
-      top: 194,
-      left: 20,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(6),
-          minimumSize: const Size(0, 0),
-          backgroundColor: Constant.deepOrange,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        child: const Text(
-          'Search with Ingredients',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Ranga', fontSize: 17),
-        ),
-      ),
-    ),
-  ]);
-}
+
 
 TextFormField buildLoginField(
   BuildContext context, {
@@ -150,35 +84,3 @@ ElevatedButton elevatedCategory(
     ),
   );
 }
-
-// TextFormField buildtextFormField({
-//   void Function(String)? onSubmit,
-//   required TextEditingController controller,
-//   required String label,
-//   bool readOnly = false,
-//   bool isHiddenPassword = false,
-//   required IconData prefixIcon,
-//   IconButton? sufixIconBotton,
-//   required String? Function(String?) validator,
-//   required TextInputType type,
-// }) =>
-//     TextFormField(
-//       readOnly: readOnly,
-//       onFieldSubmitted: onSubmit,
-//       obscureText: isHiddenPassword,
-//       style: const TextStyle(),
-//       controller: controller,
-//       keyboardType: TextInputType.emailAddress,
-//       validator: validator,
-//       decoration: InputDecoration(
-//           constraints: const BoxConstraints(minHeight: 0),
-//           enabledBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           labelText: label,
-//           prefixIcon: Icon(prefixIcon),
-//           suffixIcon: sufixIconBotton),
-//     );

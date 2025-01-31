@@ -18,7 +18,7 @@ class MealLayout extends StatelessWidget {
 
           return Scaffold(
             backgroundColor: Constant.scaffoldBackgroundLight,
-            body: cubit.screens[cubit.currentIndex],
+            body: SafeArea(child: cubit.screens[cubit.currentIndex]),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {
                 cubit.changeBottomNavIndex(index);

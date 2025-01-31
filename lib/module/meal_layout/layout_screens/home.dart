@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import '../../../reusable.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/widget/home/home_section1.dart';
+import 'package:smart_meal/widget/home/home_section2.dart';
 
 import '../../../constant/constant.dart';
 
@@ -11,29 +13,23 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final mediaQuery = MediaQuery.of(context);
 
     return SingleChildScrollView(
       // physics: BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.only(
-          left: 10,
-          right: 10,
-          top: 50,
-          bottom: 0,
-        ),
-        child: Container(
-          height: 2210,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Constant.scaffoldBackgroundheavy,
-            borderRadius: BorderRadius.circular(25),
-          ),
+        padding: EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.02),
+        child: Center(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: mediaQuery.size.height * 0.03,
+              ),
+
               ///1
-              buildHome1(context),
+              HomeSection1(),
               const SizedBox(
                 height: 20,
               ),
@@ -41,12 +37,12 @@ class Home extends StatelessWidget {
               //2
               Container(
                 width: double.infinity,
-                height: 435,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                height: mediaQuery.size.height * 0.6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.r)),
                   color: Constant.brownBurn,
                 ),
-                child: buildElemt2(context, theme),
+                child: HomeSection2(),
               ),
 
               ////3
@@ -315,7 +311,7 @@ Widget buildRecomended(
               fontFamily: 'RobotoSerif',
               color: Constant.black,
               fontWeight: FontWeight.normal,
-              fontSize: 18,
+              fontSize: 18.sp,
             ),
             textAlign: TextAlign.center,
           ),
@@ -343,7 +339,7 @@ Widget buildRecomended(
                     style: theme.textTheme.bodyMedium!.copyWith(
                         color: Constant.gray,
                         fontFamily: 'Roboto',
-                        fontSize: 15),
+                        fontSize: 15.sp),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -369,7 +365,7 @@ Widget buildRecomended(
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: Constant.gray,
                             fontFamily: 'Roboto',
-                            fontSize: 15,
+                            fontSize: 15.sp,
                           ),
                         ),
                         TextSpan(
@@ -377,7 +373,7 @@ Widget buildRecomended(
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: Constant.gray,
                             fontFamily: 'Roboto',
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ],
@@ -425,111 +421,17 @@ Widget buildStackCategory3(
             Text(
               text,
               style: theme.textTheme.bodyMedium!
-                  .copyWith(color: Constant.white, fontSize: 15),
+                  .copyWith(color: Constant.white, fontSize: 15.sp),
               textAlign: TextAlign.center,
             ),
             Text(
               "150+ recipe",
               style: theme.textTheme.bodyMedium!
-                  .copyWith(color: Constant.categoriesColor, fontSize: 10),
+                  .copyWith(color: Constant.categoriesColor, fontSize: 10.sp),
             ),
           ],
         ),
       ),
     ],
-  );
-}
-
-Widget buildElemt2(BuildContext context, ThemeData theme) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    // crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        "Don't Know What To Cook?",
-        style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 8),
-      Text('Search With Ingredients',
-          style:
-              theme.textTheme.bodyMedium!.copyWith(color: Constant.deepOrange)),
-      const SizedBox(height: 20),
-      Container(
-        // padding: EdgeInsets.all(20),
-        width: 308,
-        height: 270,
-
-        decoration: BoxDecoration(
-          color: Constant.white,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Your Ingredients',
-                style: theme.textTheme.bodyMedium!
-                    .copyWith(color: Constant.brown, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Constant.fieldColor,
-                    prefixIcon: const Icon(Icons.search,
-                        color: Constant.fieldHintSearchColor),
-                    hintText: 'Search for Ingredient...',
-                    hintStyle: theme.textTheme.bodyMedium!.copyWith(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        color: Constant.fieldHintSearchColor),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  _buildIngredientButton2('Meat', theme),
-                  _buildIngredientButton2('Vegetables', theme),
-                  _buildIngredientButton2('water', theme),
-                  _buildIngredientButton2('Dry Ingredients', theme),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _buildIngredientButton2(String label, ThemeData theme) {
-  return ElevatedButton.icon(
-    onPressed: () {},
-    icon: const Icon(Icons.search, color: Constant.resuiltIconSearchColor),
-    label: Text(label,
-        textAlign: TextAlign.center,
-        maxLines: 1,
-        style: theme.textTheme.bodyMedium!
-            .copyWith(fontSize: 13, color: Constant.resuiltIconSearchColor)),
-    style: ElevatedButton.styleFrom(
-      // fixedSize: Size.lerp(Size.fromWidth(4), Size.fromWidth(20), 2),
-      backgroundColor: Colors.grey.shade100,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    ),
   );
 }
