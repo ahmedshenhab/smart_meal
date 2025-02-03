@@ -4,8 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'constant/constant.dart';
 
-
-
 TextFormField buildLoginField(
   BuildContext context, {
   void Function(String)? onSubmit,
@@ -81,6 +79,144 @@ ElevatedButton elevatedCategory(
       text,
       style: theme.textTheme.bodyMedium!
           .copyWith(color: textColor, fontFamily: 'Sofia Pro', fontSize: 18.sp),
+    ),
+  );
+}
+
+Widget buildRecomended(
+    ThemeData theme, String text, Color color1, Color color2, String image,
+    {BoxShadow? boxShadow, required MediaQueryData mediaQuery}) {
+  /// you can wrap the contaner with card and details
+  // shape: RoundedRectangleBorder(
+  // borderRadius: BorderRadius.circular(25),
+  // ),
+
+  return Container(
+    width: mediaQuery.size.width * 0.455,
+    height: mediaQuery.size.height * 0.28,
+    decoration: BoxDecoration(
+        boxShadow: boxShadow != null ? [boxShadow] : [],
+        color: Constant.white,
+        borderRadius: BorderRadius.circular(25.r)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(
+          alignment: AlignmentDirectional(
+            mediaQuery.size.width * 0.0024,
+            mediaQuery.size.height * -0.0011,
+          ),
+          children: [
+            Container(
+              height: mediaQuery.size.height * 0.137,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  image,
+                ),
+              )),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: mediaQuery.size.width * 0.1,
+                height: mediaQuery.size.height * 0.047,
+                decoration: BoxDecoration(
+                    color: color1, borderRadius: BorderRadius.circular(30)),
+                child: Icon(
+                  color: color2,
+                  Icons.bookmark,
+                ),
+              ),
+            )
+          ],
+        ),
+        SizedBox(
+          height: mediaQuery.size.height * 0.011,
+        ),
+        Align(
+          alignment:
+              AlignmentDirectional(mediaQuery.size.height * (-0.0001), 0),
+          child: Text(
+            text,
+            style: theme.textTheme.bodyMedium!.copyWith(
+              fontFamily: 'RobotoSerif',
+              color: Constant.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 18.sp,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(height: mediaQuery.size.height * (0.01)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/Union.png',
+                  width: mediaQuery.size.width * 0.05,
+                ),
+                SizedBox(
+                  width: mediaQuery.size.height * (0.005),
+                ),
+                Baseline(
+                  baseline: 18.h,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text(
+                    'Lunch',
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                        color: Constant.gray,
+                        fontFamily: 'Roboto',
+                        fontSize: 15.sp),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/fire.png',
+                  width: mediaQuery.size.width * 0.045,
+                ),
+                SizedBox(
+                  width: mediaQuery.size.height * (0.005),
+                ),
+                Baseline(
+                  baseline: 18.h,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '400',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: Constant.gray,
+                            fontFamily: 'Roboto',
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' cal',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: Constant.gray,
+                            fontFamily: 'Roboto',
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
     ),
   );
 }

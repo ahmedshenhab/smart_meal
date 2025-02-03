@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/network/local/shared_pref/cach_helper.dart';
 
 class Constant {
-
- // if make set will make get else return null
+  // if make set will make get else return null
   static String? get uId => CachHelper.getData(key: 'uId');
 
   static const Color scaffoldBackgroundLight = Color(0xFFf7e9dc);
