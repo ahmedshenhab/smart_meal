@@ -55,12 +55,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: Constant.lighTheme,
-          home: startWidget
-          // home: const MealLoginScreen(),
-          ),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: Constant.lighTheme,
+        // home: startWidget
+        home: const MealLayout(),
+      ),
     );
   }
 }

@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/constant/constant.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/home.dart';
 
 import '../../../reusable.dart';
 import 'package:side_sheet/side_sheet.dart';
@@ -13,6 +13,7 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
 
     List<String> images = [
       'assets/images/m1.png',
@@ -23,31 +24,29 @@ class Search extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: 100,
+            height: mediaQuery.size.height * 0.03,
           ),
 
           //search
-          Align(
-            alignment: AlignmentDirectional(0, 0),
-            child: SizedBox(
-              width: 322,
-              height: 55,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  prefixIcon: Icon(Icons.search, color: Constant.white),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none),
-                  filled: true,
-                  fillColor: Constant.white,
-                ),
+          SizedBox(
+            width: mediaQuery.size.width * 0.91,
+            height: mediaQuery.size.height * 0.07,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search',
+                prefixIcon: Icon(Icons.search, color: Constant.white),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide: BorderSide.none),
+                filled: true,
+                fillColor: Constant.white,
               ),
             ),
           ),
 
           Transform.translate(
-            offset: Offset(130, 25),
+            offset: Offset(
+                mediaQuery.size.width * 0.34, mediaQuery.size.height * 0.02),
             child: InkWell(
               // focusColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -105,14 +104,14 @@ class Search extends StatelessWidget {
                     style: theme.textTheme.bodyMedium!.copyWith(
                         color: Constant.frannyColor,
                         fontFamily: 'Inter',
-                        fontSize: 14.7),
+                        fontSize: 14.7.sp),
                   ),
                   SizedBox(
-                    width: 3,
+                    width: mediaQuery.size.width * 0.007,
                   ),
                   Icon(
                     Icons.filter_list,
-                    size: 16,
+                    size: 16.w,
                   )
                 ],
               ),
@@ -120,7 +119,7 @@ class Search extends StatelessWidget {
           ),
 
           SizedBox(
-            height: 50,
+            height: mediaQuery.size.height * 0.06,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -146,28 +145,30 @@ class Search extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 50,
+            height: mediaQuery.size.height * 0.02,
           ),
 
           GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.symmetric(
+              horizontal: mediaQuery.size.width * 0.02,
+            ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 3 / 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              childAspectRatio: 0.75,
+              crossAxisSpacing: 10.w,
+              mainAxisSpacing: 10.h,
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
               return buildRecomended(
-                theme,
-                'salad farm fries',
-                Constant.deepOrange,
-                Constant.white,
-                images[1],
-              );
+                  mediaQuery: mediaQuery,
+                  theme,
+                  'salad farm fries',
+                  Constant.deepOrange,
+                  Constant.white,
+                  images[1]);
             },
           ),
         ],

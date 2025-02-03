@@ -4,74 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'constant/constant.dart';
 
-Stack buildHome1(BuildContext context) {
-  return Stack(alignment: const AlignmentDirectional(-0.9, -0.3), children: [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 7),
-      child: Container(
-        width: double.infinity,
-        height: 250,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.white,
-        ),
-        child: Container(
-          // width: 288,
-          // height: 248,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              // fit: BoxFit.fitHeight,
-              alignment: AlignmentDirectional(1.3, 0),
-              image: AssetImage('assets/images/main_image.png'),
-            ),
-          ),
-        ),
-      ),
-    ),
-    Column(
-      children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Text('   Searching For\n   a Mail ?',
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.bodyMedium!),
-        const SizedBox(
-          height: 10,
-        ),
-        Text('Let US Cock\nFor You',
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Constant.brown,
-                )),
-        const SizedBox(
-          height: 25,
-        ),
-      ],
-    ),
-    Positioned(
-      top: 194,
-      left: 20,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(6),
-          minimumSize: const Size(0, 0),
-          backgroundColor: Constant.deepOrange,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        child: const Text(
-          'Search with Ingredients',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Ranga', fontSize: 17),
-        ),
-      ),
-    ),
-  ]);
-}
-
 TextFormField buildLoginField(
   BuildContext context, {
   void Function(String)? onSubmit,
@@ -151,34 +83,140 @@ ElevatedButton elevatedCategory(
   );
 }
 
-// TextFormField buildtextFormField({
-//   void Function(String)? onSubmit,
-//   required TextEditingController controller,
-//   required String label,
-//   bool readOnly = false,
-//   bool isHiddenPassword = false,
-//   required IconData prefixIcon,
-//   IconButton? sufixIconBotton,
-//   required String? Function(String?) validator,
-//   required TextInputType type,
-// }) =>
-//     TextFormField(
-//       readOnly: readOnly,
-//       onFieldSubmitted: onSubmit,
-//       obscureText: isHiddenPassword,
-//       style: const TextStyle(),
-//       controller: controller,
-//       keyboardType: TextInputType.emailAddress,
-//       validator: validator,
-//       decoration: InputDecoration(
-//           constraints: const BoxConstraints(minHeight: 0),
-//           enabledBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           labelText: label,
-//           prefixIcon: Icon(prefixIcon),
-//           suffixIcon: sufixIconBotton),
-//     );
+Widget buildRecomended(
+    ThemeData theme, String text, Color color1, Color color2, String image,
+    {BoxShadow? boxShadow, required MediaQueryData mediaQuery}) {
+  /// you can wrap the contaner with card and details
+  // shape: RoundedRectangleBorder(
+  // borderRadius: BorderRadius.circular(25),
+  // ),
+
+  return Container(
+    width: mediaQuery.size.width * 0.455,
+    height: mediaQuery.size.height * 0.28,
+    decoration: BoxDecoration(
+        boxShadow: boxShadow != null ? [boxShadow] : [],
+        color: Constant.white,
+        borderRadius: BorderRadius.circular(25.r)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(
+          alignment: AlignmentDirectional(
+            mediaQuery.size.width * 0.0024,
+            mediaQuery.size.height * -0.0011,
+          ),
+          children: [
+            Container(
+              height: mediaQuery.size.height * 0.137,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  image,
+                ),
+              )),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: mediaQuery.size.width * 0.1,
+                height: mediaQuery.size.height * 0.047,
+                decoration: BoxDecoration(
+                    color: color1, borderRadius: BorderRadius.circular(30)),
+                child: Icon(
+                  color: color2,
+                  Icons.bookmark,
+                ),
+              ),
+            )
+          ],
+        ),
+        SizedBox(
+          height: mediaQuery.size.height * 0.011,
+        ),
+        Align(
+          alignment:
+              AlignmentDirectional(mediaQuery.size.height * (-0.0001), 0),
+          child: Text(
+            text,
+            style: theme.textTheme.bodyMedium!.copyWith(
+              fontFamily: 'RobotoSerif',
+              color: Constant.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 18.sp,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(height: mediaQuery.size.height * (0.01)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/Union.png',
+                  width: mediaQuery.size.width * 0.05,
+                ),
+                SizedBox(
+                  width: mediaQuery.size.height * (0.005),
+                ),
+                Baseline(
+                  baseline: 18.h,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text(
+                    'Lunch',
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                        color: Constant.gray,
+                        fontFamily: 'Roboto',
+                        fontSize: 15.sp),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/fire.png',
+                  width: mediaQuery.size.width * 0.045,
+                ),
+                SizedBox(
+                  width: mediaQuery.size.height * (0.005),
+                ),
+                Baseline(
+                  baseline: 18.h,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '400',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: Constant.gray,
+                            fontFamily: 'Roboto',
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' cal',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: Constant.gray,
+                            fontFamily: 'Roboto',
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
