@@ -63,23 +63,32 @@ Future<bool?> buildshowToast({
       fontSize: 13.0.sp);
 }
 
-ElevatedButton elevatedCategory(
+Widget elevatedCategory(
   ThemeData theme,
-  String text,
-  Color backgroundColor,
-  Color textColor,
+  
 ) {
-  return ElevatedButton(
-    onPressed: () {},
-    style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.r)),
-    ),
-    child: Text(
-      text,
-      style: theme.textTheme.bodyMedium!
-          .copyWith(color: textColor, fontFamily: 'Sofia Pro', fontSize: 18.sp),
-    ),
+  List<String> categorys = ['Breakfast', 'Lunch', 'Dinner'];
+  String selectedCategory = categorys[1];
+
+  return Row(
+    children: categorys
+        .map((e) => ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    selectedCategory == e ? Colors.orange : Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.r)),
+              ),
+              child: Text(
+                e,
+                style: theme.textTheme.bodyMedium!.copyWith(
+                    color: selectedCategory == e ? Colors.white : Colors.black,
+                    fontFamily: 'Sofia Pro',
+                    fontSize: 18.sp),
+              ),
+            ))
+        .toList(),
   );
 }
 

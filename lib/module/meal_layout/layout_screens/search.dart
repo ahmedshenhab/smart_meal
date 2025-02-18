@@ -1,8 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/constant/constant.dart';
+import 'package:smart_meal/module/meal_layout/cubit.dart';
+import 'package:smart_meal/module/meal_layout/stataes.dart';
 
 import '../../../reusable.dart';
 import 'package:side_sheet/side_sheet.dart';
@@ -34,7 +39,7 @@ class Search extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
-                prefixIcon: Icon(Icons.search, color: Constant.white),
+                prefixIcon: Icon(Icons.search, color: Constant.black),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16.r),
                     borderSide: BorderSide.none),
@@ -53,44 +58,6 @@ class Search extends StatelessWidget {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () {
-                // way by showModalBottomSheet
-                // showModalBottomSheet(
-                //   isScrollControlled: true,
-                //   useSafeArea: true,
-                //   context: context,
-                //   builder: (context) => filtersModal(),
-                // );
-
-// way by navigation
-
-                // Navigator.of(context).push(PageRouteBuilder(
-                //     opaque: false,
-                //     pageBuilder: (context, animation, secondaryAnimation) =>
-                //         SlideTransition(
-                //           position: animation.drive(
-                //             Tween(begin: Offset(1, 0), end: Offset(0, 0))
-                //                 .chain(CurveTween(curve: Curves.easeInOut)),
-                //           ),
-                //           child: SideSheet(filtersModal()),
-                //         )));
-
-                // /// by dialog
-
-                // showDialog(
-                //   context: context,
-                //   builder: (context) {
-                //     return Align(
-                //       alignment:
-                //           Alignment.centerLeft, // أو Alignment.centerRight
-                //       child: Container(
-                //           width: MediaQuery.of(context).size.width * 0.8,
-                //           height: double.infinity,
-                //           color: Colors.white,
-                //           child: filtersModal()),
-                //     );
-                //   },
-                // );
-
                 SideSheet.right(
                     body: filtersModal(context),
                     context: context,
@@ -121,29 +88,44 @@ class Search extends StatelessWidget {
           SizedBox(
             height: mediaQuery.size.height * 0.06,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              elevatedCategory(
-                theme,
-                'BreakFast',
-                Constant.deepOrange,
-                Constant.white,
-              ),
-              elevatedCategory(
-                theme,
-                'Lunch',
-                Constant.white,
-                Constant.black,
-              ),
-              elevatedCategory(
-                theme,
-                'Dinner',
-                Constant.white,
-                Constant.black,
-              )
-            ],
+
+          BlocConsumer<MealCubit, MealStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              final cubit = MealCubit.get(context);
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: cubit.categorys
+                    .map((e) => ElevatedButton(
+                          onPressed: () => cubit.changeCategory(e),
+                          style: ElevatedButton.styleFrom(
+                            overlayColor: Colors.transparent,
+                            // shadowColor: Colors.transparent,
+                            backgroundColor: cubit.selectedCategory == e
+                                ? Colors.orange
+                                : Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.r)),
+                          ),
+                          child: Text(
+                            e,
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                                color: cubit.selectedCategory == e
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontFamily: 'Sofia Pro',
+                                fontSize: 15.sp),
+                          ),
+                        ))
+                    .toList(),
+              );
+            },
           ),
+
+          // elevatedCategory(
+          //   theme,
+          // ),
           SizedBox(
             height: mediaQuery.size.height * 0.02,
           ),
