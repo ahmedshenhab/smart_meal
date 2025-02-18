@@ -55,15 +55,53 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: Constant.lighTheme,
-        // home: startWidget
-        home: const MealLayout(),
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: Constant.lighTheme,
+          home: MealLayout()),
     );
   }
 }
+
+// class FoodCategoryToggle extends StatefulWidget {
+//   @override
+//   _FoodCategoryToggleState createState() => _FoodCategoryToggleState();
+// }
+
+// class _FoodCategoryToggleState extends State<FoodCategoryToggle> {
+//   String selectedCategory = 'Breakfast';
+
+//   List<String> categoryMeal = ['Breakfast', 'Lunch', 'Dinner'];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//         child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       children: categoryMeal
+//           .map(
+//             (e) => InkWell(
+//               onTap: () {
+//                 log(selectedCategory + 'befor');
+//                 setState(() {
+//                   selectedCategory = e;
+//                 });
+//                 log(selectedCategory);
+//               },
+//               child: Container(
+                
+//                 padding: EdgeInsets.all(5),
+//                 decoration: BoxDecoration(
+                  
+//                     color: selectedCategory == e ? Colors.orange : Colors.white,
+//                     borderRadius: BorderRadius.circular(10)),
+//                 child: Text(e),
+//               ),
+//             ),
+//           )
+//           .toList(),
+//     ));
+//   }
 
 // class IngredientSearchScreen extends StatefulWidget {
 //   @override
@@ -207,3 +245,4 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+

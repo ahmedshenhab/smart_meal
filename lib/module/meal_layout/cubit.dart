@@ -9,6 +9,20 @@ import 'layout_screens/search.dart';
 
 class MealCubit extends Cubit<MealStates> {
   MealCubit() : super(MealInitialState());
+  final categorys = ['Breakfast', 'Lunch', 'Dinner'];
+  String selectedCategory = 'Lunch';
+
+
+  void changeCategory( String e){
+
+
+ selectedCategory = e;
+
+  emit(MealChangeBottomCategoryState());
+
+
+
+  }
 
   List<Widget> screens = const [
     Home(),
@@ -42,7 +56,7 @@ class MealCubit extends Cubit<MealStates> {
   void changeBottomNavIndex(int index) {
     currentIndex = index;
 
-    emit(MealChangeBottomVavState());
+    emit(MealChangeBottomNavState());
   }
 }
 
