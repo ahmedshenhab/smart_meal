@@ -41,46 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDMdzVhymv2qMPp09_dHLRRoeFQY_vD9CI',
-    appId: '1:475649513350:web:7257f5f82615642cfcbe07',
-    messagingSenderId: '475649513350',
-    projectId: 'smart-meal-6bf64',
-    authDomain: 'smart-meal-6bf64.firebaseapp.com',
-    storageBucket: 'smart-meal-6bf64.firebasestorage.app',
+    apiKey: 'AIzaSyCVLOmUhaHrCQjKZ94nWg-FXw-D8T2yMW8',
+    appId: '1:127316575856:web:8581e222973f04e2a356b5',
+    messagingSenderId: '127316575856',
+    projectId: 'smart-meal-ce145',
+    authDomain: 'smart-meal-ce145.firebaseapp.com',
+    storageBucket: 'smart-meal-ce145.firebasestorage.app',
+    measurementId: 'G-LQ7BKXGHS1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAX8Am9J1dkCDZFXes1RrIvzWEMdsnzQWk',
-    appId: '1:475649513350:android:6fbe7b0aa3d8bc73fcbe07',
-    messagingSenderId: '475649513350',
-    projectId: 'smart-meal-6bf64',
-    storageBucket: 'smart-meal-6bf64.firebasestorage.app',
+    apiKey: 'AIzaSyAQvCkG-lkhqPoyrqob_gc5YD3FfB3fW_o',
+    appId: '1:127316575856:android:e567e5ae03d3694ea356b5',
+    messagingSenderId: '127316575856',
+    projectId: 'smart-meal-ce145',
+    storageBucket: 'smart-meal-ce145.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCC7Qe3cEuwHm5bC2kwLNsKFWRo03sCkR8',
-    appId: '1:475649513350:ios:b918da7220dce198fcbe07',
-    messagingSenderId: '475649513350',
-    projectId: 'smart-meal-6bf64',
-    storageBucket: 'smart-meal-6bf64.firebasestorage.app',
+    apiKey: 'AIzaSyALkCRlK2SYhVYxJuSc5XOfO9yh_YSy3BI',
+    appId: '1:127316575856:ios:f03d05ed981474cca356b5',
+    messagingSenderId: '127316575856',
+    projectId: 'smart-meal-ce145',
+    storageBucket: 'smart-meal-ce145.firebasestorage.app',
     iosBundleId: 'com.example.smartMeal',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCC7Qe3cEuwHm5bC2kwLNsKFWRo03sCkR8',
-    appId: '1:475649513350:ios:b918da7220dce198fcbe07',
-    messagingSenderId: '475649513350',
-    projectId: 'smart-meal-6bf64',
-    storageBucket: 'smart-meal-6bf64.firebasestorage.app',
+    apiKey: 'AIzaSyALkCRlK2SYhVYxJuSc5XOfO9yh_YSy3BI',
+    appId: '1:127316575856:ios:f03d05ed981474cca356b5',
+    messagingSenderId: '127316575856',
+    projectId: 'smart-meal-ce145',
+    storageBucket: 'smart-meal-ce145.firebasestorage.app',
     iosBundleId: 'com.example.smartMeal',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDMdzVhymv2qMPp09_dHLRRoeFQY_vD9CI',
-    appId: '1:475649513350:web:5e0e62508329ef76fcbe07',
-    messagingSenderId: '475649513350',
-    projectId: 'smart-meal-6bf64',
-    authDomain: 'smart-meal-6bf64.firebaseapp.com',
-    storageBucket: 'smart-meal-6bf64.firebasestorage.app',
+    apiKey: 'AIzaSyCVLOmUhaHrCQjKZ94nWg-FXw-D8T2yMW8',
+    appId: '1:127316575856:web:29d85976a1146ac7a356b5',
+    messagingSenderId: '127316575856',
+    projectId: 'smart-meal-ce145',
+    authDomain: 'smart-meal-ce145.firebaseapp.com',
+    storageBucket: 'smart-meal-ce145.firebasestorage.app',
+    measurementId: 'G-C05SP9X45V',
   );
 }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "475649513350",
-    "project_id": "smart-meal-6bf64",
-    "storage_bucket": "smart-meal-6bf64.firebasestorage.app"
+    "project_number": "127316575856",
+    "project_id": "smart-meal-ce145",
+    "storage_bucket": "smart-meal-ce145.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:475649513350:android:6fbe7b0aa3d8bc73fcbe07",
+        "mobilesdk_app_id": "1:127316575856:android:e567e5ae03d3694ea356b5",
         "android_client_info": {
           "package_name": "com.example.smart_meal"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAX8Am9J1dkCDZFXes1RrIvzWEMdsnzQWk"
+          "current_key": "AIzaSyAQvCkG-lkhqPoyrqob_gc5YD3FfB3fW_o"
         }
       ],
       "services": {
