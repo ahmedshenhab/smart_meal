@@ -1,52 +1,25 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
+import 'package:smart_meal/core/style/meal_theme.dart';
 import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
 // i ahmed shenhab
 
-import 'core/constant/constant.dart';
 import 'core/observer/observer.dart';
-import 'module/login/meal_login_screen.dart';
-import 'module/meal_layout/widget/meal_layout.dart';
 
 //// ahmed
 
 void main() async {
-  late Widget startWidget;
-
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await ScreenUtil.ensureScreenSize();
+
   Bloc.observer = MyBlocObserver();
-  await CachHelper.init;
-  if (Constant.uId != null) {
-    log('uid from main = ${Constant.uId}');
-    startWidget = const MealLayout();
-  } else {
-    log('uid from main= ${Constant.uId}');
 
-    startWidget = const MealLoginScreen();
-  }
-  // SystemChrome.setEnabledSystemUIMode(
-  //   SystemUiMode.immersive,
-  // );
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor:  Colors.transparent, // Set the status bar color
-  //   statusBarIconBrightness: Brightness.dark, // For white icons
-  // ));
-
-  runApp(MyApp(
-    startWidget: startWidget,
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.startWidget});
-  final Widget startWidget;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +29,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: Constant.lighTheme,
+        theme: MealTheme.lighTheme,
         home: const MealDatailsScreen(),
       ),
     );

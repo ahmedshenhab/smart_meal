@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:smart_meal/core/constant/constant.dart';
 import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
-import 'package:smart_meal/module/login/cubit/cubit.dart';
-import 'package:smart_meal/module/login/cubit/states.dart';
-import 'package:smart_meal/module/meal_layout/widget/meal_layout.dart';
-import 'package:smart_meal/module/register/meal_register_screen.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
+import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
+import 'package:smart_meal/module/auth/login/cubit/states.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
+import 'package:smart_meal/module/auth/register/meal_register_screen.dart';
 
 import 'package:smart_meal/reusable.dart';
 
@@ -44,12 +44,12 @@ class MealLoginScreen extends StatelessWidget {
                 value: state.value.user!.uid,
               ).then(
                 (value) {
-                  // Constant.uId;
+                  // MealColor.uId;
                   if (context.mounted) {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MealLayout()),
+                          builder: (context) => const MealLayoutScreen()),
                       (route) => false,
                     );
                   }
@@ -65,7 +65,7 @@ class MealLoginScreen extends StatelessWidget {
           MealLoginCubit cubit = MealLoginCubit.get(context);
           final mediaQuery = MediaQuery.of(context);
           return Scaffold(
-            backgroundColor: Constant.scaffoldBackgroundheavy,
+            backgroundColor: MealColor.scaffoldBackgroundheavy,
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -92,7 +92,7 @@ class MealLoginScreen extends StatelessWidget {
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 fontSize: 17.sp,
                                 fontFamily: 'SofiaSans',
-                                color: Constant.logInLaterColor,
+                                color: MealColor.logInLaterColor,
                               ))),
                     ],
                   ),
@@ -109,7 +109,7 @@ class MealLoginScreen extends StatelessWidget {
                         horizontal: mediaQuery.size.width / 24),
 
                     decoration: BoxDecoration(
-                      color: Constant.white,
+                      color: MealColor.white,
                       borderRadius: BorderRadius.circular(45.r),
                     ),
                     child: Form(
@@ -164,7 +164,7 @@ class MealLoginScreen extends StatelessWidget {
                                   style: theme.textTheme.bodyMedium!.copyWith(
                                     fontSize: 18.sp,
                                     fontFamily: 'Poppins',
-                                    color: Constant.orColor,
+                                    color: MealColor.orColor,
                                   )),
                             ),
                           ),
@@ -211,7 +211,7 @@ class MealLoginScreen extends StatelessWidget {
                                     cubit.isPasswordVisible
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                    color: Constant.fieldprefixColor,
+                                    color: MealColor.fieldprefixColor,
                                     size: 20.h,
                                   ))),
 
@@ -236,7 +236,7 @@ class MealLoginScreen extends StatelessWidget {
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Constant.deepOrange,
+                                        backgroundColor: MealColor.deepOrange,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16.r),
@@ -248,7 +248,7 @@ class MealLoginScreen extends StatelessWidget {
                                             .copyWith(
                                                 fontFamily: 'SofiaSans',
                                                 fontSize: 20.sp,
-                                                color: Constant.white),
+                                                color: MealColor.white),
                                       ),
                                     )
                                   : Center(
@@ -269,7 +269,7 @@ class MealLoginScreen extends StatelessWidget {
                                       fontFamily: 'SofiaSans',
                                       fontSize: 14.sp,
                                       // height: 0,
-                                      color: Constant.allreadyHaveAcountColor),
+                                      color: MealColor.allreadyHaveAcountColor),
                                   children: [
                                     TextSpan(
                                       text: 'Register',
@@ -281,7 +281,7 @@ class MealLoginScreen extends StatelessWidget {
                                               fontFamily: 'SofiaSans',
                                               fontSize: 18.sp,
                                               // height: 0,
-                                              color: Constant
+                                              color: MealColor
                                                   .allreadyHaveAcountColor),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {

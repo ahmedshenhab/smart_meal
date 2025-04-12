@@ -5,10 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smart_meal/module/login/meal_login_screen.dart';
-import '../../../data/model/social_user_model.dart';
+import 'package:smart_meal/module/auth/data/model/social_user_model.dart';
+import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
 import 'states.dart';
-import '../../shred_widget/reusable_widget.dart';
+import '../../../shred_widget/reusable_widget.dart';
 
 class MealRegisterCubit extends Cubit<MealRegisterStates> {
   MealRegisterCubit() : super(MealRegisterIntialState());

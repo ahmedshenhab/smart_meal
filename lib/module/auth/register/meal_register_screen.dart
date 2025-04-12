@@ -7,9 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/module/login/meal_login_screen.dart';
-import '../../core/constant/constant.dart';
-import '../../reusable.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
+import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
+import '../../../reusable.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -41,7 +41,7 @@ class MealRegisterScreen extends StatelessWidget {
           MealRegisterCubit cubit = MealRegisterCubit.get(context);
           final mediaQuery = MediaQuery.of(context);
           return Scaffold(
-            backgroundColor: Constant.scaffoldBackgroundheavy,
+            backgroundColor: MealColor.scaffoldBackgroundheavy,
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -68,7 +68,7 @@ class MealRegisterScreen extends StatelessWidget {
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 fontSize: 18.sp,
                                 fontFamily: 'SofiaSans',
-                                color: Constant.logInLaterColor,
+                                color: MealColor.logInLaterColor,
                               ))),
                     ],
                   ),
@@ -86,7 +86,7 @@ class MealRegisterScreen extends StatelessWidget {
                         horizontal: mediaQuery.size.width / 24),
 
                     decoration: BoxDecoration(
-                      color: Constant.white,
+                      color: MealColor.white,
                       borderRadius: BorderRadius.circular(45.r),
                     ),
                     child: Form(
@@ -138,7 +138,7 @@ class MealRegisterScreen extends StatelessWidget {
                                 style: theme.textTheme.bodyMedium!.copyWith(
                                   fontSize: 18.sp,
                                   fontFamily: 'Poppins',
-                                  color: Constant.orColor,
+                                  color: MealColor.orColor,
                                 )),
                           ),
 
@@ -198,7 +198,7 @@ class MealRegisterScreen extends StatelessWidget {
                                     cubit.isPasswordVisible
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                    color: Constant.fieldprefixColor,
+                                    color: MealColor.fieldprefixColor,
                                     size: 20.h,
                                   ))),
 
@@ -222,7 +222,7 @@ class MealRegisterScreen extends StatelessWidget {
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Constant.deepOrange,
+                                        backgroundColor: MealColor.deepOrange,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16.r),
@@ -234,7 +234,7 @@ class MealRegisterScreen extends StatelessWidget {
                                             .copyWith(
                                                 fontFamily: 'SofiaSans',
                                                 fontSize: 20.sp,
-                                                color: Constant.white),
+                                                color: MealColor.white),
                                       ),
                                     )
                                   : const Center(
@@ -253,7 +253,7 @@ class MealRegisterScreen extends StatelessWidget {
                                       fontFamily: 'SofiaSans',
                                       fontSize: 14.sp,
                                       // height: 0,
-                                      color: Constant.allreadyHaveAcountColor),
+                                      color: MealColor.allreadyHaveAcountColor),
                                   children: [
                                     TextSpan(
                                       text: 'Log in',
@@ -265,7 +265,7 @@ class MealRegisterScreen extends StatelessWidget {
                                               fontFamily: 'SofiaSans',
                                               fontSize: 18.sp,
                                               // height: 0,
-                                              color: Constant
+                                              color: MealColor
                                                   .allreadyHaveAcountColor),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {

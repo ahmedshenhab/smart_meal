@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/constant/constant.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/stataes.dart';
 
-class MealLayout extends StatelessWidget {
-  const MealLayout({super.key});
+class MealLayoutScreen extends StatelessWidget {
+  const MealLayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MealLayout extends StatelessWidget {
           final cubit = MealCubit.get(context);
 
           return Scaffold(
-            backgroundColor: Constant.scaffoldBackgroundLight,
+            backgroundColor: MealColor.scaffoldBackgroundLight,
             body: SafeArea(child: cubit.screens[cubit.currentIndex]),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 
-import 'core/constant/constant.dart';
 
 TextFormField buildLoginField(
   BuildContext context, {
@@ -36,14 +36,14 @@ TextFormField buildLoginField(
             fontFamily: 'Poppins',
             fontSize: 14.sp,
             fontWeight: FontWeight.w100,
-            color: Constant.fieldColorHint,
+            color: MealColor.fieldColorHint,
           ),
       // border: OutlineInputBorder(),
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.grey.shade300, width: 1.w),
       ),
       focusedBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: Constant.gray),
+        borderSide: BorderSide(color: MealColor.gray),
       ),
     ),
   );
@@ -104,7 +104,7 @@ Widget buildRecomended(
     height: mediaQuery.size.height * 0.28,
     decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow] : [],
-        color: Constant.white,
+        color: MealColor.white,
         borderRadius: BorderRadius.circular(25.r)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +150,7 @@ Widget buildRecomended(
             text,
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
-              color: Constant.black,
+              color: MealColor.black,
               fontWeight: FontWeight.normal,
               fontSize: 18.sp,
             ),
@@ -176,7 +176,7 @@ Widget buildRecomended(
                   child: Text(
                     'Lunch',
                     style: theme.textTheme.bodyMedium!.copyWith(
-                        color: Constant.gray,
+                        color: MealColor.gray,
                         fontFamily: 'Roboto',
                         fontSize: 15.sp),
                     textAlign: TextAlign.center,
@@ -202,7 +202,7 @@ Widget buildRecomended(
                         TextSpan(
                           text: '400',
                           style: theme.textTheme.bodyMedium!.copyWith(
-                            color: Constant.gray,
+                            color: MealColor.gray,
                             fontFamily: 'Roboto',
                             fontSize: 15.sp,
                           ),
@@ -210,7 +210,7 @@ Widget buildRecomended(
                         TextSpan(
                           text: ' cal',
                           style: theme.textTheme.bodyMedium!.copyWith(
-                            color: Constant.gray,
+                            color: MealColor.gray,
                             fontFamily: 'Roboto',
                             fontSize: 14.sp,
                           ),

@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
-import '../login/Meal_login_screen.dart';
 
 
 TextButton buildTextbutton({
@@ -73,21 +71,7 @@ Future<bool?> buildshowToast({
       fontSize: 16.0);
 }
 
-void buildSignOut({required BuildContext context}) {
-  CachHelper.removeData(key: 'token').then(
-    (value) {
-      if (value && context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MealLoginScreen(),
-          ),
-          (route) => false,
-        );
-      }
-    },
-  );
-}
+
 
 void buildPrintFullText(String text) {
   final pattern = RegExp('.{1,800}');

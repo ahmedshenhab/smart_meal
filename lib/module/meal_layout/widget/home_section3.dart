@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/constant/constant.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 
 class HomeSection3 extends StatelessWidget {
   const HomeSection3({super.key});
@@ -18,7 +18,7 @@ class HomeSection3 extends StatelessWidget {
         Text(
           "Recipes By Categories",
           style: theme.textTheme.bodyMedium!.copyWith(
-            color: Constant.black,
+            color: MealColor.black,
             fontSize: 22.sp,
           ),
           // textAlign: TextAlign.center,
@@ -86,14 +86,14 @@ class HomeSection3 extends StatelessWidget {
             Text(
               text,
               style: theme.textTheme.bodyMedium!.copyWith(
-                color: Constant.white,
+                color: MealColor.white,
                 fontSize: 15.sp,
               ),
             ),
             Text(
               "150+ recipe",
               style: theme.textTheme.bodyMedium!.copyWith(
-                color: Constant.categoriesColor,
+                color: MealColor.categoriesColor,
                 fontSize: 10.sp,
               ),
             ),

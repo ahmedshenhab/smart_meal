@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/constant/constant.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
 
@@ -32,13 +32,13 @@ class Search extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
-                prefixIcon: Icon(Icons.search, color: Constant.black),
+                prefixIcon: Icon(Icons.search, color: MealColor.black),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.r),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Constant.white,
+                fillColor: MealColor.white,
               ),
             ),
           ),
@@ -67,7 +67,7 @@ class Search extends StatelessWidget {
                   Text(
                     'More Filters',
                     style: theme.textTheme.bodyMedium!.copyWith(
-                      color: Constant.frannyColor,
+                      color: MealColor.frannyColor,
                       fontFamily: 'Inter',
                       fontSize: 14.7.sp,
                     ),
@@ -141,8 +141,8 @@ class Search extends StatelessWidget {
                   mediaQuery: mediaQuery,
                   theme,
                   'salad farm fries',
-                  Constant.deepOrange,
-                  Constant.white,
+                  MealColor.deepOrange,
+                  MealColor.white,
                   images[1],
                 );
               },
@@ -166,7 +166,7 @@ filtersModal(BuildContext context) {
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontFamily: 'cambria',
             fontSize: 25,
-            color: Constant.black,
+            color: MealColor.black,
           ),
         ),
         SizedBox(height: 40),
@@ -202,7 +202,7 @@ class _ContentSlideBarState extends State<ContentSlideBar> {
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontFamily: 'cambria',
             fontSize: 25,
-            color: Constant.black,
+            color: MealColor.black,
           ),
         ),
         SizedBox(height: 5),
@@ -211,7 +211,7 @@ class _ContentSlideBarState extends State<ContentSlideBar> {
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontFamily: 'cambria',
             fontSize: 20,
-            color: Constant.black,
+            color: MealColor.black,
           ),
         ),
         Slider(
@@ -226,8 +226,8 @@ class _ContentSlideBarState extends State<ContentSlideBar> {
           label: value.round().toString(),
           max: 100,
 
-          // inactiveColor: Constant.deepOrange,
-          // activeColor: Constant.saveColor,
+          // inactiveColor: MealColor.deepOrange,
+          // activeColor: MealColor.saveColor,
         ),
       ],
     );

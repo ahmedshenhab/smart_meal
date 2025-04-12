@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/constant/constant.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 import 'package:smart_meal/reusable.dart';
 import 'package:smart_meal/module/meal_layout/widget/home_section1.dart';
 import 'package:smart_meal/module/meal_layout/widget/home_section2.dart';
@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                 height: mediaQuery.size.height * 0.6,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                  color: Constant.brownBurn,
+                  color: MealColor.brownBurn,
                 ),
                 child: const HomeSection2(),
               ),
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
                   height: mediaQuery.size.height * 0.64,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                    color: Constant.white,
+                    color: MealColor.white,
                   ),
                   child: const HomeSection3())
 
@@ -72,7 +72,7 @@ class Home extends StatelessWidget {
                 height: mediaQuery.size.height * 0.62,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                  color: Constant.brownBurn,
+                  color: MealColor.brownBurn,
                 ),
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +83,7 @@ class Home extends StatelessWidget {
                     Text(
                       "Made Just  For You",
                       style: theme.textTheme.bodyMedium!
-                          .copyWith(color: Constant.white, fontSize: 22.sp),
+                          .copyWith(color: MealColor.white, fontSize: 22.sp),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
@@ -105,16 +105,16 @@ class Home extends StatelessWidget {
                           mediaQuery: mediaQuery,
                           theme,
                           'salad farm fries',
-                          Constant.deepOrange,
-                          Constant.white,
+                          MealColor.deepOrange,
+                          MealColor.white,
                           'assets/images/meal2.png',
                         ),
                         buildRecomended(
                           mediaQuery: mediaQuery,
                           theme,
                           'Fried Chicken',
-                          Constant.white,
-                          Constant.saveColor,
+                          MealColor.white,
+                          MealColor.saveColor,
                           'assets/images/meal1.png',
                         )
                       ],
@@ -145,7 +145,7 @@ class Home extends StatelessWidget {
                 height: mediaQuery.size.height * 0.6,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                  color: Constant.white,
+                  color: MealColor.white,
                 ),
                 child: Column(
                   children: [
@@ -155,7 +155,7 @@ class Home extends StatelessWidget {
                     Text(
                       "Top Rated Meals",
                       style: theme.textTheme.bodyMedium!.copyWith(
-                        color: Constant.black,
+                        color: MealColor.black,
                         fontSize: 22.sp,
                       ),
                       textAlign: TextAlign.center,
@@ -181,20 +181,20 @@ class Home extends StatelessWidget {
                           mediaQuery: mediaQuery,
                           theme,
                           'salad farm fries',
-                          Constant.deepOrange,
-                          Constant.white,
+                          MealColor.deepOrange,
+                          MealColor.white,
                           'assets/images/meal2.png',
                           boxShadow: BoxShadow(
-                            color: Constant.shadow.withOpacity(0.25),
+                            color: MealColor.shadow.withOpacity(0.25),
                             spreadRadius: 5.r,
                             blurRadius: 4.r,
                             offset: Offset(0, 5.h),
                           ),
                         ),
-                        buildRecomended(theme, 'Fried Chicken', Constant.white,
-                            Constant.saveColor, 'assets/images/meal1.png',
+                        buildRecomended(theme, 'Fried Chicken', MealColor.white,
+                            MealColor.saveColor, 'assets/images/meal1.png',
                             boxShadow: BoxShadow(
-                              color: Constant.shadow.withOpacity(0.25),
+                              color: MealColor.shadow.withOpacity(0.25),
                               spreadRadius: 5.r,
                               blurRadius: 4.r,
                               offset: Offset(0, 5.h),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/style/meal_color.dart';
 
-import '../../../core/constant/constant.dart';
 
 class HomeSection2 extends StatelessWidget {
   const HomeSection2({super.key});
@@ -16,7 +16,7 @@ class HomeSection2 extends StatelessWidget {
       height: mediaQuery.size.height * 0.6,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        color: Constant.brownBurn,
+        color: MealColor.brownBurn,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,13 +30,13 @@ class HomeSection2 extends StatelessWidget {
           const SizedBox(height: 8),
           Text('Search With Ingredients',
               style: theme.textTheme.bodyMedium!
-                  .copyWith(color: Constant.deepOrange, fontSize: 22.sp)),
+                  .copyWith(color: MealColor.deepOrange, fontSize: 22.sp)),
           SizedBox(height: mediaQuery.size.height * 0.04),
           Container(
             width: mediaQuery.size.width * 0.86,
             height: mediaQuery.size.height * 0.33,
             decoration: BoxDecoration(
-              color: Constant.white,
+              color: MealColor.white,
               borderRadius: BorderRadius.circular(30.r),
             ),
             child: SingleChildScrollView(
@@ -45,7 +45,7 @@ class HomeSection2 extends StatelessWidget {
                   Text(
                     'Your Ingredients',
                     style: theme.textTheme.bodyMedium!
-                        .copyWith(color: Constant.brown, fontSize: 20.sp),
+                        .copyWith(color: MealColor.brown, fontSize: 20.sp),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: mediaQuery.size.height * 0.025),
@@ -55,17 +55,17 @@ class HomeSection2 extends StatelessWidget {
                     child: TextField(
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Constant.fieldColor,
+                        fillColor: MealColor.fieldColor,
                         prefixIcon: Icon(
                           Icons.search,
-                          color: Constant.fieldHintSearchColor,
+                          color: MealColor.fieldHintSearchColor,
                           size: 20.h,
                         ),
                         hintText: 'Search for Ingredient...',
                         hintStyle: theme.textTheme.bodyMedium!.copyWith(
                             fontFamily: 'Roboto',
                             fontSize: 14.sp,
-                            color: Constant.fieldHintSearchColor),
+                            color: MealColor.fieldHintSearchColor),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
                           borderSide: BorderSide.none,
@@ -100,11 +100,11 @@ class HomeSection2 extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed: () {},
       icon: Icon(Icons.search,
-          size: 17.h, color: Constant.resuiltIconSearchColor),
+          size: 17.h, color: MealColor.resuiltIconSearchColor),
       label: Text(label,
           maxLines: 1,
           style: theme.textTheme.bodyMedium!.copyWith(
-              fontSize: 13.sp, color: Constant.resuiltIconSearchColor)),
+              fontSize: 13.sp, color: MealColor.resuiltIconSearchColor)),
       style: ElevatedButton.styleFrom(
         // fixedSize: Size.lerp(Size.fromWidth(4), Size.fromWidth(20), 2),
         backgroundColor: Colors.grey.shade100,
