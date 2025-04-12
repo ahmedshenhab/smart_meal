@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
+import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
 // i ahmed shenhab
 
 import 'core/constant/constant.dart';
@@ -50,14 +51,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: Constant.lighTheme,
-        home: MealLoginScreen(),
+        home: const MealDatailsScreen(),
       ),
     );
   }

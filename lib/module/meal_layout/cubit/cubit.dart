@@ -11,6 +11,13 @@ class MealCubit extends Cubit<MealStates> {
   MealCubit() : super(MealInitialState());
   final categorys = ['Breakfast', 'Lunch', 'Dinner'];
   String selectedCategory = 'Lunch';
+ List<Widget> screens = const [
+    Home(),
+    Search(),
+    Profile(),
+    Saved(),
+  ];
+
 
 
   void changeCategory( String e){
@@ -24,13 +31,7 @@ class MealCubit extends Cubit<MealStates> {
 
   }
 
-  List<Widget> screens = const [
-    Home(),
-    Search(),
-    Profile(),
-    Saved(),
-  ];
-
+ 
   List<BottomNavigationBarItem> items = const [
     BottomNavigationBarItem(
       icon: Icon(Icons.home),

@@ -57,7 +57,6 @@ Future<bool?> buildshowToast({
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 13.0.sp);

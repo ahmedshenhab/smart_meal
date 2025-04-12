@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SideSheet extends StatelessWidget {
-  final Widget child;
 
   const SideSheet(this.child, {super.key});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

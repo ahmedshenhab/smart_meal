@@ -7,15 +7,15 @@ class MealLoginIntialState extends MealLoginStates {}
 class MealLoginLoadingState extends MealLoginStates {}
 
 class MealLoginSuccessState extends MealLoginStates {
-  final UserCredential value;
 
   MealLoginSuccessState({required this.value});
+  final UserCredential value;
 }
 
 class MealLoginErrorState extends MealLoginStates {
-  final String? error;
 
   MealLoginErrorState({required this.error});
+  final String? error;
 }
 
 class MealPasswordVisibilityToggledState extends MealLoginStates {}

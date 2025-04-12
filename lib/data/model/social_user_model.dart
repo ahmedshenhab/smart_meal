@@ -1,9 +1,17 @@
 class MealUserModel {
-  String? name;
-  String? email;
-  String? phone;
-  String? uId;
-  bool? isEmailVerivied;
+//  to map to receive the model from firebase
+
+  MealUserModel.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    email = json['email'];
+    phone = json['phone'];
+    uId = json['uId'];
+    isEmailVerivied = json['isEmailVerivied'];
+
+    // image = json['image'];
+    // cover = json['cover'];
+    // bio = json['bio'];
+  }
   // String? image;
   // String? cover;
   // String? bio;
@@ -18,6 +26,11 @@ class MealUserModel {
     // this.cover,
     // this.bio,
   });
+  String? name;
+  String? email;
+  String? phone;
+  String? uId;
+  bool? isEmailVerivied;
 
 // to map to send the model to firebase
   Map<String, dynamic> get toMap {
@@ -31,18 +44,5 @@ class MealUserModel {
       // 'cover': cover,
       // 'bio': bio,
     };
-  }
-//  to map to receive the model from firebase
-
-  MealUserModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
-    phone = json['phone'];
-    uId = json['uId'];
-    isEmailVerivied = json['isEmailVerivied'];
-
-    // image = json['image'];
-    // cover = json['cover'];
-    // bio = json['bio'];
   }
 }

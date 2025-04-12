@@ -41,7 +41,6 @@ class HomeSection2 extends StatelessWidget {
             ),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Your Ingredients',

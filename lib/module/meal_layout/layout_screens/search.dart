@@ -16,42 +16,37 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    List<String> images = ['assets/images/m1.png', 'assets/images/m2.png'];
+
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
-    List<String> images = [
-      'assets/images/m1.png',
-      'assets/images/m2.png',
-    ];
-    return SingleChildScrollView(
+    return SafeArea(
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            height: mediaQuery.size.height * 0.03,
-          ),
+          SizedBox(height: mediaQuery.size.height * 0.03),
 
-          //search
-          SizedBox(
-            width: mediaQuery.size.width * 0.91,
-            height: mediaQuery.size.height * 0.07,
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: mediaQuery.size.width * 0.026,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
                 prefixIcon: Icon(Icons.search, color: Constant.black),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                      16.r,
-                    ),
-                    borderSide: BorderSide.none),
+                  borderRadius: BorderRadius.circular(16.r),
+                  borderSide: BorderSide.none,
+                ),
                 filled: true,
                 fillColor: Constant.white,
               ),
             ),
           ),
+          SizedBox(height: mediaQuery.size.height * 0.02),
 
-          Transform.translate(
-            offset: Offset(
-                mediaQuery.size.width * 0.34, mediaQuery.size.height * 0.02),
+          Align(
+            alignment: Alignment.bottomRight,
+
             child: InkWell(
               // focusColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -59,9 +54,12 @@ class Search extends StatelessWidget {
               highlightColor: Colors.transparent,
               onTap: () {
                 SideSheet.right(
-                    body: filtersModal(context),
-                    context: context,
-                    transitionDuration: Duration(milliseconds: 230));
+                  width: mediaQuery.size.width * 0.8,
+                  sheetBorderRadius: 30,
+                  body: filtersModal(context),
+                  context: context,
+                  transitionDuration: Duration(milliseconds: 230),
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -69,89 +67,86 @@ class Search extends StatelessWidget {
                   Text(
                     'More Filters',
                     style: theme.textTheme.bodyMedium!.copyWith(
-                        color: Constant.frannyColor,
-                        fontFamily: 'Inter',
-                        fontSize: 14.7.sp),
+                      color: Constant.frannyColor,
+                      fontFamily: 'Inter',
+                      fontSize: 14.7.sp,
+                    ),
                   ),
-                  SizedBox(
-                    width: mediaQuery.size.width * 0.007,
-                  ),
-                  Icon(
-                    Icons.filter_list,
-                    size: 16.w,
-                  )
+                  SizedBox(width: mediaQuery.size.width * 0.007),
+                  Icon(Icons.filter_list, size: 16.w),
                 ],
               ),
             ),
           ),
 
-          SizedBox(
-            height: mediaQuery.size.height * 0.06,
-          ),
-
-          BlocConsumer<MealCubit, MealStates>(
-            listener: (context, state) {},
+          SizedBox(height: mediaQuery.size.height * 0.04),
+          BlocBuilder<MealCubit, MealStates>(
             builder: (context, state) {
               final cubit = MealCubit.get(context);
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: cubit.categorys
-                    .map((e) => ElevatedButton(
-                          onPressed: () => cubit.changeCategory(e),
-                          style: ElevatedButton.styleFrom(
-                            overlayColor: Colors.transparent,
-                            // shadowColor: Colors.transparent,
-                            backgroundColor: cubit.selectedCategory == e
-                                ? Colors.orange
-                                : Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40.r)),
-                          ),
-                          child: Text(
-                            e,
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                                color: cubit.selectedCategory == e
-                                    ? Colors.white
-                                    : Colors.black,
+                children:
+                    cubit.categorys
+                        .map(
+                          (e) => ElevatedButton(
+                            onPressed: () => cubit.changeCategory(e),
+                            style: ElevatedButton.styleFrom(
+                              overlayColor: Colors.transparent,
+                              // shadowColor: Colors.transparent,
+                              backgroundColor:
+                                  cubit.selectedCategory == e
+                                      ? Colors.orange
+                                      : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.r),
+                              ),
+                            ),
+                            child: Text(
+                              e,
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                color:
+                                    cubit.selectedCategory == e
+                                        ? Colors.white
+                                        : Colors.black,
                                 fontFamily: 'Sofia Pro',
-                                fontSize: 15.sp),
+                                fontSize: 15.sp,
+                              ),
+                            ),
                           ),
-                        ))
-                    .toList(),
+                        )
+                        .toList(),
               );
             },
           ),
 
-          // elevatedCategory(
-          //   theme,
-          // ),
-          SizedBox(
-            height: mediaQuery.size.height * 0.02,
-          ),
+          SizedBox(height: mediaQuery.size.height * 0.02),
 
-          GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(
-              horizontal: mediaQuery.size.width * 0.02,
-            ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.h,
-            ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return buildRecomended(
+          Expanded(
+            child: GridView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(
+                horizontal: mediaQuery.size.width * 0.02,
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.h,
+              ),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return buildRecomended(
                   mediaQuery: mediaQuery,
                   theme,
                   'salad farm fries',
                   Constant.deepOrange,
                   Constant.white,
-                  images[1]);
-            },
+                  images[1],
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -166,42 +161,75 @@ filtersModal(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Filters',
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontFamily: 'cambria', fontSize: 25, color: Constant.black)),
+        Text(
+          'Filters',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'cambria',
+            fontSize: 25,
+            color: Constant.black,
+          ),
+        ),
         SizedBox(height: 40),
-        _buildSlider('Calories', '0 calorie - 5000 calories', 0, 5000, context),
-        _buildSlider('Protein', '0 gram - 5000 grams', 0, 5000, context),
-        _buildSlider('Sugar', '0 gram - 5000 grams', 0, 5000, context),
-        _buildSlider('Fats', '0 gram - 5000 grams', 0, 5000, context),
-        _buildSlider('Carbs', '0 gram - 5000 grams', 0, 5000, context),
+        ContentSlideBar(label: 'Calories', labe2: '0 calorie - 5000 calories'),
+        ContentSlideBar(label: 'Protein', labe2: '0 gram - 5000 grams'),
+        ContentSlideBar(label: 'Sugar', labe2: '0 gram - 5000 grams'),
+        ContentSlideBar(label: 'Fats', labe2: '0 gram - 5000 grams'),
+        ContentSlideBar(label: 'Carbs', labe2: '0 gram - 5000 grams'),
       ],
     ),
   );
 }
 
-Widget _buildSlider(
-    String label, String labe2, double min, double max, BuildContext context) {
-  return Column(
-    // crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label,
+class ContentSlideBar extends StatefulWidget {
+  const ContentSlideBar({super.key, required this.label, required this.labe2});
+  final String label;
+  final String labe2;
+
+  @override
+  State<ContentSlideBar> createState() => _ContentSlideBarState();
+}
+
+class _ContentSlideBarState extends State<ContentSlideBar> {
+  double value = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.label,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontFamily: 'cambria', fontSize: 25, color: Constant.black)),
-      SizedBox(
-        height: 5,
-      ),
-      Text(labe2,
+            fontFamily: 'cambria',
+            fontSize: 25,
+            color: Constant.black,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          widget.labe2,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontFamily: 'cambria', fontSize: 20, color: Constant.black)),
-      Slider(
-        value: min,
-        onChanged: (value) {},
-        min: min,
-        max: max,
-        inactiveColor: Constant.deepOrange,
-        activeColor: Constant.saveColor,
-      ),
-    ],
-  );
+            fontFamily: 'cambria',
+            fontSize: 20,
+            color: Constant.black,
+          ),
+        ),
+        Slider(
+          value: value,
+          onChanged: (newValue) {
+            setState(() {
+              value = newValue;
+            });
+          },
+
+          divisions: 100,
+          label: value.round().toString(),
+          max: 100,
+
+          // inactiveColor: Constant.deepOrange,
+          // activeColor: Constant.saveColor,
+        ),
+      ],
+    );
+  }
 }

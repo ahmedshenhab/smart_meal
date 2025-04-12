@@ -7,17 +7,17 @@ class MealRegisterLoadingState extends MealRegisterStates {}
 class MealRegisterSuccessState extends MealRegisterStates {}
 
 class MealRegisterErrorState extends MealRegisterStates {
-  final String error;
 
   MealRegisterErrorState({required this.error});
+  final String error;
 }
 
 class MealCreateUserAndVerificationSuccessState extends MealRegisterStates {}
 
 class MealCreateUserAndVerificationErrorState extends MealRegisterStates {
-  final String error;
 
   MealCreateUserAndVerificationErrorState({required this.error});
+  final String error;
 }
 class MealRegisterPasswordVisibilityToggledState
     extends MealRegisterStates {}

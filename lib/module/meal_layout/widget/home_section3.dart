@@ -14,9 +14,7 @@ class HomeSection3 extends StatelessWidget {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-          height: mediaQuery.size.height * 0.07,
-        ),
+        SizedBox(height: mediaQuery.size.height * 0.07),
         Text(
           "Recipes By Categories",
           style: theme.textTheme.bodyMedium!.copyWith(
@@ -25,27 +23,37 @@ class HomeSection3 extends StatelessWidget {
           ),
           // textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: mediaQuery.size.height * 0.03,
-        ),
+        SizedBox(height: mediaQuery.size.height * 0.03),
         Text(
           "For Everytime",
-          style: theme.textTheme.bodyMedium!
-              .copyWith(color: Colors.brown, fontSize: 22.sp),
+          style: theme.textTheme.bodyMedium!.copyWith(
+            color: Colors.brown,
+            fontSize: 22.sp,
+          ),
           // textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: mediaQuery.size.height * 0.04,
-        ),
+        SizedBox(height: mediaQuery.size.height * 0.04),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildStackCategory3(
-                theme, 'Breackfat', 'assets/images/breakFast.png', mediaQuery),
+              theme,
+              'Breackfat',
+              'assets/images/breakFast.png',
+              mediaQuery,
+            ),
             buildStackCategory3(
-                theme, 'lunch', 'assets/images/lunch.png', mediaQuery),
+              theme,
+              'lunch',
+              'assets/images/lunch.png',
+              mediaQuery,
+            ),
             buildStackCategory3(
-                theme, 'dinner', 'assets/images/dinner.png', mediaQuery),
+              theme,
+              'dinner',
+              'assets/images/dinner.png',
+              mediaQuery,
+            ),
           ],
         ),
       ],
@@ -53,7 +61,11 @@ class HomeSection3 extends StatelessWidget {
   }
 
   Widget buildStackCategory3(
-      ThemeData theme, String text, String image, MediaQueryData mediaQuery) {
+    ThemeData theme,
+    String text,
+    String image,
+    MediaQueryData mediaQuery,
+  ) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -67,22 +79,23 @@ class HomeSection3 extends StatelessWidget {
           //     image,
           //   ),
           // )),
-          child: Image.asset(
-            image,
-            fit: BoxFit.cover,
-          ),
+          child: Image.asset(image, fit: BoxFit.cover),
         ),
         Column(
           children: [
             Text(
               text,
-              style: theme.textTheme.bodyMedium!
-                  .copyWith(color: Constant.white, fontSize: 15.sp),
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: Constant.white,
+                fontSize: 15.sp,
+              ),
             ),
             Text(
               "150+ recipe",
-              style: theme.textTheme.bodyMedium!
-                  .copyWith(color: Constant.categoriesColor, fontSize: 10.sp),
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: Constant.categoriesColor,
+                fontSize: 10.sp,
+              ),
             ),
           ],
         ),

@@ -36,7 +36,7 @@ TextFormField buildtextFormField({
       keyboardType: TextInputType.emailAddress,
       validator: validator,
       decoration: InputDecoration(
-          constraints: const BoxConstraints(minHeight: 0),
+          constraints: const BoxConstraints(),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -68,7 +68,6 @@ Future<bool?> buildshowToast({
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 16.0);
