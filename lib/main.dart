@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/meal_theme.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
+import 'package:smart_meal/core/routing/router.dart';
+import 'package:smart_meal/core/style/app_theme.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
 // i ahmed shenhab
-
-import 'core/observer/observer.dart';
 
 //// ahmed
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-
-  Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
 }
@@ -26,55 +22,22 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: MealTheme.lighTheme,
-        home: const MealDatailsScreen(),
-      ),
+      builder:
+          (_, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: AppTheme.lighTheme,
+            onGenerateRoute: AppRouter.onGenerateRoute,
+
+            initialRoute: MealLayoutScreen.homeScreen,
+          ),
     );
   }
 }
 
-// class FoodCategoryToggle extends StatefulWidget {
-//   @override
-//   _FoodCategoryToggleState createState() => _FoodCategoryToggleState();
-// }
 
-// class _FoodCategoryToggleState extends State<FoodCategoryToggle> {
-//   String selectedCategory = 'Breakfast';
 
-//   List<String> categoryMeal = ['Breakfast', 'Lunch', 'Dinner'];
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//         child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       children: categoryMeal
-//           .map(
-//             (e) => InkWell(
-//               onTap: () {
-//                 log(selectedCategory + 'befor');
-//                 setState(() {
-//                   selectedCategory = e;
-//                 });
-//                 log(selectedCategory);
-//               },
-//               child: Container(
-                
-//                 padding: EdgeInsets.all(5),
-//                 decoration: BoxDecoration(
-                  
-//                     color: selectedCategory == e ? Colors.orange : Colors.white,
-//                     borderRadius: BorderRadius.circular(10)),
-//                 child: Text(e),
-//               ),
-//             ),
-//           )
-//           .toList(),
-//     ));
-//   }
 
 // class IngredientSearchScreen extends StatefulWidget {
 //   @override
@@ -201,21 +164,4 @@ class MyApp extends StatelessWidget {
 //       ),
 //     );
 //   }
-
-//   Widget _buildCategoryButton(String category) {
-//     return ElevatedButton(
-//       style: ElevatedButton.styleFrom(
-//         backgroundColor:
-//             _selectedCategory == category ? Colors.brown : Colors.grey,
-//       ),
-//       onPressed: () {
-//         setState(() {
-//           _selectedCategory = category;
-//           _filterIngredients(_searchController.text);
-//         });
-//       },
-//       child: Text(category),
-//     );
-//   }
-// }
 

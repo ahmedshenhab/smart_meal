@@ -1,80 +1,176 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'dart:developer';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Sqldb {
-  static Database? _db;
-  Future<Database?>? get db async {
-    if (_db == null) {
-      _db = await initializeDb();
-      log('will creat data base');
+class DatabaseHelper {
+  static late final Database? _database;
 
-      return _db;
+  static Future<Database> get database async {
+    if (_database != null) {
+      return _database!;
     } else {
-      log('created data base');
-      return _db;
+      _database = await _initDatabase();
+      return _database!;
     }
   }
 
-  initializeDb() async {
-    String dataBasePath = await getDatabasesPath();
-    String path = join(dataBasePath, 'ahmed.db');
-
-    Database myDB = await openDatabase(path,
-        onCreate: oncreate, version: 1 , onUpgrade: onUpgrade);
-
-    return myDB;
-  }
-
-  onUpgrade(Database db, int oldVersion, int newVersion) {
-    log('onUpgrade');
-  }
-
-  oncreate(Database db, int version) async {
-    await db.execute(
-      '''
-      CREATE TABLE "notes" (
-        'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        'note' TEXT NOT NULL
-      )
-      ''',
+  static Future<Database> _initDatabase() async {
+    String path = join(await getDatabasesPath(), 'app_database.db');
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        // Create your tables here
+        await db.execute('''
+          CREATE TABLE movies (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            director TEXT,
+            releaseYear INTEGER
+          )
+        ''');
+      },
     );
-
-    log('onCreat ++++++++++++++++++++++++++++++');
   }
 
-  Future<List<Map<String, Object?>>> readData(String sql) async {
-    Database? myDB = await db;
-
-    List<Map<String, Object?>> response = await myDB!.rawQuery(sql);
-
-    return response;
+  static Future<int> insertMovie(Map<String, dynamic> movie) async {
+    final db = await database;
+    return await db.insert(
+      'movies',
+      movie,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
-  insertData(String sql) async {
-    Database? myDB = await db;
-
-    int response = await myDB!.rawInsert(sql);
-
-    return response;
+  Future<void> insertMoviesBatch(List<Map<String, dynamic>> movies) async {
+    final db = await database;
+    Batch batch = db.batch();
+    for (var movie in movies) {
+      batch.insert(
+        'movies',
+        movie,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+    await batch.commit(noResult: true);
   }
 
-  updateData(String sql) async {
-    Database? myDB = await db;
-
-    int response = await myDB!.rawUpdate(sql);
-
-    return response;
+  static Future<List<Map<String, dynamic>>> getMovies() async {
+    final db = await database;
+    return await db.query('movies');
   }
 
-  Future<int> deleteData(String sql) async {
-    Database? myDB = await db;
+  static Future<int> deleteMovie(int id) async {
+    final db = await database;
+    return await db.delete('movies', where: 'id = ?', whereArgs: [id]);
+  }
 
-    int response = await myDB!.rawDelete(sql);
-
-    return response;
+  static Future<void> closeDatabase() async {
+    final db = await database;
+    if (db.isOpen) {
+      await db.close();
+    }
   }
 }
+
+// singlton principle
+// import 'package:sqflite/sqflite.dart';
+// import 'package:path/path.dart';
+
+// class DatabaseHelper {
+//   // Factory constructor to return the same instance
+//   factory DatabaseHelper() => _instance;
+
+//   // Private constructor
+//   DatabaseHelper._();
+//   // Singleton instance
+//   static final DatabaseHelper _instance = DatabaseHelper._();
+
+//   late final Database? _database; // Lazy initialization of the database
+
+//   // Get the database instance (Ensures only one connection)
+//   Future<Database> get database async {
+//     if (_database != null) {
+//       return _database;
+//     }
+//     else
+//     {_database = await _initDatabase();
+//     return _database!;}
+//   }
+
+//   // Initialize the database
+//   Future<Database> _initDatabase() async {
+//     String path = join(await getDatabasesPath(), 'app_database.dbc');
+//     return await openDatabase(
+//       path,
+//       version: 1,
+//       onCreate: (db, version) async {
+//         // Create your tables here
+//         await db.execute('''
+//           CREATE TABLE movies (
+//             id INTEGER PRIMARY KEY AUTOINCREMENT,
+//             title TEXT,
+//             director TEXT,
+//             releaseYear INTEGER
+//           )
+//         ''');
+//       },
+//     );
+//   }
+
+//   // Insert a single record (movie)
+//   Future<int> insertMovie(Map<String, dynamic> movie) async {
+//     final db = await database;
+//     return await db.insert(
+//       'movies',
+//       movie,
+//       conflictAlgorithm: ConflictAlgorithm.replace,
+//     );
+//   }
+
+//   // Insert multiple movies using Batch (for better performance)
+//   Future<void> insertMoviesBatch(List<Map<String, dynamic>> movies) async {
+//     final db = await database;
+//     Batch batch = db.batch();
+//     for (var movie in movies) {
+//       batch.insert(
+//         'movies',
+//         movie,
+//         conflictAlgorithm: ConflictAlgorithm.replace,
+//       );
+//     }
+//     await batch.commit(noResult: true);
+//   }
+
+//   // Get all movies
+//   Future<List<Map<String, dynamic>>> getMovies() async {
+//     final db = await database;
+//     return await db.query('movies');
+//   }
+
+//   // Get a movie by its ID
+//   Future<Map<String, dynamic>?> getMovieById(int id) async {
+//     final db = await database;
+//     final result = await db.query('movies', where: 'id = ?', whereArgs: [id]);
+//     return result.isNotEmpty ? result.first : null;
+//   }
+
+//   // Update a movie
+//   Future<int> updateMovie(int id, Map<String, dynamic> movie) async {
+//     final db = await database;
+//     return await db.update('movies', movie, where: 'id = ?', whereArgs: [id]);
+//   }
+
+//   // Delete a movie by ID
+//   Future<int> deleteMovie(int id) async {
+//     final db = await database;
+//     return await db.delete('movies', where: 'id = ?', whereArgs: [id]);
+//   }
+
+//   // Close the database safely
+//   Future<void> closeDatabase() async {
+//     final db = await database;
+//     if (db.isOpen) {
+//       await db.close();
+//     }
+//   }
+// }

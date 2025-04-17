@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/style/meal_color.dart';
+import 'package:smart_meal/core/style/app_color.dart';
 import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
 import '../../../reusable.dart';
 import 'cubit/cubit.dart';
@@ -15,6 +15,7 @@ import 'cubit/states.dart';
 
 class MealRegisterScreen extends StatelessWidget {
   const MealRegisterScreen({super.key});
+  static const String registerScreen = '/registerScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class MealRegisterScreen extends StatelessWidget {
           if (state is MealCreateUserAndVerificationSuccessState) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => const MealLoginScreen()),
+              MaterialPageRoute(builder: (_) => MealLoginScreen()),
               (route) => false,
             );
           }
@@ -41,13 +42,11 @@ class MealRegisterScreen extends StatelessWidget {
           MealRegisterCubit cubit = MealRegisterCubit.get(context);
           final mediaQuery = MediaQuery.of(context);
           return Scaffold(
-            backgroundColor: MealColor.scaffoldBackgroundheavy,
+            backgroundColor: AppColor.scaffoldBackgroundheavy,
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: mediaQuery.size.height * 0.05,
-                  ),
+                  SizedBox(height: mediaQuery.size.height * 0.05),
                   // Logo Section
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,24 +57,26 @@ class MealRegisterScreen extends StatelessWidget {
                         height: 100.h,
                       ),
                       TextButton(
-                          style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              overlayColor: Colors.transparent),
-                          // style:
-                          //     TextButton.styleFrom(padding: EdgeInsets.zero),
-                          onPressed: () {},
-                          child: Text('Later',
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                fontSize: 18.sp,
-                                fontFamily: 'SofiaSans',
-                                color: MealColor.logInLaterColor,
-                              ))),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          overlayColor: Colors.transparent,
+                        ),
+                        // style:
+                        //     TextButton.styleFrom(padding: EdgeInsets.zero),
+                        onPressed: () {},
+                        child: Text(
+                          'Later',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            fontSize: 18.sp,
+                            fontFamily: 'SofiaSans',
+                            color: AppColor.logInLaterColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
 
-                  SizedBox(
-                    height: mediaQuery.size.height * 0.028,
-                  ),
+                  SizedBox(height: mediaQuery.size.height * 0.028),
 
                   // register  Card Section
                   Container(
@@ -83,10 +84,11 @@ class MealRegisterScreen extends StatelessWidget {
                     width: mediaQuery.size.width * 0.93,
                     height: mediaQuery.size.height * 0.75,
                     padding: EdgeInsets.symmetric(
-                        horizontal: mediaQuery.size.width / 24),
+                      horizontal: mediaQuery.size.width / 24,
+                    ),
 
                     decoration: BoxDecoration(
-                      color: MealColor.white,
+                      color: AppColor.white,
                       borderRadius: BorderRadius.circular(45.r),
                     ),
                     child: Form(
@@ -96,15 +98,15 @@ class MealRegisterScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
-                            child: Text('Register with',
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 24.sp,
-                                )),
+                            child: Text(
+                              'Register with',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                fontFamily: 'Poppins',
+                                fontSize: 24.sp,
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            height: mediaQuery.size.height * 0.04,
-                          ),
+                          SizedBox(height: mediaQuery.size.height * 0.04),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -132,14 +134,18 @@ class MealRegisterScreen extends StatelessWidget {
                           ),
 
                           Transform.translate(
-                            offset: Offset(mediaQuery.size.width * 0.36,
-                                mediaQuery.size.height * 0.05),
-                            child: Text('-OR-',
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  fontSize: 18.sp,
-                                  fontFamily: 'Poppins',
-                                  color: MealColor.orColor,
-                                )),
+                            offset: Offset(
+                              mediaQuery.size.width * 0.36,
+                              mediaQuery.size.height * 0.05,
+                            ),
+                            child: Text(
+                              '-OR-',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                fontSize: 18.sp,
+                                fontFamily: 'Poppins',
+                                color: AppColor.orColor,
+                              ),
+                            ),
                           ),
 
                           SizedBox(height: mediaQuery.size.height * 0.05),
@@ -167,8 +173,8 @@ class MealRegisterScreen extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return 'Please enter your email';
                               } else if (!RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                              ).hasMatch(value)) {
                                 return 'Please enter a valid email';
                               }
                               return null;
@@ -177,30 +183,34 @@ class MealRegisterScreen extends StatelessWidget {
                           ),
                           SizedBox(height: mediaQuery.size.height / 30),
 
-                          buildLoginField(context,
-                              controller: passwordController,
-                              hintText: 'Password', validator: (value) {
-                            if (value!.isEmpty || value.length < 6) {
-                              return 'password is to short';
-                            }
-                            return null;
-                          },
-                              isHiddenPassword: cubit.isPasswordVisible,
-                              type: TextInputType.visiblePassword,
-                              sufixIconBotton: IconButton(
-                                  // splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  onPressed: () {
-                                    cubit.togglePasswordVisibility();
-                                  },
-                                  icon: Icon(
-                                    cubit.isPasswordVisible
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: MealColor.fieldprefixColor,
-                                    size: 20.h,
-                                  ))),
+                          buildLoginField(
+                            context,
+                            controller: passwordController,
+                            hintText: 'Password',
+                            validator: (value) {
+                              if (value!.isEmpty || value.length < 6) {
+                                return 'password is to short';
+                              }
+                              return null;
+                            },
+                            isHiddenPassword: cubit.isPasswordVisible,
+                            type: TextInputType.visiblePassword,
+                            sufixIconBotton: IconButton(
+                              // splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onPressed: () {
+                                cubit.togglePasswordVisibility();
+                              },
+                              icon: Icon(
+                                cubit.isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: AppColor.fieldprefixColor,
+                                size: 20.h,
+                              ),
+                            ),
+                          ),
 
                           SizedBox(height: mediaQuery.size.height * 0.06),
 
@@ -209,37 +219,41 @@ class MealRegisterScreen extends StatelessWidget {
                             child: SizedBox(
                               width: mediaQuery.size.width * 0.80,
                               height: mediaQuery.size.height * 0.055,
-                              child: state is! MealRegisterLoadingState
-                                  ? ElevatedButton(
-                                      onPressed: () {
-                                        if (formState.currentState!
-                                            .validate()) {
-                                          cubit.userRegister(
-                                            name: nameController.text,
-                                            password: passwordController.text,
-                                            email: emailController.text,
-                                          );
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: MealColor.deepOrange,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16.r),
+                              child:
+                                  state is! MealRegisterLoadingState
+                                      ? ElevatedButton(
+                                        onPressed: () {
+                                          if (formState.currentState!
+                                              .validate()) {
+                                            cubit.userRegister(
+                                              name: nameController.text,
+                                              password: passwordController.text,
+                                              email: emailController.text,
+                                            );
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColor.deepOrange,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              16.r,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      child: Text(
-                                        'Create Account',
-                                        style: theme.textTheme.bodyMedium!
-                                            .copyWith(
+                                        child: Text(
+                                          'Create Account',
+                                          style: theme.textTheme.bodyMedium!
+                                              .copyWith(
                                                 fontFamily: 'SofiaSans',
                                                 fontSize: 20.sp,
-                                                color: MealColor.white),
+                                                color: AppColor.white,
+                                              ),
+                                        ),
+                                      )
+                                      : const Center(
+                                        child:
+                                            CircularProgressIndicator.adaptive(),
                                       ),
-                                    )
-                                  : const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive()),
                             ),
                           ),
 
@@ -250,33 +264,40 @@ class MealRegisterScreen extends StatelessWidget {
                                 text: TextSpan(
                                   text: 'Already have an account? ',
                                   style: theme.textTheme.bodyMedium!.copyWith(
-                                      fontFamily: 'SofiaSans',
-                                      fontSize: 14.sp,
-                                      // height: 0,
-                                      color: MealColor.allreadyHaveAcountColor),
+                                    fontFamily: 'SofiaSans',
+                                    fontSize: 14.sp,
+                                    // height: 0,
+                                    color: AppColor.allreadyHaveAcountColor,
+                                  ),
                                   children: [
                                     TextSpan(
                                       text: 'Log in',
                                       style: theme.textTheme.bodyMedium!
                                           .copyWith(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              decorationThickness: 0.7.w,
-                                              fontFamily: 'SofiaSans',
-                                              fontSize: 18.sp,
-                                              // height: 0,
-                                              color: MealColor
-                                                  .allreadyHaveAcountColor),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context)
-                                              .pushAndRemoveUntil(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MealLoginScreen()),
-                                            (route) => false,
-                                          );
-                                        },
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationThickness: 0.7.w,
+                                            fontFamily: 'SofiaSans',
+                                            fontSize: 18.sp,
+                                            // height: 0,
+                                            color:
+                                                AppColor
+                                                    .allreadyHaveAcountColor,
+                                          ),
+                                      recognizer:
+                                          TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Navigator.of(
+                                                context,
+                                              ).pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (context) =>
+                                                          MealLoginScreen(),
+                                                ),
+                                                (route) => false,
+                                              );
+                                            },
                                     ),
                                   ],
                                 ),

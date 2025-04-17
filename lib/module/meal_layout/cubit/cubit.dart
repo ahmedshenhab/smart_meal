@@ -4,18 +4,18 @@ import '../layout_screens/profile.dart';
 import '../layout_screens/saved.dart';
 import 'stataes.dart';
 
-import '../layout_screens/home.dart';
+import '../layout_screens/home/home.dart';
 import '../layout_screens/search.dart';
 
 class MealCubit extends Cubit<MealStates> {
   MealCubit() : super(MealInitialState());
   final categorys = ['Breakfast', 'Lunch', 'Dinner'];
   String selectedCategory = 'Lunch';
- List<Widget> screens = const [
-    Home(),
-    Search(),
-    Profile(),
-    Saved(),
+ List<Widget> screens =  [
+    const Home(),
+    const Search(),
+    const Profile(),
+    const Saved(),
   ];
 
 
