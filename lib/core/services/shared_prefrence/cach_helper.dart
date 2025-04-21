@@ -32,9 +32,7 @@ class CachHelper {
     return _pref!.get(key);
   }
 
-  static Future<bool> removeData({
-    required String key,
-  }) async {
+  static Future<bool> removeData({required String key}) async {
     return await _pref!.remove(key);
   }
 }

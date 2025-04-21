@@ -18,7 +18,6 @@ class HomeSection4 extends StatelessWidget {
         color: AppColor.brownBurn,
       ),
       child: Column(
-      
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(

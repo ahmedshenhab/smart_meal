@@ -7,33 +7,59 @@ TextFormField buildLoginField(
   BuildContext context, {
   void Function(String)? onSubmit,
   required TextEditingController controller,
-  required String hintText,
+  String? hintText,
+  required String labelText,
   bool readOnly = false,
   bool isHiddenPassword = false,
-  IconButton? sufixIconBotton,
+  Widget? sufixIconBotton,
   required String? Function(String?) validator,
-  required TextInputType type,
+   TextInputType? type,
 }) {
   return TextFormField(
+
+    autovalidateMode: AutovalidateMode.disabled,
+
     // autovalidateMode: AutovalidateMode.onUserInteraction,
-    style: TextStyle(fontSize: 16.sp),
+    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, height: 0),
+
     readOnly: readOnly,
     onFieldSubmitted: onSubmit,
     obscureText: isHiddenPassword,
     controller: controller,
-    keyboardType: type,
+    keyboardType: type?? TextInputType.none,
     validator: validator,
     decoration: InputDecoration(
-      errorStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+      errorMaxLines: 3,
+
+      errorStyle: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.bold,
+
+        overflow: TextOverflow.ellipsis,
+      ),
       suffixIcon: sufixIconBotton,
-      // labelText: label,
-      hintText: hintText,
-      hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+
+      // hintText: hintText,
+      alignLabelWithHint: true,
+
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+
+      labelText: labelText,
+
+      labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
         fontFamily: 'Poppins',
-        fontSize: 14.sp,
+        fontSize: 13.sp,
         fontWeight: FontWeight.w100,
         color: AppColor.fieldColorHint,
       ),
+
+      // hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+      //   height: 0,
+      //   fontFamily: 'Poppins',
+      //   fontSize: 13.sp,
+      //   fontWeight: FontWeight.w100,
+      //   color: AppColor.fieldColorHint,
+      // ),
       // border: OutlineInputBorder(),
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.grey.shade300, width: 1.w),

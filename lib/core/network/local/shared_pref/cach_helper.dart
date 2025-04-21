@@ -1,11 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CachHelper {
-  static late SharedPreferences pref;
+  static SharedPreferences? _pref;
 
-  static  Future<SharedPreferences> get init async {
-    pref = await SharedPreferences.getInstance();
-    return pref;
+  static Future<void> get init async {
+    _pref ??=  await SharedPreferences.getInstance();
   }
 
   static Future<bool> setData({
@@ -13,23 +12,23 @@ class CachHelper {
     required dynamic value,
   }) async {
     if (value is bool) {
-      return await pref.setBool(key, value);
+      return _pref!.setBool(key, value);
     }
     if (value is String) {
-      return await pref.setString(key, value);
+      return _pref!.setString(key, value);
     }
     if (value is int) {
-      return await pref.setInt(key, value);
+      return _pref!.setInt(key, value);
     } else {
-      return await pref.setDouble(key, value);
+      return _pref!.setDouble(key, value);
     }
   }
 
-  static dynamic getData({required String key}) {
-    return pref.get(key);
+  static Future<dynamic> getData({required String key}) async {
+    return _pref!.get(key);
   }
 
   static Future<bool> removeData({required String key}) async {
-    return await pref.remove(key);
+    return await _pref!.remove(key);
   }
 }

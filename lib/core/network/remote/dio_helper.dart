@@ -1,77 +1,53 @@
-import 'dart:developer';
+// ignore_for_file: avoid_redundant_argument_values
 
+import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:smart_meal/core/network/remote/api_endpoint.dart';
 
 class DioHelper {
-  static Dio? dio;
+  DioHelper._();
+  static Dio? _dio;
 
-  static void  get init {
-    BaseOptions baseOptions = BaseOptions(
-        receiveDataWhenStatusError: true,
-        baseUrl: 'https://student.valuxapps.com/api/');
-    dio = Dio(baseOptions);
-    log('init dio succsessfully');
-  }
+  static Dio get init {
+    {
+      if (_dio == null) {
+        _dio = Dio(
+          BaseOptions(
+            receiveDataWhenStatusError: true,
+            connectTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30),
+            headers: {
+              'Content-Type': 'application/json',
 
-  static Future<Response> getData({
-    required String url,
-    Map<String, dynamic>? query,
-    String lang = 'en',
-    String? token,
-  }) async {
-    dio!.options.headers = {
-      'lang': lang,
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json'
-    };
-    return await dio!.get(url, queryParameters: query);
-  }
+              // 'Authorization':
+              //     'Bearer ${  SecureStorage.instance.read( SecureConstant.keyUserToken)}',
 
-  static Future<Response> postData({
-    required String url,
-    Map<String, dynamic>? query,
-    String lang = 'ar',
-    String? token,
-    Map<String, dynamic>? data,
-  }) async {
-    try {
-      dio!.options.headers = {
-        'lang': lang,
-        'Authorization': token ?? '',
-        'Content-Type': 'application/json'
-      };
-      return await dio!.post(
-        url,
-        queryParameters: query,
-        data: data,
-      );
-    } catch (e) {
-      log('Error posting data: $e');
-      rethrow;
-    }
-  }
+              // 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3ZjYXJlLmludGVncmF0aW9uMjUuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzQxNjk5ODY5LCJleHAiOjE3NDE3ODYyNjksIm5iZiI6MTc0MTY5OTg2OSwianRpIjoiSktOTUdUTDhkM1NjMW9QRSIsInN1YiI6IjMzNjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._tX8uRHcE5UUvlLhwku8GPRIM5S8V_72ipSquQdh12Y',
+            },
 
-  static Future<Response> putData({
-    required String url,
-    Map<String, dynamic>? query,
-    String lang = 'ar',
-    String? token,
-    Map<String, dynamic>? data,
-  }) async {
-    try {
-      dio!.options.headers = {
-        'lang': lang,
-        'Authorization': token ?? '',
-        'Content-Type': 'application/json'
-      };
-      return await dio!.put(
-        url,
-        queryParameters: query,
-        data: data,
-      );
-    } catch (e) {
-      log('Error posting data: $e');
-      rethrow;
+            baseUrl: ApiEndpoint.baseUrl,
+          ),
+        );
+
+        _dio?.interceptors.add(
+          PrettyDioLogger(
+            requestHeader: true,
+            requestBody: true,
+            responseBody: true,
+            responseHeader: true,
+            error: true,
+            compact: true,
+            maxWidth: 90,
+          ),
+        );
+
+        log('Dio initialized successfully');
+
+        return _dio!;
+      }
+
+      return _dio!;
     }
   }
 }

@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/style/app_color.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController(
-      text: 'Lionel Andrés Messi Cuccittini',
-    );
-    final TextEditingController emailController = TextEditingController(
-      text: 'Lionel_Messi10@gmail.com',
-    );
-    final TextEditingController phoneController = TextEditingController(
-      text: '01200000000',
-    );
-    final TextEditingController bioController = TextEditingController(
-      text: 'I AM THE G.O.A.T',
-    );
+  State<Profile> createState() => _ProfileState();
+}
 
+class _ProfileState extends State<Profile> {
+  final TextEditingController nameController = TextEditingController(
+    text: 'Lionel Andrés Messi Cuccittini',
+  );
+  final TextEditingController emailController = TextEditingController(
+    text: 'Lionel_Messi10@gmail.com',
+  );
+  final TextEditingController phoneController = TextEditingController(
+    text: '01200000000',
+  );
+  final TextEditingController bioController = TextEditingController(
+    text: 'I AM THE G.O.A.T',
+  );
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    bioController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         SizedBox(
@@ -27,20 +41,29 @@ class Profile extends StatelessWidget {
             fit: BoxFit.fitHeight,
           ),
         ),
-        const Positioned(
-          top: 40,
-          left: 16,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.close, color: Colors.black),
-          ),
-        ),
-        const Positioned(
-          top: 40,
-          right: 16,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.edit, color: Colors.black),
+        // const Positioned(
+        //   top: 40,
+        //   left: 16,
+        //   child: CircleAvatar(
+        //     backgroundColor: Colors.white,
+        //     child: Icon(Icons.close, color: Colors.black),
+        //   ),
+        // ),
+        Positioned(
+          top: 25.h,
+          right: 10.w,
+          child: Container(
+            alignment: Alignment.center,
+            width: 40.w,
+            height: 50.h,
+            padding: const EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              color: AppColor.deepOrange,
+
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+
+            child: Icon(Icons.edit_outlined, color: AppColor.white, size: 30.w),
           ),
         ),
 
@@ -48,8 +71,7 @@ class Profile extends StatelessWidget {
           alignment: Alignment.bottomCenter,
 
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            width: double.infinity,
+            padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
             decoration: const BoxDecoration(
               color: Colors.white,
 
@@ -76,23 +98,29 @@ class Profile extends StatelessWidget {
 
                   _buildTextField(bioController),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: 180,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Colors.orange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: Theme.of(
+                      context,
+                    ).elevatedButtonTheme.style!.copyWith(
+                      elevation: const WidgetStatePropertyAll(0),
+                      padding: WidgetStatePropertyAll(
+                        EdgeInsets.symmetric(horizontal: 90.w),
                       ),
-                      onPressed: () {},
-                      child: const Text(
-                        'Save',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    child: Text(
+                      'save',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 30.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+
+                        fontFamily: 'SofiaSans',
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
@@ -105,13 +133,14 @@ class Profile extends StatelessWidget {
 
 Widget _buildTextField(TextEditingController controller) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 12),
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    margin: EdgeInsets.only(bottom: 12.h, top: 5.h, left: 5.w, right: 5.w),
     decoration: BoxDecoration(
       color: const Color(0xFFF0F0F0),
       borderRadius: BorderRadius.circular(30),
     ),
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: TextField(
+
+    child: TextFormField(
       controller: controller,
       decoration: const InputDecoration(border: InputBorder.none),
     ),

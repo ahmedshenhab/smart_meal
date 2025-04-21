@@ -1,164 +1,65 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smart_meal/module/auth/data/model/social_user_model.dart';
-import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
-import 'package:smart_meal/reusable.dart';
+import 'package:smart_meal/module/auth/register/data/model/register_request/register_model_request.dart';
+import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
 import 'states.dart';
 
 class MealRegisterCubit extends Cubit<MealRegisterStates> {
-  MealRegisterCubit() : super(MealRegisterIntialState());
+  MealRegisterCubit({required RegisterRepo loginRepo})
+    : _loginRepo = loginRepo,
+      super(MealRegisterIntialState());
+  final RegisterRepo _loginRepo;
 
   static MealRegisterCubit get(BuildContext context) =>
-      BlocProvider.of(context);
+      BlocProvider.of<MealRegisterCubit>(context);
+
   bool isPasswordVisible = false;
 
-  void togglePasswordVisibility() {
-    isPasswordVisible = !isPasswordVisible;
-    emit(MealRegisterPasswordVisibilityToggledState());
+  final formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+
+  void checkValidate() {
+    if (formKey.currentState!.validate()) {
+      loginUser();
+    }
   }
 
-  void userRegister({
-    required String password,
-    required String email,
-    required String name,
-    // required String phone
-  }) {
+  void loginUser() async {
     emit(MealRegisterLoadingState());
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then(
-      (value) {
-        log('from register');
-        log(value.user!.uid.toString());
-        log(value.user!.email.toString());
 
-        // emit(MealRegisterSuccessState());
-        userCreate(
-          uId: value.user!.uid,
-          email: email,
-          name: name,
-          // phone: phone,
-          isEmailVerivied: false,
-        );
-      },
-    ).catchError((error) {
-      log(error.toString());
-      emit(MealRegisterErrorState(error: error.toString()));
-    });
-  }
-
-  Future signInWithGoogle(BuildContext context) async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    if (googleUser == null) {
-      return;
-    }
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+    final result = await _loginRepo.createUser(
+      RegisterModelRequest(
+        email: emailController.text,
+        password: passwordController.text,
+        confirmPassword: passwordController.text,
+        fullName: nameController.text,
+      ),
     );
-
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    if (context.mounted) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  MealLoginScreen(),
-        ),
-        (route) => false,
-      );
-    }
-  }
-
-// create user after register drictrly
-// to take every on personal data and storage
-// because the register make register only so we
-// need this to store user data in firedatabase
-  void userCreate({
-    required String uId,
-    required String email,
-    required String name,
-    // required String phone,
-    required bool isEmailVerivied,
-    // required String image,
-    // required String cover,
-    // required String bio,
-  }) {
-    final mealUserModel = MealUserModel(
-      email: email,
-      name: name,
-      // phone: phone,
-      uId: uId,
-      isEmailVerivied: isEmailVerivied,
-      // cover: Constant.homeImage1,
-      // image: Constant.homeImage2,
-      // bio: 'write bio...'
+    result.fold(
+      (l) {
+        emit(MealRegisterErrorState(error: l.detail));
+      },
+      (_) {
+        emailController.clear();
+        passwordController.clear();
+        nameController.clear();
+        emit(MealRegisterSuccessState());
+      },
     );
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(uId)
-        .set(mealUserModel.toMap)
-        .then(
-      (value) {
-        userVerification;
-        emit(MealCreateUserAndVerificationSuccessState());
-      },
-    ).catchError((error) {
-      emit(MealCreateUserAndVerificationErrorState(error: error.toString()));
-    });
   }
 
-  void get userVerification {
-    FirebaseAuth.instance.currentUser!.sendEmailVerification().then(
-      (value) {
-        // emit(MealVerificationSentSuccessState());
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
 
-        buildshowToast(
-          msg: 'user created, check you mail to verification then LogIn',
-          color: Colors.green,
-        );
-      },
-    ).catchError((e) {
-      log('MealVerificationErrorState$e');
-      // emit(MealVerificationSentErrorState());
-    });
+    return super.close();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //  void userRegister(
 //       {required String password,

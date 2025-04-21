@@ -1,4 +1,3 @@
-class  SecureConstant {
+class SecureConstant {
   static const String keyUserToken = 'userToken';
-  
 }

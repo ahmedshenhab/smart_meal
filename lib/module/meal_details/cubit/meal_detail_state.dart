@@ -20,9 +20,7 @@ import 'package:equatable/equatable.dart';
 // }
 
 class MealDetailStates extends Equatable {
-
-
-   const MealDetailStates({
+  const MealDetailStates({
     required this.selectedCategory,
     this.isLoading = false,
     this.error,
@@ -45,7 +43,6 @@ class MealDetailStates extends Equatable {
       error: error,
       // meal: meal ?? this.meal,
     );
-
   }
 
   @override

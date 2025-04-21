@@ -11,11 +11,11 @@ class MealLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MealCubit(),
-      child: BlocConsumer<MealCubit, MealStates>(
+      create: (context) => MealLayoutCubit(),
+      child: BlocConsumer<MealLayoutCubit, MealStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          final cubit = MealCubit.get(context);
+          final cubit = MealLayoutCubit.get(context);
 
           return Scaffold(
             // appBar: AppBar(
@@ -30,7 +30,6 @@ class MealLayoutScreen extends StatelessWidget {
             //     SizedBox(width: 16),
             //   ],
             // ),
-            backgroundColor: AppColor.scaffoldBackgroundLight,
             body: SafeArea(child: cubit.screens[cubit.currentIndex]),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {

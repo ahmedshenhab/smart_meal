@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/di/di.dart';
+import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
+import 'package:smart_meal/core/observer/observer.dart';
 import 'package:smart_meal/core/routing/router.dart';
 import 'package:smart_meal/core/style/app_theme.dart';
+import 'package:smart_meal/module/auth/register/meal_register_screen.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
 // i ahmed shenhab
 
 //// ahmed
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await ScreenUtil.ensureScreenSize();
+  await setupApp();
+  await CachHelper.init;
 
   runApp(const MyApp());
 }
@@ -26,7 +31,9 @@ class MyApp extends StatelessWidget {
           (_, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
+            darkTheme: AppTheme.darkTheme,
             theme: AppTheme.lighTheme,
+            themeMode: ThemeMode.light,
             onGenerateRoute: AppRouter.onGenerateRoute,
 
             initialRoute: MealLayoutScreen.homeScreen,
@@ -35,9 +42,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<void> setupApp() async {
+  Bloc.observer = MyBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
 
+  await Future.wait([CachHelper.init, ScreenUtil.ensureScreenSize()]);
 
-
+  setupGetIt();
+}
 
 // class IngredientSearchScreen extends StatefulWidget {
 //   @override
@@ -164,4 +176,3 @@ class MyApp extends StatelessWidget {
 //       ),
 //     );
 //   }
-

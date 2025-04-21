@@ -9,28 +9,22 @@ class SecureStorage {
   SecureStorage._privateConstructor();
 
   // Singleton instance
-  static final SecureStorage instance =
-      SecureStorage._privateConstructor();
+  static final SecureStorage instance = SecureStorage._privateConstructor();
 
   // Create a secure storage instance
-  final FlutterSecureStorage
-  _storage = FlutterSecureStorage(
+  final FlutterSecureStorage _storage = FlutterSecureStorage(
     aOptions:
         _getAndroidOptions(), // Use EncryptedSharedPreferences for Android
-    iOptions:
-        _getIOSOptions(), // Use Keychain options for iOS
+    iOptions: _getIOSOptions(), // Use Keychain options for iOS
   );
 
   // Android options (EncryptedSharedPreferences enabled)
   static AndroidOptions _getAndroidOptions() =>
-      const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
+      const AndroidOptions(encryptedSharedPreferences: true);
 
   // iOS options (Uses first_unlock for better security)
-  static IOSOptions _getIOSOptions() => const IOSOptions(
-    accessibility: KeychainAccessibility.first_unlock,
-  );
+  static IOSOptions _getIOSOptions() =>
+      const IOSOptions(accessibility: KeychainAccessibility.first_unlock);
 
   /// Write data securely
   Future<void> write(String key, String value) {

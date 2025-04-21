@@ -5,9 +5,8 @@ class MealDetailCubit extends Cubit<MealDetailStates> {
   MealDetailCubit()
     : super(const MealDetailStates(selectedCategory: 'ingredients'));
 
-    final  Set<String> mealCategory = {'ingredients', 'instructions'};
+  final Set<String> mealCategory = {'ingredients', 'instructions'};
 
-  
   static MealDetailCubit get(context) => BlocProvider.of(context);
 
   void changeCategory(String e) {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/fontweight_helper.dart';
@@ -120,9 +119,6 @@ class TextStyles {
   static TextStyle font14darkBlueBold = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontweightHelper.bold,
-
-
-
   );
 
   static TextStyle font12DarkBlueRegular = TextStyle(

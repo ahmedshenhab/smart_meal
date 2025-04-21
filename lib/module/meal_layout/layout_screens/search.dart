@@ -79,9 +79,9 @@ class Search extends StatelessWidget {
         ),
 
         SizedBox(height: mediaQuery.size.height * 0.04),
-        BlocBuilder<MealCubit, MealStates>(
+        BlocBuilder<MealLayoutCubit, MealStates>(
           builder: (context, state) {
-            final cubit = MealCubit.get(context);
+            final cubit = MealLayoutCubit.get(context);
 
             return Row(
               spacing: 10.w,

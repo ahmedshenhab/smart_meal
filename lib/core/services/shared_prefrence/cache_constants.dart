@@ -1,6 +1,1 @@
-class CacheConstant {
-  
-
-
-  
-}
+class CacheConstant {}

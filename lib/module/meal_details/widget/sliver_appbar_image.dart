@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,7 @@ class SliverAppbarImage extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 350.h,
       surfaceTintColor: Colors.blue,
+
       // leading: IconButton(
       //   onPressed: () {},
       //   icon: const Icon(Icons.close),
@@ -29,7 +29,6 @@ class SliverAppbarImage extends StatelessWidget {
       //     ),
       //   ),
       // ],
-
       backgroundColor: AppColor.deepOrange.withValues(alpha: 0.5),
 
       flexibleSpace: FlexibleSpaceBar(
@@ -42,7 +41,7 @@ class SliverAppbarImage extends StatelessWidget {
                     "https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=2048x2048&w=is&k=20&c=KTpY1O4d7-EuX-R_GR_44Upc-n9esJOZFpcqvA4CM0E=",
                 placeholder:
                     (context, url) =>
-                        const Center(child:  CircularProgressIndicator()),
+                        const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
