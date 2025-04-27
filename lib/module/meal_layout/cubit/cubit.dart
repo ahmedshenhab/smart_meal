@@ -1,28 +1,33 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/di/di.dart';
+import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/repo/repo.dart';
 import '../layout_screens/profile.dart';
 import '../layout_screens/saved.dart';
 import 'stataes.dart';
 
 import '../layout_screens/home/home.dart';
-import '../layout_screens/search.dart';
+import '../layout_screens/search/search.dart';
 
 class MealLayoutCubit extends Cubit<MealStates> {
-  MealLayoutCubit() : super(MealInitialState());
-  final categorys = ['Breakfast', 'Lunch', 'Dinner'];
-  String selectedCategory = 'Lunch';
-  List<Widget> screens = [
+  MealLayoutCubit(this.repoLayout) : super(MealInitialState());
+  final RepoLayout repoLayout;
+
+  final screens = [
     const Home(),
-    const Search(),
+    BlocProvider(
+      create:
+          (context) =>
+              SearchByMealCubit(searchByMealRepo: getIt<SearchByMealRepo>()),
+      child: const Search(),
+    ),
     const Profile(),
     const Saved(),
   ];
-
-  void changeCategory(String e) {
-    selectedCategory = e;
-
-    emit(MealChangeBottomCategoryState());
-  }
 
   List<BottomNavigationBarItem> items = const [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
@@ -40,8 +45,33 @@ class MealLayoutCubit extends Cubit<MealStates> {
     emit(MealChangeBottomNavState());
   }
 
+  void searchByIngrediant(String name) async {
+    final pattern = RegExp(r'^[A-Za-z]+$');
+    if (!pattern.hasMatch(name)) {
+      emit(MealSearchByIngrediantErrorState(error: 'invalid ingrediant'));
+      return;
+    }
 
-  
+    emit(MealSearchByIngrediantLoadingState());
+    final result = await repoLayout.searchByIngrediant(name);
+    result.fold(
+      (l) {
+        emit(MealSearchByIngrediantErrorState(error: l.message!));
+      },
+      (r) {
+        emit(MealSearchByIngrediantSuccessState(meals: r));
+      },
+    );
+  }
+
+  final formKey = GlobalKey<FormState>();
+  final searchIngrediantController = TextEditingController();
+  @override
+  Future<void> close() {
+    searchIngrediantController.dispose();
+
+    return super.close();
+  }
 }
 
 // void userGetData() {

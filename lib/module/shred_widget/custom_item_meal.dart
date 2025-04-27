@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
 
 class CustomItemMeal extends StatelessWidget {
   const CustomItemMeal({
     super.key,
-    required this.text,
+
     required this.color1,
     required this.color2,
-    required this.image,
     this.boxShadow,
+    this.searchByMealResponseModel,
   });
 
-  final String text;
   final Color color1;
   final Color color2;
-  final String image;
   final BoxShadow? boxShadow;
+  final MealsModel? searchByMealResponseModel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class CustomItemMeal extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
                 child: Image.asset(
-                  image,
+                  'assets/images/m1.png',
                   width: 135.w,
                   height: 80.h,
 
@@ -72,79 +72,87 @@ class CustomItemMeal extends StatelessWidget {
           ),
 
           SizedBox(height: 1.h),
-          Align(
-            alignment: AlignmentDirectional(-0.4.w, 0),
-            child: Text(
-              text,
-              style: theme.textTheme.bodyMedium!.copyWith(
-                fontFamily: 'RobotoSerif',
-                color: AppColor.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 13.sp,
-              ),
-              textAlign: TextAlign.center,
+          Text(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+
+            searchByMealResponseModel?.recipeName ?? 'default',
+            style: theme.textTheme.bodyMedium!.copyWith(
+              fontFamily: 'RobotoSerif',
+              color: AppColor.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 13.sp,
             ),
+            textAlign: TextAlign.center,
           ),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10.w,
             children: [
               Row(
-                spacing: 4.w,
+                spacing: 2.w,
                 children: [
-                  Image.asset(
-                    'assets/images/Union.png',
-                    width: 18.w,
-                    height: 17.h,
-                  ),
+                  Image.asset('assets/images/Union.png', height: 14.h),
                   Baseline(
-                    baseline: 16.7.h,
+                    baseline: 15.h,
                     baselineType: TextBaseline.alphabetic,
-                    child: Text(
-                      'Lunch',
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: AppColor.gray,
-                        fontFamily: 'Roboto',
-                        fontSize: 12.sp,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 50),
+
+                      child: Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        searchByMealResponseModel?.type ?? 'default',
+                        // 'breakfast',
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          color: AppColor.gray,
+                          fontFamily: 'Roboto',
+                          fontSize: 12.sp,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],
               ),
               Row(
+                spacing: 2.w,
                 children: [
-                  Image.asset(
-                    'assets/images/fire.png',
-                    width: 18.w,
-                    height: 17.h,
-                  ),
+                  Image.asset('assets/images/fire.png', height: 15.h),
                   Baseline(
-                    baseline: 16.7.h,
+                    baseline: 15.h,
                     baselineType: TextBaseline.alphabetic,
 
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: '400',
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                              color: AppColor.gray,
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                            ),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 40),
+                      child: Text.rich(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+
+                        TextSpan(
+                          text:
+                              searchByMealResponseModel?.calories100g
+                                  .toString() ??
+                              'default',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: AppColor.gray,
+                            fontFamily: 'Roboto',
+                            fontSize: 12.sp,
                           ),
-                          TextSpan(
-                            text: ' cal',
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                              color: AppColor.gray,
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
+                          children: [
+                            TextSpan(
+                              text: 'cal                     ',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                color: AppColor.gray,
+                                fontFamily: 'Roboto',
+                                fontSize: 12.sp,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        // textAlign: TextAlign.center,
                       ),
-                      // textAlign: TextAlign.center,
                     ),
                   ),
                 ],

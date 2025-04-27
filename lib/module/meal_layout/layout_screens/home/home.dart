@@ -6,7 +6,7 @@ import 'package:smart_meal/core/style/app_color.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section4.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section5.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section1.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section2.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section.dart';
 
 import 'widget/home_section3.dart';
 
@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
             const SizedBox(height: 20),
 
             //2
-            const HomeSection2(),
+             const SearchByIngrediantSection(),
 
             ////3
             const SizedBox(height: 20),

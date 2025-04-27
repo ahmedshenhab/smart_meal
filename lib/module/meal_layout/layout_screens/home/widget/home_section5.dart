@@ -50,8 +50,7 @@ class HomeSection5 extends StatelessWidget {
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-                text: 'salad farm fries',
-                image: 'assets/images/meal2.png',
+              
               ),
               CustomItemMeal(
                 boxShadow: BoxShadow(
@@ -63,8 +62,7 @@ class HomeSection5 extends StatelessWidget {
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-                text: 'salad farm fries',
-                image: 'assets/images/meal2.png',
+               
               ),
             ],
           ),

@@ -6,7 +6,6 @@ import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
 import 'package:smart_meal/core/observer/observer.dart';
 import 'package:smart_meal/core/routing/router.dart';
 import 'package:smart_meal/core/style/app_theme.dart';
-import 'package:smart_meal/module/auth/register/meal_register_screen.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
 // i ahmed shenhab
 

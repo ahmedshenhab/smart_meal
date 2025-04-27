@@ -8,7 +8,6 @@ class Saved extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> images = ['assets/images/m1.png', 'assets/images/m2.png'];
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -58,8 +57,7 @@ class Saved extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 15,
                     ),
-                    image: images[1],
-                    text: 'salad farm fries',
+                   
                   );
                 },
               ),
