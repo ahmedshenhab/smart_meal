@@ -3,10 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/cubit.dart';
 import '../cubit/stataes.dart';
 
-class MealLayoutScreen extends StatelessWidget {
+class MealLayoutScreen extends StatefulWidget {
   const MealLayoutScreen({super.key});
   static const String homeScreen = '/homeScreen';
 
+  @override
+  State<MealLayoutScreen> createState() => _MealLayoutScreenState();
+}
+
+class _MealLayoutScreenState extends State<MealLayoutScreen> {
+
+  @override
+  void initState() {
+
+    MealLayoutCubit.get(context).getAllMeal();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealLayoutCubit, MealStates>(

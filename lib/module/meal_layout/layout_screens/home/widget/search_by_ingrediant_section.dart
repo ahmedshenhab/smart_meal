@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,10 +22,10 @@ class SearchByIngrediantSection extends StatelessWidget {
         color: AppColor.brownBurn,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 20.h),
           Text(
-            "Don't Know What To Cook?",
+            "Don't Know What\nTo Cook?",
             style: theme.textTheme.bodyMedium!.copyWith(
               color: Colors.white,
               fontSize: 22.sp,
@@ -41,10 +40,10 @@ class SearchByIngrediantSection extends StatelessWidget {
               fontSize: 22.sp,
             ),
           ),
-          SizedBox(height: mediaQuery.size.height * 0.04),
+          SizedBox(height: mediaQuery.size.height * 0.017),
           Container(
             width: mediaQuery.size.width * 0.86,
-            height: mediaQuery.size.height * 0.4,
+            height: mediaQuery.size.height * 0.37,
             decoration: BoxDecoration(
               color: AppColor.white,
               borderRadius: BorderRadius.circular(30.r),
@@ -66,7 +65,7 @@ class SearchByIngrediantSection extends StatelessWidget {
                   ),
                   child: SearchWithIngrediant(theme: theme),
                 ),
-                SizedBox(height: mediaQuery.size.height * 0.01),
+                SizedBox(height: mediaQuery.size.height * 0.008),
                 BlocBuilder<MealLayoutCubit, MealStates>(
                   buildWhen:
                       (previous, current) =>
@@ -104,8 +103,8 @@ class SearchByIngrediantSection extends StatelessWidget {
                               padding: EdgeInsets.only(
                                 right: 12.w,
                                 left: 12.w,
-                                bottom: 8.h,
-                                top: 8.h,
+                                bottom: 6.h,
+                                top: 6.h,
                               ),
                               itemCount:
                                   state
@@ -209,39 +208,43 @@ class SearchWithIngrediant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: MealLayoutCubit.get(context).searchIngrediantController,
+    return SizedBox(
+      height: 36.h,
+      width: 266.w,
+      child: TextFormField(
+        controller: MealLayoutCubit.get(context).searchIngrediantController,
 
-      // validator: (value) {
-      //   final pattern = RegExp(r'^[A-Za-z]+$');
-      //   if (!pattern.hasMatch(value!)) {
-      //     return 'write one word';
-      //   }
-      //   return null; // Validation passed
-      // },
-      onChanged: (value) {
-        MealLayoutCubit.get(context).searchByIngrediant(value);
+        // validator: (value) {
+        //   final pattern = RegExp(r'^[A-Za-z]+$');
+        //   if (!pattern.hasMatch(value!)) {
+        //     return 'write one word';
+        //   }
+        //   return null; // Validation passed
+        // },
+        onChanged: (value) {
+          MealLayoutCubit.get(context).searchByIngrediant(value);
 
-        // if (MealLayoutCubit.get(context).formKey.currentState!.validate()) {
-        // }
-      },
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: AppColor.fieldColor,
-        prefixIcon: Icon(
-          Icons.search,
-          color: AppColor.fieldHintSearchColor,
-          size: 20.h,
-        ),
-        hintText: 'Search for Ingredient...',
-        hintStyle: theme.textTheme.bodyMedium!.copyWith(
-          fontFamily: 'Roboto',
-          fontSize: 14.sp,
-          color: AppColor.fieldHintSearchColor,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50.r),
-          borderSide: BorderSide.none,
+          // if (MealLayoutCubit.get(context).formKey.currentState!.validate()) {
+          // }
+        },
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColor.fieldColor,
+          prefixIcon: Icon(
+            Icons.search,
+            color: AppColor.fieldHintSearchColor,
+            size: 20.h,
+          ),
+          hintText: 'Search for Ingredient...',
+          hintStyle: theme.textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Roboto',
+            fontSize: 14.sp,
+            color: AppColor.fieldHintSearchColor,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50.r),
+            borderSide: BorderSide.none,
+          ),
         ),
       ),
     );

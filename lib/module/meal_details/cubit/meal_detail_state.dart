@@ -20,31 +20,15 @@ import 'package:equatable/equatable.dart';
 // }
 
 class MealDetailStates extends Equatable {
-  const MealDetailStates({
-    required this.selectedCategory,
-    this.isLoading = false,
-    this.error,
-    // this.meal,
-  });
+  const MealDetailStates({required this.selectedCategory});
   final String selectedCategory;
-  final bool isLoading;
-  final String? error;
-  // final MealModel? meal;
 
-  MealDetailStates copyWith({
-    String? selectedCategory,
-    bool? isLoading,
-    String? error,
-    // MealModel? meal,
-  }) {
+  MealDetailStates copyWith({String? selectedCategory}) {
     return MealDetailStates(
       selectedCategory: selectedCategory ?? this.selectedCategory,
-      isLoading: isLoading ?? this.isLoading,
-      error: error,
-      // meal: meal ?? this.meal,
     );
   }
 
   @override
-  List<Object?> get props => [selectedCategory, isLoading, error];
+  List<Object?> get props => [selectedCategory];
 }

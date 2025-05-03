@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
 import 'package:smart_meal/reusable.dart';
 
 class IngrediantBody extends StatelessWidget {
@@ -10,10 +11,10 @@ class IngrediantBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
 
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -29,7 +30,7 @@ class IngrediantBody extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '4 items',
+                    '${MealDetailCubit.get(context).mealsModel.ingredients?.length ?? '0'}items',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: AppColor.gray.withValues(alpha: 0.9),
                       fontSize: 13.sp,
@@ -47,7 +48,7 @@ class IngrediantBody extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: AppColor.deepOrange,
                     height: -1.h,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'SofiaSans',
                   ),
                 ),
@@ -63,7 +64,8 @@ class IngrediantBody extends StatelessWidget {
           padding: const EdgeInsets.all(0),
 
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 4,
+          itemCount:
+              MealDetailCubit.get(context).mealsModel.ingredients?.length ?? 0,
 
           itemBuilder:
               (context, index) => Align(
@@ -88,7 +90,10 @@ class IngrediantBody extends StatelessWidget {
                   ),
 
                   child: Text(
-                    '1/2 tsp of salt',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+
+                    '${MealDetailCubit.get(context).mealsModel.ingredients?[index].amount ?? ''} ${MealDetailCubit.get(context).mealsModel.ingredients?[index].ingredientName ?? ''}',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 18.sp,
                       fontFamily: 'SofiaSans',

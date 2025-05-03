@@ -18,9 +18,9 @@ class SearchByMealRepo {
       final result = await _dio.get("${ApiEndpoint.searchFoodByName}$mealName");
 
       final searchByMealResponseModel = MealsModel.fromList(
-        result.data as List<dynamic>,
+        result.data ,
       );
-      log(searchByMealResponseModel.length.toString());
+   
 
       return right(searchByMealResponseModel);
     } catch (e) {

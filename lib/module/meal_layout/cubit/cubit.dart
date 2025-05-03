@@ -1,11 +1,12 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/core/di/di.dart';
+import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
 import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/repo/repo.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
 import '../layout_screens/profile.dart';
 import '../layout_screens/saved.dart';
 import 'stataes.dart';
@@ -16,6 +17,9 @@ import '../layout_screens/search/search.dart';
 class MealLayoutCubit extends Cubit<MealStates> {
   MealLayoutCubit(this.repoLayout) : super(MealInitialState());
   final RepoLayout repoLayout;
+  List<MealsModel>? breakFast = [];
+  List<MealsModel>? lunch = [];
+  List<MealsModel>? dinner = [];
 
   final screens = [
     const Home(),
@@ -45,6 +49,26 @@ class MealLayoutCubit extends Cubit<MealStates> {
     emit(MealChangeBottomNavState());
   }
 
+  void getAllMeal() async {
+    emit(MealGetAllMealLoadingState());
+    final result = await repoLayout.getAllMeal();
+    result.fold(
+      (l) {
+        emit(MealGetAllMealErrorState(error: l.message!));
+      },
+      (r) {
+        log(r.length.toString());
+        log(r[8].fat100g.toString());
+
+        breakFast = r.where((element) => element.type == 'Breakfast').toList();
+        lunch = r.where((element) => element.type == 'Lunch').toList();
+        dinner = r.where((element) => element.type == 'Dinner').toList();
+
+        emit(MealGetAllMealSuccessState(breakFast, lunch, dinner));
+      },
+    );
+  }
+
   void searchByIngrediant(String name) async {
     final pattern = RegExp(r'^[A-Za-z]+$');
     if (!pattern.hasMatch(name)) {
@@ -63,6 +87,12 @@ class MealLayoutCubit extends Cubit<MealStates> {
       },
     );
   }
+
+  final categoriesNames = {
+    {"Breakfast": "assets/images/breakFast.png"},
+    {"Lunch": "assets/images/lunch.png"},
+    {"Dinner": "assets/images/dinner.png"},
+  };
 
   final formKey = GlobalKey<FormState>();
   final searchIngrediantController = TextEditingController();

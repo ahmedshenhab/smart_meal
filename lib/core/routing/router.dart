@@ -6,6 +6,7 @@ import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
 import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
 import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
 import 'package:smart_meal/module/auth/register/meal_register_screen.dart';
+import 'package:smart_meal/module/category_screen/category_screen.dart';
 import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
 import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
 import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
@@ -18,7 +19,6 @@ import 'package:smart_meal/module/shopping/shoping_screen.dart';
 
 class AppRouter {
   static Route? onGenerateRoute(RouteSettings setting) {
-     Object? args = setting.arguments;
     switch (setting.name) {
       //login
 
@@ -53,19 +53,30 @@ class AppRouter {
                 child: const MealLayoutScreen(),
               ),
         );
-      //mealDetailsScreen
-      // case MealDetailsScreen.mealDetailsScreen:
-        
-      //   return MaterialPageRoute(
-      //     builder:
-      //         (_) => BlocProvider<MealDetailCubit>(
-      //           create: (context) => MealDetailCubit(),
-      //           child:  MealDetailsScreen(mealsModel:args as MealsModel  ,),
-      //         ),
-      //   );
+      // mealDetailsScreen
+      case MealDetailsScreen.mealDetailsScreen:
+        final args = setting.arguments as MealsModel;
+
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider<MealDetailCubit>(
+                create: (context) => MealDetailCubit(mealsModel: args),
+                child: const MealDetailsScreen(),
+              ),
+        );
 
       case ShopingScreen.shopingScreen:
         return MaterialPageRoute(builder: (_) => const ShopingScreen());
+
+      case CategoryScreen.categoryScreen:
+        final args = setting.arguments as Map<String, dynamic>;
+
+        final meals = args['meals'] as List<MealsModel>;
+        final title = args['title'] as String;
+
+        return MaterialPageRoute(
+          builder: (_) => CategoryScreen(meals: meals, title: title),
+        );
 
       default:
         return null;

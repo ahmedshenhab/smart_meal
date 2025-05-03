@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
 
 import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/widgets/more_filter.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/widgets/more_filter_search.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/widgets/search_text_field.dart';
 import 'package:smart_meal/module/shred_widget/custom_item_meal.dart';
 
@@ -28,7 +27,7 @@ class Search extends StatelessWidget {
         SizedBox(height: mediaQuery.size.height * 0.02),
 
         //more filters
-        MoreFilter(),
+        MoreFilterSearch(),
         SizedBox(height: mediaQuery.size.height * 0.033),
         BlocBuilder<SearchByMealCubit, SearchByMealStates>(
           buildWhen:
@@ -36,7 +35,6 @@ class Search extends StatelessWidget {
                   current is SearchByMealChangeBottomCategoryState,
 
           builder: (context, state) {
-            log('build category');
             final cubit = BlocProvider.of<SearchByMealCubit>(context);
 
             return Row(
@@ -90,7 +88,7 @@ class Search extends StatelessWidget {
                 topLeft: Radius.circular(20.r),
                 topRight: Radius.circular(20.r),
               ),
-              color: AppColor.white.withValues(alpha: 0.9),
+              color: AppColor.white,
             ),
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
             margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -111,7 +109,7 @@ class Search extends StatelessWidget {
                       ),
                     );
 
-                  case SearchByMealSuccess():
+                  case SearchByMealSuccess _:
                     return state.searchByMealResponseModel!.isEmpty
                         ? Center(child: Text('not found'))
                         : GridView.builder(
@@ -130,23 +128,33 @@ class Search extends StatelessWidget {
                           itemCount:
                               state.searchByMealResponseModel?.length ?? 0,
                           itemBuilder:
-                              (context, index) => CustomItemMeal(
-                                searchByMealResponseModel:
-                                    state.searchByMealResponseModel![index],
-                                color1: AppColor.deepOrange,
-                                color2: AppColor.white,
+                              (context, index) => InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    MealDetailsScreen.mealDetailsScreen,
+                                    arguments:
+                                        state.searchByMealResponseModel![index],
+                                  );
+                                },
+                                child: CustomItemMeal(
+                                  searchByMealResponseModel:
+                                      state.searchByMealResponseModel![index],
+                                  color1: AppColor.deepOrange,
+                                  color2: AppColor.white,
 
-                                boxShadow: BoxShadow(
-                                  offset: Offset(0, 5),
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 15,
+                                  boxShadow: BoxShadow(
+                                    offset: Offset(0, 5),
+                                    color: Colors.black.withValues(alpha: 0.1),
+                                    blurRadius: 15,
 
-                                  spreadRadius: 5,
+                                    spreadRadius: 5,
+                                  ),
                                 ),
                               ),
                         );
 
-                  case SearchByMealError ():
+                  case SearchByMealError _:
                     return Center(child: Text(state.error));
 
                   default:

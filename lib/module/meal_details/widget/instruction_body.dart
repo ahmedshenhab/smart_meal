@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
 import 'package:smart_meal/module/meal_details/widget/item_instruction.dart';
 
 class InstructionBody extends StatelessWidget {
@@ -7,6 +8,14 @@ class InstructionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> instructions =
+        MealDetailCubit.get(context).mealsModel.preparationMethod
+            ?.split(',')
+            .map((e) => e.trim()) // remove any extra spaces
+            .where((e) => e.isNotEmpty) // remove empty parts
+            .toList() ??
+        [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,13 +34,12 @@ class InstructionBody extends StatelessWidget {
         SizedBox(height: 25.h),
         ListView.builder(
           padding: const EdgeInsets.all(0),
-          itemCount: 4,
+          itemCount: instructions.length,
           itemBuilder:
               (context, index) => InstructionItem(
                 number: index + 1,
-                title: 'Prepare the Fries:',
-                description:
-                    'Preheat the oven to 200°C (400°F). Toss the potato fries in 1 tablespoon of olive oil, and spread them on a baking sheet. Bake for 20–25 minutes, or until golden and crispy, turning halfway through.',
+                // title: 'Prepare the Fries:',
+                description: instructions[index],
               ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

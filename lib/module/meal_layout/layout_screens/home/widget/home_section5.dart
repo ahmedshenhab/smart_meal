@@ -42,27 +42,25 @@ class HomeSection5 extends StatelessWidget {
             children: [
               CustomItemMeal(
                 boxShadow: BoxShadow(
-                  color: AppColor.shadow.withValues(alpha: 0.25),
-                  spreadRadius: 3.r,
-                  blurRadius: 4.r,
-                  offset: Offset(0, 3.h),
+                  color: AppColor.black.withValues(alpha: 0.25),
+                  offset: Offset(0.w, 5.h),
+                  blurRadius: 4,
+                  spreadRadius: 5,
                 ),
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-              
               ),
               CustomItemMeal(
                 boxShadow: BoxShadow(
-                  color: AppColor.shadow.withValues(alpha: 0.25),
-                  spreadRadius: 3.r,
-                  blurRadius: 4.r,
-                  offset: Offset(0, 3.h),
+                  color: AppColor.black.withValues(alpha: 0.25),
+                  offset: Offset(0.w, 5.h),
+                  blurRadius: 4,
+                  spreadRadius: 5,
                 ),
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-               
               ),
             ],
           ),

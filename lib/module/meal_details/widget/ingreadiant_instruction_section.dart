@@ -13,7 +13,6 @@ class IngreadiantInstructionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealDetailCubit, MealDetailStates>(
-      // buildWhen: (previous, current) => previous.selectedCategory != current.selectedCategory ,
       builder: (context, state) {
         final cubit = MealDetailCubit.get(context);
 

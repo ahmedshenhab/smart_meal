@@ -6,11 +6,9 @@ class InstructionItem extends StatelessWidget {
   const InstructionItem({
     super.key,
     required this.number,
-    required this.title,
     required this.description,
   });
   final int number;
-  final String title;
   final String description;
 
   @override
@@ -19,6 +17,7 @@ class InstructionItem extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           // Number Circle
           Container(
@@ -45,14 +44,6 @@ class InstructionItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SofiaSans',
-                    fontSize: 15.sp,
-                  ),
-                ),
                 SizedBox(height: 5.h),
                 Text(
                   description,

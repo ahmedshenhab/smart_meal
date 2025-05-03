@@ -15,6 +15,7 @@ class DioHelper {
         _dio = Dio(
           BaseOptions(
             receiveDataWhenStatusError: true,
+            
             connectTimeout: const Duration(seconds: 30),
             receiveTimeout: const Duration(seconds: 30),
             headers: {

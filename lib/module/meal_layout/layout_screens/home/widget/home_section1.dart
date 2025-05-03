@@ -9,6 +9,7 @@ class HomeSection1 extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
 
     return Container(
+      padding: EdgeInsets.only( bottom: 40.h),
       height: mediaQuery.size.height * 0.37,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.0.r)),

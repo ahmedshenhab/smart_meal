@@ -21,14 +21,14 @@ class HomeSection4 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Made Just  For You",
+            "Made Just  For\nYou",
             style: theme.textTheme.bodyMedium!.copyWith(
               color: AppColor.white,
               fontSize: 22.sp,
             ),
             textAlign: TextAlign.center,
           ),
-          // SizedBox(height: mediaQuery.size.height * 0.007),
+
           Text(
             "Recommended Meals",
             style: theme.textTheme.bodyMedium!.copyWith(
@@ -38,20 +38,31 @@ class HomeSection4 extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: mediaQuery.size.height * 0.05),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomItemMeal(
+                boxShadow: BoxShadow(
+                  color: AppColor.black.withValues(alpha: 0.25),
+                  offset: Offset(0.w, 5.h),
+                  blurRadius: 4,
+                  spreadRadius: 5,
+                ),
+
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-             
               ),
               CustomItemMeal(
+                boxShadow: BoxShadow(
+                  color: AppColor.black.withValues(alpha: 0.25),
+                  offset: Offset(0.w, 5.h),
+                  blurRadius: 4,
+                  spreadRadius: 5,
+                ),
                 color1: AppColor.deepOrange,
 
                 color2: AppColor.white,
-                
               ),
             ],
           ),

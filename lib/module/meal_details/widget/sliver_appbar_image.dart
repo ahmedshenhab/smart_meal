@@ -9,26 +9,10 @@ class SliverAppbarImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       expandedHeight: 350.h,
       surfaceTintColor: Colors.blue,
 
-      // leading: IconButton(
-      //   onPressed: () {},
-      //   icon: const Icon(Icons.close),
-      //   style: Theme.of(context).iconButtonTheme.style,
-      // ),
-      // actions: [
-      //   Padding(
-      //     padding: EdgeInsets.only(right: 17, bottom: 0),
-      //     child: IconButton(
-      //       onPressed: () {},
-      //       icon: Icon(
-      //         Icons.bookmark_border,
-      //         color: Theme.of(context).iconTheme.color,
-      //       ),
-      //     ),
-      //   ),
-      // ],
       backgroundColor: AppColor.deepOrange.withValues(alpha: 0.5),
 
       flexibleSpace: FlexibleSpaceBar(
@@ -52,7 +36,9 @@ class SliverAppbarImage extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   icon: const Icon(Icons.close),
                   style: Theme.of(context).iconButtonTheme.style,
                 ),

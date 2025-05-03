@@ -27,7 +27,7 @@ class CustomItemMeal extends StatelessWidget {
 
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: AppColor.white.withValues(alpha: 0.3),
+        color: AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(

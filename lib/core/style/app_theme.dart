@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
 
 class AppTheme {
-  
   static ThemeData lighTheme = ThemeData(
-    scaffoldBackgroundColor:              AppColor.scaffoldBackgroundLight,
+    appBarTheme: const AppBarTheme(backgroundColor: AppColor.scaffoldBackgroundLight),
+    scaffoldBackgroundColor: AppColor.scaffoldBackgroundLight,
 
-  outlinedButtonTheme: OutlinedButtonThemeData(
+    outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         side: BorderSide(
           color: AppColor.gray.withValues(alpha: 0.3),

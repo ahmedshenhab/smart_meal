@@ -6,6 +6,7 @@ import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({super.key});
+  
 
   @override
   Widget build(BuildContext context) {

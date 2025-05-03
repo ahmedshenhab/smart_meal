@@ -6,16 +6,22 @@ class ProperitylItemMeal extends StatelessWidget {
   const ProperitylItemMeal({
     super.key,
     required this.image,
-    required this.title,
+    required this.title, this.widget,
+
+
   });
-  final String image;
+  final String? image;
   final String title;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(image, width: 40.w, height: 40.h),
+
+
+
+        Image.asset(image!, width: 40.w, height: 40.h),
 
         SizedBox(width: 10.w),
         Text(

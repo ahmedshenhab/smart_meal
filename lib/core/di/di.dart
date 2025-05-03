@@ -5,7 +5,7 @@ import 'package:smart_meal/module/auth/login/data/repo/login_repo.dart';
 import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
 import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/repo/repo.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
 
 final GetIt getIt = GetIt.instance;
 

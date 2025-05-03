@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> setupApp() async {
+  
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
 

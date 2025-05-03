@@ -15,6 +15,7 @@ class SearchByMealSuccess extends SearchByMealStates {
   SearchByMealSuccess({required this.searchByMealResponseModel});
 
   final List<MealsModel>? searchByMealResponseModel;
+  
 }
 
 class SearchByMealError extends SearchByMealStates {
@@ -23,3 +24,10 @@ class SearchByMealError extends SearchByMealStates {
 
   final String error;
 }
+
+// class FilterMealSuccess extends SearchByMealStates {}
+// class FilterMealError extends SearchByMealStates {
+//   FilterMealError({required this.error});
+
+//   String error;
+// }

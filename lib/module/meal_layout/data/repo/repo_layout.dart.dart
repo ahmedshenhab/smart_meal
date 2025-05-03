@@ -14,6 +14,23 @@ class RepoLayout {
 
   final Dio dio;
 
+  Future<Either<ApiErrorModel, List<MealsModel>>> getAllMeal(
+   
+  ) async {
+    try {
+      final result = await dio.get(ApiEndpoint.getAllMeal);
+
+      final searchByMealResponseModel = MealsModel.fromList(
+        result.data,
+      );
+
+      return right(searchByMealResponseModel);
+    } catch (e) {
+      log('Error: $e');
+      return left(ApiErrorHandler.handle(e));
+    }
+  }
+
   Future<Either<ApiErrorModel, List<MealsModel>>> searchByIngrediant(
     String name,
   ) async {
