@@ -37,15 +37,10 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
               color: AppColor.black,
               fontSize: 22.sp,
             ),
-            // textAlign: TextAlign.center,
+      
           ),
 
-          // TextButton(
-          //   onPressed: () async {
-          //     await MealLayoutCubit.get(context).getAllMeal();
-          //   },
-          //   child: const Text('get'),
-          // ),
+        
           Text(
             "For Everytime",
             style: theme.textTheme.bodyMedium!.copyWith(

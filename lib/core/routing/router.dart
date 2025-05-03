@@ -49,7 +49,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
-                create: (context) => MealLayoutCubit(getIt<RepoLayout>()),
+                create: (context) => MealLayoutCubit(getIt<RepoLayout>())..getAllMeal(),
                 child: const MealLayoutScreen(),
               ),
         );
