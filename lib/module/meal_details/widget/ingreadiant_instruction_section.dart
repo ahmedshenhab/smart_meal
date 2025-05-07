@@ -12,34 +12,36 @@ class IngreadiantInstructionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MealDetailCubit, MealDetailStates>(
-      builder: (context, state) {
-        final cubit = MealDetailCubit.get(context);
-
-        return Column(
-          children: [
-            // Toggle buttons
-            Container(
-              width: 310.w,
-              height: 50.h,
-              margin: EdgeInsets.symmetric(horizontal: 17.w),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18.r),
-                color: AppColor.scaffoldBackgroundheavy.withValues(alpha: 0.8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:
-                    cubit.mealCategory.map((e) {
-                      return InkWell(
-                        onTap: () => cubit.changeCategory(e),
-                        child: AnimatedContainer(
+    return Column(
+      children: [
+        // Toggle buttons
+        Container(
+          width: 310.w,
+          height: 50.h,
+          margin: EdgeInsets.symmetric(horizontal: 17.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18.r),
+            color: AppColor.scaffoldBackgroundheavy.withValues(alpha: 0.8),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children:
+                MealDetailCubit.get(context).mealCategory.map((e) {
+                  return InkWell(
+                    onTap: () => MealDetailCubit.get(context).changeCategory(e),
+                    child: BlocBuilder<MealDetailCubit, MealDetailStatess>(
+                      buildWhen:
+                          (previous, current) =>
+                              current is MealDetailTitleButtonChangeState,
+                      builder: (context, state) {
+                        return AnimatedContainer(
                           width: 130.w,
                           duration: const Duration(milliseconds: 200),
                           padding: EdgeInsets.symmetric(vertical: 12.h),
                           decoration: BoxDecoration(
                             color:
-                                state.selectedCategory == e
+                                MealDetailCubit.get(context).selectedCategory ==
+                                        e
                                     ? AppColor.deepOrange
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(18.r),
@@ -51,26 +53,94 @@ class IngreadiantInstructionSection extends StatelessWidget {
                               context,
                             ).textTheme.bodyMedium!.copyWith(
                               color:
-                                  state.selectedCategory == e
+                                  MealDetailCubit.get(
+                                            context,
+                                          ).selectedCategory ==
+                                          e
                                       ? AppColor.white
                                       : AppColor.black,
                               fontSize: 16.sp,
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
+                        );
+                      },
+                    ),
+                  );
+                }).toList(),
+          ),
+        ),
+
+        SizedBox(height: 20.h),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'serving',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 18.sp,
+                color: AppColor.black,
               ),
             ),
+            SizedBox(width: 20.w),
 
-            SizedBox(height: 20.h),
+            SizedBox(
+              width: 70.w,
+              height: 30.h,
 
-            state.selectedCategory == 'ingredients'
-                ? const IngrediantBody()
-                : const InstructionBody(),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: MealDetailCubit.get(context).servingController,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColor.deepOrange,
+                      width: 1.4.w,
+                    ),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColor.deepOrange,
+                      width: 2.w,
+                    ),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16.w),
+
+            InkWell(
+              onTap: () {
+                MealDetailCubit.get(context).updateQuantity();
+              },
+              child: Text(
+                'update',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 18.sp,
+                  color: AppColor.deepOrange,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ],
-        );
-      },
+        ),
+        SizedBox(height: 10.h),
+
+        BlocBuilder<MealDetailCubit, MealDetailStatess>(
+          buildWhen:
+              (previous, current) =>
+                  current is MealDetailTitleButtonChangeState,
+          builder:
+              (context, state) =>
+                  MealDetailCubit.get(context).selectedCategory == 'ingredients'
+                      ? const IngrediantBody()
+                      : const InstructionBody(),
+        ),
+      ],
     );
   }
 }

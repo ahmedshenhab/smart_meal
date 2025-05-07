@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/category_screen/cubit/cubit.dart';
+import 'package:smart_meal/module/category_screen/cubit/state.dart';
 import 'package:smart_meal/module/category_screen/widget/category_search_field.dart';
 import 'package:smart_meal/module/category_screen/widget/more_filter_category.dart';
 import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+
 import 'package:smart_meal/module/shred_widget/custom_item_meal.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.meals, required this.title});
+  const CategoryScreen({super.key});
   static const categoryScreen = '/category-screen';
-   final List<MealsModel> meals ;
-    final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,12 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
 
-        title:  Text(title),
+        title: Text(CategoryScreenCubit.get(context).title),
         actionsPadding: EdgeInsetsDirectional.only(end: 10.w),
         actions: [
           Icon(
-            Icons.breakfast_dining_outlined,
+            CategoryScreenCubit.get(context).icon,
+
             color: AppColor.deepOrange,
             size: 25.w,
           ),
@@ -43,56 +45,86 @@ class CategoryScreen extends StatelessWidget {
           const MoreFilterCategory(),
           SizedBox(height: mediaQuery.size.height * 0.033),
 
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.r),
-                  topRight: Radius.circular(20.r),
-                ),
-                color: AppColor.white,
-              ),
-              padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
-              margin: EdgeInsets.symmetric(horizontal: 20.w),
-              child: GridView.builder(
-                padding: const EdgeInsets.all(0),
-
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 20.h,
-                ),
-                itemCount: meals.length,
-                itemBuilder:
-                    (context, index) => InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                           arguments: meals[index],
-                          context,
-                          MealDetailsScreen.mealDetailsScreen,
-                        );
-                      },
-                      child: CustomItemMeal(
-                        searchByMealResponseModel:  meals[index],
-
-                        color1: AppColor.deepOrange,
-                        color2: AppColor.white,
-
-                        boxShadow: BoxShadow(
-                          offset: const Offset(0, 5),
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 15,
-
-                          spreadRadius: 5,
-                        ),
-                      ),
+          BlocBuilder<CategoryScreenCubit, CategoryScreenStates>(
+         
+            
+            builder: (context, state) {
+              
+              return
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
                     ),
-              ),
-            ),
+                    color: AppColor.white,
+                  ),
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(0),
+
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+
+                      crossAxisSpacing: 10.w,
+                      mainAxisSpacing: 20.h,
+                    ),
+                    itemCount: state.meals.length,
+                    itemBuilder:
+                        (context, index) => InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              arguments:
+                                  state.meals[index],
+                              context,
+                              MealDetailsScreen.mealDetailsScreen,
+                            );
+                          },
+                          child: CustomItemMeal(
+
+                            
+                            searchByMealResponseModel:
+                               state.meals[index],
+                               favoritIcon: IconButton(
+                    alignment: AlignmentDirectional.center,
+                    constraints: BoxConstraints(
+                      minWidth: 30.w,
+                      minHeight: 30.h,
+                      maxWidth: 30.w,
+                      maxHeight: 30.h,
+                    ),
+                    onPressed: () {},
+
+                    icon: const Icon(Icons.bookmark),
+                    style: Theme.of(context).iconButtonTheme.style!.copyWith(
+                      iconSize: WidgetStateProperty.all(19.h),
+                      backgroundColor: WidgetStateProperty.all(AppColor.white),
+                      foregroundColor: WidgetStateProperty.all(AppColor.deepOrange),
+                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
+                    ),
+                  ),
+
+                         
+
+                            boxShadow: BoxShadow(
+                              offset: const Offset(0, 5),
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 15,
+
+                              spreadRadius: 5,
+                            ),
+                          ),
+                        ),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

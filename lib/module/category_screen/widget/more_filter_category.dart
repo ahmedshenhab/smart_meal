@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/category_screen/cubit/cubit.dart';
 
 class MoreFilterCategory extends StatelessWidget {
   const MoreFilterCategory({super.key});
@@ -25,7 +26,7 @@ class MoreFilterCategory extends StatelessWidget {
           SideSheet.right(
             width: mediaQuery.size.width * 0.8,
             sheetBorderRadius: 30,
-            body: const FiltersModal(),
+            body: FiltersModal(cubit: CategoryScreenCubit.get(context)),
             context: context,
             transitionDuration: const Duration(milliseconds: 230),
           );
@@ -51,8 +52,8 @@ class MoreFilterCategory extends StatelessWidget {
 }
 
 class FiltersModal extends StatefulWidget {
-  const FiltersModal({super.key,});
-  
+  const FiltersModal({super.key, required this.cubit});
+  final CategoryScreenCubit cubit;
 
   @override
   State<FiltersModal> createState() => _FiltersModalState();
@@ -76,51 +77,50 @@ class _FiltersModalState extends State<FiltersModal> {
           ),
           SizedBox(height: 30.h),
           FilterSlider(
+            max: 1000,
             label: 'Calories',
-            rangeText: '0 - 5000 cal',
-            value: 1,
+            rangeText: '0 - 1000 cal',
+            value: widget.cubit.calories,
             onChanged: (val) {
-              // setState(() => widget.cubit.calories = val);
+              setState(() => widget.cubit.calories = val);
             },
           ),
           FilterSlider(
-            onChanged: (value) {
-              
-            },
+            max: 100,
             label: 'Protein',
-            rangeText: '0 - 5000 g',
-            value:1,
-            // onChanged: (val) => setState(() => widget.cubit.protein = val),
+            rangeText: '0 - 100 g',
+            value: widget.cubit.protein,
+            onChanged: (val) => setState(() => widget.cubit.protein = val),
           ),
           FilterSlider(
+            max: 1000,
             label: 'Sugar',
-            rangeText: '0 - 5000 g',
-            onChanged: (value) {
-              
-            },
-            value: 1,
-            // onChanged: (val) => setState(() => widget.cubit.sugar = val),
+            rangeText: '0 - 1000 g',
+
+            value: widget.cubit.sugar,
+            onChanged: (val) => setState(() => widget.cubit.sugar = val),
           ),
           FilterSlider(
+            max: 1000,
             label: 'Fats',
-            rangeText: '0 - 5000 g',
-            value: 1,
-            onChanged: (value) {
-              
-            },
-            // onChanged: (val) => setState(() => widget.cubit.fats = val),
+            rangeText: '0 - 1000 g',
+            value: widget.cubit.fats,
+
+            onChanged: (val) => setState(() => widget.cubit.fats = val),
           ),
           FilterSlider(
+            max: 1000,
             label: 'Carbs',
-            rangeText: '0 - 5000 g',
-            value: 1,
-            onChanged: (val) {},
+            rangeText: '0 - 100 g',
+            value: widget.cubit.carbs,
+            onChanged: (val) => setState(() => widget.cubit.carbs = val),
           ),
           SizedBox(height: 20.h),
           InkWell(
             onTap: () {
               log('hi inkwell');
-              // widget.cubit.filterSearch();
+              widget.cubit.filterSearch();
+              Navigator.pop(context);
             },
             child: Container(
               height: 30.h,
@@ -150,10 +150,12 @@ class FilterSlider extends StatelessWidget {
     required this.rangeText,
     required this.value,
     required this.onChanged,
+    required this.max,
   });
   final String label;
   final String rangeText;
   final double value;
+  final double max;
   final ValueChanged<double> onChanged;
 
   @override
@@ -180,7 +182,7 @@ class FilterSlider extends StatelessWidget {
         Slider(
           value: value,
           onChanged: onChanged,
-          max: 5000,
+          max: max,
           divisions: 300,
           label: value.round().toString(),
         ),

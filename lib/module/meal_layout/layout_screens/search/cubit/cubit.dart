@@ -19,11 +19,11 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
 
   final categorys = ['Breakfast', 'Lunch', 'Dinner'];
   String selectedCategory = 'Lunch';
-  double calories = 4000;
-  double protein = 5000;
-  double sugar = 5000;
-  double fats = 5000;
-  double carbs = 5000;
+  double calories = 1000;
+  double protein = 100;
+  double sugar = 100;
+  double fats = 100;
+  double carbs = 100;
 
   void filterSearch() {
     

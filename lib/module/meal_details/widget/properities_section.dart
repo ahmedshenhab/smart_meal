@@ -65,7 +65,7 @@ class DetailsSection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             ProperitylItemMeal(
-              image: 'assets/images/cal.png',
+              image: 'assets/images/time.png',
               title:
                   '${MealDetailCubit.get(context).mealsModel.time ?? '0'} min',
             ),

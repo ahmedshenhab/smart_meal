@@ -7,15 +7,19 @@ class CustomItemMeal extends StatelessWidget {
   const CustomItemMeal({
     super.key,
 
-    required this.color1,
-    required this.color2,
+    // required this.foreground,
+    // required this.background,
     this.boxShadow,
     this.searchByMealResponseModel,
+    this.favoritIcon,
   });
 
-  final Color color1;
-  final Color color2;
+  // final Color foreground;
+
+  // final Color background;
   final BoxShadow? boxShadow;
+  final Widget? favoritIcon;
+
   final MealsModel? searchByMealResponseModel;
 
   @override
@@ -36,7 +40,7 @@ class CustomItemMeal extends StatelessWidget {
 
         children: [
           Stack(
-            alignment: Alignment.topRight,
+            alignment: AlignmentDirectional.topEnd,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
@@ -49,25 +53,7 @@ class CustomItemMeal extends StatelessWidget {
                 ),
               ),
 
-              IconButton(
-                alignment: AlignmentDirectional.center,
-                constraints: BoxConstraints(
-                  minWidth: 30.w,
-                  minHeight: 30.h,
-                  maxWidth: 30.w,
-                  maxHeight: 30.h,
-                ),
-                onPressed: () {},
-
-                icon: const Icon(Icons.bookmark),
-                style: theme.iconButtonTheme.style!.copyWith(
-                  iconSize: WidgetStateProperty.all(19.h),
-                  backgroundColor: WidgetStateProperty.all(color2),
-                  foregroundColor: WidgetStateProperty.all(color1),
-                  padding: WidgetStateProperty.all(EdgeInsets.zero),
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                ),
-              ),
+              favoritIcon ?? Container(),
             ],
           ),
 

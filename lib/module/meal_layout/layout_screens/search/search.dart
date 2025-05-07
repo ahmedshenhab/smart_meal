@@ -111,7 +111,7 @@ class Search extends StatelessWidget {
 
                   case SearchByMealSuccess _:
                     return state.searchByMealResponseModel!.isEmpty
-                        ? Center(child: Text('not found'))
+                        ? Center(child: Text('search with meal name'))
                         : GridView.builder(
                           padding: const EdgeInsets.all(0),
 
@@ -138,10 +138,35 @@ class Search extends StatelessWidget {
                                   );
                                 },
                                 child: CustomItemMeal(
+                                  favoritIcon: InkWell(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: 30.w,
+                                      height: 30.h,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            state
+                                                    .searchByMealResponseModel![index]
+                                                    .isFavorite
+                                                ? AppColor.deepOrange
+                                                : AppColor.white,
+
+                                        // color: state.searchByMealResponseModel![index].   AppColor.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.bookmark,
+                                        color:
+                                            state
+                                                    .searchByMealResponseModel![index]
+                                                    .isFavorite
+                                                ? AppColor.white
+                                                : AppColor.gray,
+                                      ),
+                                    ),
+                                  ),
                                   searchByMealResponseModel:
                                       state.searchByMealResponseModel![index],
-                                  color1: AppColor.deepOrange,
-                                  color2: AppColor.white,
 
                                   boxShadow: BoxShadow(
                                     offset: Offset(0, 5),

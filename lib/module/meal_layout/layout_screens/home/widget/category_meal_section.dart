@@ -37,10 +37,8 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
               color: AppColor.black,
               fontSize: 22.sp,
             ),
-      
           ),
 
-        
           Text(
             "For Everytime",
             style: theme.textTheme.bodyMedium!.copyWith(
@@ -56,6 +54,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                     current is MealGetAllMealLoadingState ||
                     current is MealGetAllMealSuccessState ||
                     current is MealGetAllMealErrorState,
+
             builder: (context, state) {
               switch (state) {
                 case MealGetAllMealLoadingState _:
@@ -63,61 +62,36 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
 
                 case MealGetAllMealSuccessState _:
                   return Row(
-                    spacing: 3.5.w,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryScreen.categoryScreen,
-                            arguments: {
-                              'meals': state.breakFast ?? [],
-                              'title': 'Breakfast',
-                            },
-                          );
-                        },
+                    children:
+                        MealLayoutCubit.get(context).mealCategories.map((
+                          category,
+                        ) {
+                          final title = category['title']! as String;
+                          final image = category['image']! as String;
 
-                        child: const ItemCategory(
-                          text: "Breakfast",
-                          image: "assets/images/breakFast.png",
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryScreen.categoryScreen,
-                            arguments: {
-                              'meals': state.lunch ?? [],
-                              'title': 'Lunch',
-                            },
+                          final icon = category['icon']! as IconData;
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 3.5.w / 2,
+                            ), // spacing ~ spacing / 2 per side
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  CategoryScreen.categoryScreen,
+                                  arguments: {
+                                    'meals': state.meals[title] ?? [],
+                                    'title': title,
+                                    'icon': icon,
+                                  },
+                                );
+                              },
+                              child: ItemCategory(text: title, image: image),
+                            ),
                           );
-                        },
-                        child: const ItemCategory(
-                          text: "Lunch",
-                          image: "assets/images/lunch.png",
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryScreen.categoryScreen,
-                            arguments: {
-                              'meals': state.dinner ?? [],
-                              'title': 'Dinner',
-                            },
-                          );
-                        },
-                        child: const ItemCategory(
-                          text: "Dinner",
-                          image: "assets/images/dinner.png",
-                        ),
-                      ),
-                    ],
+                        }).toList(),
                   );
-
                 case MealGetAllMealErrorState _:
                   return Text(state.error);
 
@@ -166,7 +140,9 @@ class ItemCategory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              textAlign: TextAlign.center,
+              maxLines: 1,
+
+              overflow: TextOverflow.ellipsis,
               text,
               style: theme.textTheme.bodyMedium!.copyWith(
                 color: AppColor.white,

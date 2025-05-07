@@ -17,9 +17,25 @@ import '../layout_screens/search/search.dart';
 class MealLayoutCubit extends Cubit<MealStates> {
   MealLayoutCubit(this.repoLayout) : super(MealInitialState());
   final RepoLayout repoLayout;
-  List<MealsModel>? breakFast = [];
-  List<MealsModel>? lunch = [];
-  List<MealsModel>? dinner = [];
+  final mealCategories = [
+    {
+      'title': 'Breakfast',
+      'image': 'assets/images/breakFast.png',
+      'icon': Icons.breakfast_dining_outlined,
+    },
+    {
+      'title': 'Lunch',
+      'image': 'assets/images/lunch.png',
+      'icon': Icons.lunch_dining_outlined,
+    },
+    {
+      'title': 'Dinner',
+      'image': 'assets/images/dinner.png',
+      'icon': Icons.dinner_dining_outlined,
+    },
+  ];
+
+  Map<String, List<MealsModel>> meals = {};
 
   final screens = [
     const Home(),
@@ -30,7 +46,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
       child: const Search(),
     ),
     const Profile(),
-    const Saved(),
+    // const Saved(),
   ];
 
   List<BottomNavigationBarItem> items = const [
@@ -44,6 +60,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
 
   int currentIndex = 0;
   void changeBottomNavIndex(int index) {
+    if (index == currentIndex) return;
     currentIndex = index;
 
     emit(MealChangeBottomNavState());
@@ -57,14 +74,16 @@ class MealLayoutCubit extends Cubit<MealStates> {
         emit(MealGetAllMealErrorState(error: l.message!));
       },
       (r) {
-        log(r.length.toString());
-        log(r[8].fat100g.toString());
+        meals.addAll({
+          'Breakfast':
+              r.where((element) => element.type == 'Breakfast').toList(),
+          'Lunch': r.where((element) => element.type == 'Lunch').toList(),
+          'Dinner': r.where((element) => element.type == 'Dinner').toList(),
+        });
 
-        breakFast = r.where((element) => element.type == 'Breakfast').toList();
-        lunch = r.where((element) => element.type == 'Lunch').toList();
-        dinner = r.where((element) => element.type == 'Dinner').toList();
+        log('hi${meals.keys}');
 
-        emit(MealGetAllMealSuccessState(breakFast, lunch, dinner));
+        emit(MealGetAllMealSuccessState(meals));
       },
     );
   }
@@ -94,7 +113,19 @@ class MealLayoutCubit extends Cubit<MealStates> {
     {"Dinner": "assets/images/dinner.png"},
   };
 
-  final formKey = GlobalKey<FormState>();
+  addFavorite(String mealId) async {
+    final result = await repoLayout.addFavorite(mealId);
+
+    result.fold(
+      (l) {
+        emit(MealAddFavoriteErrorState(error: l.message!));
+      },
+      (r) {
+        emit(MealAddFavoriteSuccessState(message: r));
+      },
+    );
+  }
+
   final searchIngrediantController = TextEditingController();
   @override
   Future<void> close() {
@@ -103,25 +134,3 @@ class MealLayoutCubit extends Cubit<MealStates> {
     return super.close();
   }
 }
-
-// void userGetData() {
-//   emit(SocialGetUserLoadingState());
-//   // Constant.uId = CachHelper.getData(key: 'uId');
-//   // log('uid from sociallayout = ${Constant.uId}');
-
-//   FirebaseFirestore.instance.collection('user').doc(Constant.uId!).get().then(
-//     (value) {
-//       log('user date');
-//       log(value.data().toString());
-
-//       socialUserModel = SocialUserModel.fromJson(value.data()!);
-//       emit(SocialGetUserSuccessState(
-//         socialUserModel: socialUserModel!,
-//       ));
-//       log('success get');
-//     },
-//   ).catchError((error) {
-//     log('SocialGetUserErrorState$error');
-//     emit(SocialGetUserErrorState(error: error.toString()));
-//   });
-// }

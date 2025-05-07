@@ -72,7 +72,6 @@ class SearchByIngrediantSection extends StatelessWidget {
                           current is MealSearchByIngrediantLoadingState ||
                           current is MealSearchByIngrediantSuccessState ||
                           current is MealSearchByIngrediantErrorState,
-
                   builder: (context, state) {
                     switch (state) {
                       case MealSearchByIngrediantLoadingState _:
@@ -96,43 +95,39 @@ class SearchByIngrediantSection extends StatelessWidget {
                           );
                         }
 
-                        return Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 10.h),
-                            child: GridView.builder(
-                              padding: EdgeInsets.only(
-                                right: 12.w,
-                                left: 12.w,
-                                bottom: 6.h,
-                                top: 6.h,
-                              ),
-                              itemCount:
-                                  state
-                                      .meals
-                                      .length, // No need to cast the state
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 3.3,
-                                    mainAxisSpacing: 12.h,
-                                    crossAxisSpacing: 20.w,
-                                  ),
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                      MealDetailsScreen.mealDetailsScreen,
-                                      arguments: state.meals[index],
-                                    );
-                                  },
-                                  child: _buildResuiltIngrediant(
-                                    state.meals[index].recipeName ?? 'defualt',
-                                    theme,
-                                    context,
-                                  ),
-                                );
-                              },
+                        return SizedBox(
+                          height: mediaQuery.size.height * 0.24,
+                          child: GridView.builder(
+                            padding: EdgeInsets.only(
+                              right: 12.w,
+                              left: 12.w,
+                              bottom: 6.h,
+                              top: 6.h,
                             ),
+                            itemCount:
+                                state.meals.length, // No need to cast the state
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 3.3,
+                                  mainAxisSpacing: 12.h,
+                                  crossAxisSpacing: 20.w,
+                                ),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    MealDetailsScreen.mealDetailsScreen,
+                                    arguments: state.meals[index],
+                                  );
+                                },
+                                child: _buildResuiltIngrediant(
+                                  state.meals[index].recipeName ?? 'defualt',
+                                  theme,
+                                  context,
+                                ),
+                              );
+                            },
                           ),
                         );
                       case MealSearchByIngrediantErrorState _:

@@ -7,6 +7,7 @@ class AppColor {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color saveColor = Color(0xFFD9D9D9);
+  static const Color green = Color(0xFF00FF00);
   static const Color shadow = Color(0xFF000000);
   static const Color brown = Color(0xFFAB7B6D);
   static const Color categoriesColor = Color(0xFFA49FA2);

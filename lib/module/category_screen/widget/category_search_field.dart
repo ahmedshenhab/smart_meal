@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/category_screen/cubit/cubit.dart';
 
 class CategorySearchField extends StatelessWidget {
   const CategorySearchField({super.key});
@@ -16,8 +17,8 @@ class CategorySearchField extends StatelessWidget {
       ),
 
       child: TextField(
-        onChanged: (_) {
-         
+        onChanged: (value) {
+         CategoryScreenCubit.get(context).serch(value);
         },
        
         decoration: InputDecoration(

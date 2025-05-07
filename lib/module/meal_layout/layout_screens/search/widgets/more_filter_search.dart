@@ -77,34 +77,39 @@ class _FiltersModalState extends State<FiltersModal> {
           ),
           SizedBox(height: 30.h),
           FilterSlider(
+            max: 1000,
             label: 'Calories',
-            rangeText: '0 - 5000 cal',
+            rangeText: '0 - 1000 cal',
             value: widget.cubit.calories,
             onChanged: (val) {
               setState(() => widget.cubit.calories = val);
             },
           ),
           FilterSlider(
+            max: 100,
             label: 'Protein',
-            rangeText: '0 - 5000 g',
+            rangeText: '0 - 100 g',
             value: widget.cubit.protein,
             onChanged: (val) => setState(() => widget.cubit.protein = val),
           ),
           FilterSlider(
+            max: 100,
             label: 'Sugar',
-            rangeText: '0 - 5000 g',
+            rangeText: '0 - 100 g',
             value: widget.cubit.sugar,
             onChanged: (val) => setState(() => widget.cubit.sugar = val),
           ),
           FilterSlider(
+            max: 100,
             label: 'Fats',
-            rangeText: '0 - 5000 g',
+            rangeText: '0 - 100 g',
             value: widget.cubit.fats,
             onChanged: (val) => setState(() => widget.cubit.fats = val),
           ),
           FilterSlider(
+            max: 100,
             label: 'Carbs',
-            rangeText: '0 - 5000 g',
+            rangeText: '0 - 100 g',
             value: widget.cubit.carbs,
             onChanged: (val) => setState(() => widget.cubit.carbs = val),
           ),
@@ -113,6 +118,7 @@ class _FiltersModalState extends State<FiltersModal> {
             onTap: () {
               log('hi inkwell');
               widget.cubit.filterSearch();
+              Navigator.pop(context);
             },
             child: Container(
               height: 30.h,
@@ -142,10 +148,12 @@ class FilterSlider extends StatelessWidget {
     required this.rangeText,
     required this.value,
     required this.onChanged,
+    required this.max,
   });
   final String label;
   final String rangeText;
   final double value;
+  final double max;
   final ValueChanged<double> onChanged;
 
   @override
@@ -172,7 +180,7 @@ class FilterSlider extends StatelessWidget {
         Slider(
           value: value,
           onChanged: onChanged,
-          max: 5000,
+          max: max,
           divisions: 300,
           label: value.round().toString(),
         ),

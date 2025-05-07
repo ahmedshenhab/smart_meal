@@ -1,6 +1,6 @@
 import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
 
-class MealStates {}
+sealed class MealStates {}
 
 class MealInitialState extends MealStates {}
 
@@ -9,10 +9,9 @@ class MealChangeBottomNavState extends MealStates {}
 class MealGetAllMealLoadingState extends MealStates {}
 
 class MealGetAllMealSuccessState extends MealStates {
-  MealGetAllMealSuccessState(this.breakFast, this.lunch, this.dinner);
-  final List<MealsModel>? breakFast;
-  final List<MealsModel>? lunch;
-  final List<MealsModel>? dinner;
+  MealGetAllMealSuccessState(this.meals);
+
+  final Map<String, List<MealsModel>> meals;
 }
 
 class MealGetAllMealErrorState extends MealStates {
@@ -31,6 +30,17 @@ class MealSearchByIngrediantSuccessState extends MealStates {
 
 class MealSearchByIngrediantErrorState extends MealStates {
   MealSearchByIngrediantErrorState({required this.error});
+
+  final String error;
+}
+
+class MealAddFavoriteSuccessState extends MealStates {
+  MealAddFavoriteSuccessState({required this.message});
+  final String message;
+}
+
+class MealAddFavoriteErrorState extends MealStates {
+  MealAddFavoriteErrorState({required this.error});
 
   final String error;
 }
