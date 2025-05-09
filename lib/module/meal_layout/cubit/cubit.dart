@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/core/di/di.dart';
 import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
 import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/saved/saved.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
 import '../layout_screens/profile.dart';
-import '../layout_screens/saved.dart';
 import 'stataes.dart';
 
 import '../layout_screens/home/home.dart';
@@ -17,6 +17,7 @@ import '../layout_screens/search/search.dart';
 class MealLayoutCubit extends Cubit<MealStates> {
   MealLayoutCubit(this.repoLayout) : super(MealInitialState());
   final RepoLayout repoLayout;
+  List<MealsModel> favoriteMeals = [];
   final mealCategories = [
     {
       'title': 'Breakfast',
@@ -46,7 +47,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
       child: const Search(),
     ),
     const Profile(),
-    // const Saved(),
+    const Saved(),
   ];
 
   List<BottomNavigationBarItem> items = const [
@@ -113,7 +114,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
     {"Dinner": "assets/images/dinner.png"},
   };
 
-  addFavorite(String mealId) async {
+  addFavorite(int mealId) async {
     final result = await repoLayout.addFavorite(mealId);
 
     result.fold(
@@ -122,6 +123,45 @@ class MealLayoutCubit extends Cubit<MealStates> {
       },
       (r) {
         emit(MealAddFavoriteSuccessState(message: r));
+      },
+    );
+  }
+
+  void getAllFavorite({int? id}) async {
+    if (favoriteMeals.isNotEmpty) {
+      favoriteMeals.removeWhere((element) => element.recipeId == id);
+
+      emit(MealGetAllFavoriteSuccessState());
+    }
+
+    else{
+       emit(MealGetAllFavoriteLoadingState());
+    final result = await repoLayout.getFavorite();
+    result.fold(
+      (l) {
+        emit(MealGetAllFavoriteErrorState(error: l.message ?? ''));
+      },
+      (r) {
+        favoriteMeals = r;
+        emit(MealGetAllFavoriteSuccessState());
+      },
+    );
+    }
+   
+  }
+
+  deleteFavoriteById(int mealId) async {
+    emit(MealDeleteFavoriteByIdLoadingState());
+
+    final result = await repoLayout.deleteFavoriteById(mealId);
+
+    result.fold(
+      (l) {
+        emit(MealDeleteFavoriteByIdErrorState(error: l.message ?? ''));
+      },
+      (r) {
+        emit(MealDeleteFavoriteByIdSuccessState());
+        getAllFavorite(id: mealId);
       },
     );
   }

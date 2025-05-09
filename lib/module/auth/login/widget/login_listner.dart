@@ -67,10 +67,21 @@ class LoginListner extends StatelessWidget {
                   ),
             );
           } else {
-            await CachHelper.setData(
-              key: AppConstant.tokenKey,
-              value: state.loginModelResponse.token,
-            );
+            Future.wait([
+              CachHelper.setData(
+                key: AppConstant.tokenKey,
+                value: state.loginModelResponse.token,
+              ),
+              CachHelper.setData(
+                key: AppConstant.userName,
+                value: state.loginModelResponse.user!.fullName ?? 'defualt',
+              ),
+              CachHelper.setData(
+                key: AppConstant.email,
+                value: state.loginModelResponse.user!.email ?? 'email',
+              ),
+            ]);
+
             if (context.mounted) {
               Navigator.pushNamedAndRemoveUntil(
                 context,

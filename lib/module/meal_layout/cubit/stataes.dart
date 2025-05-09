@@ -44,3 +44,28 @@ class MealAddFavoriteErrorState extends MealStates {
 
   final String error;
 }
+
+class MealGetAllFavoriteLoadingState extends MealStates {
+
+  
+}
+class MealGetAllFavoriteSuccessState extends MealStates {
+
+ 
+}
+class MealGetAllFavoriteErrorState extends MealStates {
+  MealGetAllFavoriteErrorState({required this.error});
+
+  final String error;
+}
+
+
+
+ class MealDeleteFavoriteByIdLoadingState extends MealStates {}
+ class MealDeleteFavoriteByIdSuccessState extends MealStates {}
+
+class MealDeleteFavoriteByIdErrorState extends MealStates {
+  MealDeleteFavoriteByIdErrorState({required this.error});
+
+  final String error;
+}

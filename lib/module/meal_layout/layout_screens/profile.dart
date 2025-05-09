@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/app_constant.dart';
+import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
 import 'package:smart_meal/core/style/app_color.dart';
 
 class Profile extends StatefulWidget {
@@ -11,29 +13,28 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final TextEditingController nameController = TextEditingController(
-    text: 'Lionel Andrés Messi Cuccittini',
+    text: CachHelper.getData(key: AppConstant.userName),
   );
   final TextEditingController emailController = TextEditingController(
-    text: 'Lionel_Messi10@gmail.com',
+    text: CachHelper.getData(key: AppConstant.email),
   );
-  final TextEditingController phoneController = TextEditingController(
-    text: '01200000000',
-  );
-  final TextEditingController bioController = TextEditingController(
-    text: 'I AM THE G.O.A.T',
-  );
+  // final TextEditingController phoneController = TextEditingController(
+  //   text: '01200000000',
+  // );
+  // final TextEditingController bioController = TextEditingController(
+  //   text: 'I AM THE G.O.A.T',s
+  // );
   @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
-    phoneController.dispose();
-    bioController.dispose();
+    // phoneController.dispose();
+    // bioController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         SizedBox(
@@ -92,12 +93,12 @@ class _ProfileState extends State<Profile> {
                   const Text('Email'),
                   _buildTextField(emailController),
 
-                  const Text('Phone Number'),
-                  _buildTextField(phoneController),
+                  // const Text('Phone Number'),
+                  // _buildTextField(phoneController),
 
-                  const Text('Bio'),
+                  // const Text('Bio'),
 
-                  _buildTextField(bioController),
+                  // _buildTextField(bioController),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {},
@@ -142,6 +143,7 @@ Widget _buildTextField(TextEditingController controller) {
     ),
 
     child: TextFormField(
+      readOnly: true,
       controller: controller,
       decoration: const InputDecoration(border: InputBorder.none),
     ),

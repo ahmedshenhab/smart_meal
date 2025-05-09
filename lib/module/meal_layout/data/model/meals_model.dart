@@ -2,7 +2,7 @@ class MealsModel {
   factory MealsModel.fromJson(Map<String, dynamic> json) {
     return MealsModel(
       isFavorite: json['isFavorite'] ?? false,
-      recipeId: json['recipe_Id'],
+      recipeId: json['recipeId'],
       recipeName: json['recipe_Name'],
       description: json['description'],
       preparationMethod: json['preparation_Method'],
@@ -13,12 +13,14 @@ class MealsModel {
       protein100g: json['protein_100g'],
       carb100: json['carb_100'] ?? 0,
       // ingredientNames: json['ingredientNames'] != null
-          // ? List<String>.from(json['ingredientNames'])
-          // : null,
-      ingredients: json['ingredients'] != null
-          ? List<Ingredient>.from(
-              json['ingredients'].map((x) => Ingredient.fromJson(x)))
-          : null,
+      // ? List<String>.from(json['ingredientNames'])
+      // : null,
+      ingredients:
+          json['ingredients'] != null
+              ? List<Ingredient>.from(
+                json['ingredients'].map((x) => Ingredient.fromJson(x)),
+              )
+              : null,
       type: json['type'],
     );
   }
@@ -53,7 +55,7 @@ class MealsModel {
   // final List<String>? ingredientNames;
   final List<Ingredient>? ingredients;
   final String? type;
-  final bool isFavorite ;
+  final bool isFavorite;
 
   static List<MealsModel> fromList(List<dynamic> list) {
     return list.map((item) => MealsModel.fromJson(item)).toList();

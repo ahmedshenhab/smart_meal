@@ -3,14 +3,16 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/module/category_screen/cubit/state.dart';
+import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
 
 class CategoryScreenCubit extends Cubit<CategoryScreenStates> {
-  CategoryScreenCubit(this.meals, this.title, this.icon)
+  CategoryScreenCubit(this.meals, this.title, this.icon, this.mealLayoutCubit)
     : super(CategoryScreenStates(meals: meals));
   final List<MealsModel> meals;
   final String title;
   final IconData icon;
+  final MealLayoutCubit mealLayoutCubit;
 
   double calories = 1000;
   double protein = 100;

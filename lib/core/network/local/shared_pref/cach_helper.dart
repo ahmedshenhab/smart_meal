@@ -24,7 +24,7 @@ class CachHelper {
     }
   }
 
-  static Future<dynamic> getData({required String key}) async {
+  static dynamic getData({required String key})  {
     return _pref!.get(key);
   }
 

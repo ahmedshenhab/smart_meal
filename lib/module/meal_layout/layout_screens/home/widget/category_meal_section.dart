@@ -67,23 +67,27 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                         MealLayoutCubit.get(context).mealCategories.map((
                           category,
                         ) {
-                          final title = category['title']! as String;
-                          final image = category['image']! as String;
+                          final title = category['title'] as String;
+                          final image = category['image'] as String;
 
-                          final icon = category['icon']! as IconData;
+                          final icon = category['icon'] as IconData;
                           return Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 3.5.w / 2,
                             ), // spacing ~ spacing / 2 per side
                             child: InkWell(
                               onTap: () {
+                              
                                 Navigator.pushNamed(
+
                                   context,
                                   CategoryScreen.categoryScreen,
                                   arguments: {
                                     'meals': state.meals[title] ?? [],
                                     'title': title,
                                     'icon': icon,
+                                    'mealLayoutCubit': MealLayoutCubit.get(context),
+
                                   },
                                 );
                               },
@@ -93,7 +97,31 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                         }).toList(),
                   );
                 case MealGetAllMealErrorState _:
-                  return Text(state.error);
+                  return Column(
+                    children: [
+                      Text(
+                        state.error,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.copyWith(fontSize: 18.sp),
+                      ),
+                      SizedBox(height: mediaQuery.size.height * 0.01),
+                      TextButton(
+                        child: Text(
+                          'Retry',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.copyWith(
+                            color: AppColor.deepOrange,
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        onPressed: () {
+                          MealLayoutCubit.get(context).getAllMeal();
+                        },
+                      ),
+                    ],
+                  );
 
                 default:
                   return const SizedBox.shrink();

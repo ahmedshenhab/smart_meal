@@ -10,4 +10,6 @@ class ApiEndpoint {
       'Food/recipes/search/by-ingredient-ids/';
   static const String getAllMeal = 'Food/recipes/preview/';
   static const String addFavorite = 'Favorites/';
+  static const String getAllFavorite = 'Favorites';
+  static const String deleteFavoriteId = 'Favorites/';
 }

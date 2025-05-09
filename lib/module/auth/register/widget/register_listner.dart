@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
 import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
 import 'package:smart_meal/module/auth/register/cubit/states.dart';
 
@@ -43,7 +44,7 @@ class RegisterListner extends StatelessWidget {
                       color: Colors.green,
                     ),
                     content: Text(
-                      'Account created successfully, go to login ',
+                      'Account created successfully,click ok and go to login',
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 14),
@@ -53,11 +54,20 @@ class RegisterListner extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text(
-                          'OK,',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium!.copyWith(fontSize: 16),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              MealLoginScreen.loginScreen,
+                              (route) => false,
+                            );
+                          },
+                          child: Text(
+                            'OK',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 16),
+                          ),
                         ),
                       ),
                     ],

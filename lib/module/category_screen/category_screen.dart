@@ -7,6 +7,7 @@ import 'package:smart_meal/module/category_screen/cubit/state.dart';
 import 'package:smart_meal/module/category_screen/widget/category_search_field.dart';
 import 'package:smart_meal/module/category_screen/widget/more_filter_category.dart';
 import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/saved/widget/custom_item_meal_saved.dart';
 
 import 'package:smart_meal/module/shred_widget/custom_item_meal.dart';
 
@@ -46,12 +47,8 @@ class CategoryScreen extends StatelessWidget {
           SizedBox(height: mediaQuery.size.height * 0.033),
 
           BlocBuilder<CategoryScreenCubit, CategoryScreenStates>(
-         
-            
             builder: (context, state) {
-              
-              return
-              Expanded(
+              return Expanded(
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -79,45 +76,24 @@ class CategoryScreen extends StatelessWidget {
                         (context, index) => InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                              arguments:
-                                  state.meals[index],
+                              arguments: state.meals[index],
                               context,
                               MealDetailsScreen.mealDetailsScreen,
                             );
                           },
-                          child: CustomItemMeal(
+                          child: BlocProvider.value(
+                            value:CategoryScreenCubit.get(context). mealLayoutCubit,
+                           
+                            child: CustomItemMealSaved(
+                              searchByMealResponseModel: state.meals[index],
 
-                            
-                            searchByMealResponseModel:
-                               state.meals[index],
-                               favoritIcon: IconButton(
-                    alignment: AlignmentDirectional.center,
-                    constraints: BoxConstraints(
-                      minWidth: 30.w,
-                      minHeight: 30.h,
-                      maxWidth: 30.w,
-                      maxHeight: 30.h,
-                    ),
-                    onPressed: () {},
+                              boxShadow: BoxShadow(
+                                offset: const Offset(0, 5),
+                                color: Colors.black.withValues(alpha: 0.1),
+                                blurRadius: 15,
 
-                    icon: const Icon(Icons.bookmark),
-                    style: Theme.of(context).iconButtonTheme.style!.copyWith(
-                      iconSize: WidgetStateProperty.all(19.h),
-                      backgroundColor: WidgetStateProperty.all(AppColor.white),
-                      foregroundColor: WidgetStateProperty.all(AppColor.deepOrange),
-                      padding: WidgetStateProperty.all(EdgeInsets.zero),
-                      visualDensity: VisualDensity.adaptivePlatformDensity,
-                    ),
-                  ),
-
-                         
-
-                            boxShadow: BoxShadow(
-                              offset: const Offset(0, 5),
-                              color: Colors.black.withValues(alpha: 0.1),
-                              blurRadius: 15,
-
-                              spreadRadius: 5,
+                                spreadRadius: 5,
+                              ),
                             ),
                           ),
                         ),

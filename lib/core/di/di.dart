@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:smart_meal/core/app_constant.dart';
 import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
 import 'package:smart_meal/core/network/local/sql/sqldb.dart';
 import 'package:smart_meal/core/network/remote/dio_helper.dart';
 import 'package:smart_meal/core/observer/observer.dart';
 import 'package:smart_meal/module/auth/login/data/repo/login_repo.dart';
+import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
 import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
 import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -43,3 +46,15 @@ Future<void> setupApp() async {
 
   setupGetIt();
 }
+String  get getIntialRoute{
+
+final token = CachHelper.getData(key: AppConstant.tokenKey);
+  if (token != null && token.isNotEmpty) {
+   return MealLayoutScreen.homeScreen;
+  } else {
+    return MealLoginScreen.loginScreen;
+  }
+
+
+
+  }

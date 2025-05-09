@@ -53,7 +53,9 @@ class AppRouter {
           builder:
               (_) => BlocProvider(
                 create: (context) {
-                  return MealLayoutCubit(getIt<RepoLayout>())..getAllMeal();
+                  return MealLayoutCubit(getIt<RepoLayout>())
+                    ..getAllMeal()
+                    ..getAllFavorite();
                 },
                 child: const MealLayoutScreen(),
               ),
@@ -91,11 +93,18 @@ class AppRouter {
         final meals = args['meals'] as List<MealsModel>;
         final title = args['title'] as String;
         final icon = args['icon'] as IconData;
+        final mealLayoutCubit = args['mealLayoutCubit'] as MealLayoutCubit;
 
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
-                create: (context) => CategoryScreenCubit(meals, title, icon),
+                create:
+                    (context) => CategoryScreenCubit(
+                      meals,
+                      title,
+                      icon,
+                      mealLayoutCubit,
+                    ),
                 child: const CategoryScreen(),
               ),
         );

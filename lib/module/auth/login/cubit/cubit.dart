@@ -32,7 +32,10 @@ class MealLoginCubit extends Cubit<MealLoginStates> {
         emit(MealLoginErrorState(error: l.message));
       },
       (r) {
+
+        
         emit(MealLoginSuccessState(loginModelResponse: r));
+
       },
     );
   }
