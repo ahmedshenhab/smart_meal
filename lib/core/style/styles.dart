@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/fontweight_helper.dart';
+import 'fontweight_helper.dart';
 
 class TextStyles {
   static TextStyle font24Black700weight = TextStyle(

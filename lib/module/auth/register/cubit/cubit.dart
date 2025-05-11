@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/module/auth/register/data/model/register_request/register_model_request.dart';
-import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
+import '../data/model/register_request/register_model_request.dart';
+import '../data/repo/register_repo.dart';
 import 'states.dart';
 
 class MealRegisterCubit extends Cubit<MealRegisterStates> {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
-import 'package:smart_meal/module/meal_details/cubit/meal_detail_state.dart';
-import 'package:smart_meal/reusable.dart';
+import '../../../core/style/app_color.dart';
+import '../cubit/meal_detail_cubit.dart';
+import '../cubit/meal_detail_state.dart';
+import '../../../reusable.dart';
 
 class IngrediantBody extends StatelessWidget {
   const IngrediantBody({super.key});

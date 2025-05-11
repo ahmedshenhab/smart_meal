@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class MealsModel {
   factory MealsModel.fromJson(Map<String, dynamic> json) {
     return MealsModel(
@@ -60,6 +61,38 @@ class MealsModel {
   static List<MealsModel> fromList(List<dynamic> list) {
     return list.map((item) => MealsModel.fromJson(item)).toList();
   }
+
+  MealsModel copyWith({
+    int? recipeId,
+    String? recipeName,
+    String? description,
+    String? preparationMethod,
+    num? time,
+    num? calories100g,
+    num? fat100g,
+    num? sugar100g,
+    num? protein100g,
+    num? carb100,
+    List<Ingredient>? ingredients,
+    String? type,
+    bool? isFavorite,
+  }) {
+    return MealsModel(
+      recipeId: recipeId ?? this.recipeId,
+      recipeName: recipeName ?? this.recipeName,
+      description: description ?? this.description,
+      preparationMethod: preparationMethod ?? this.preparationMethod,
+      time: time ?? this.time,
+      calories100g: calories100g ?? this.calories100g,
+      fat100g: fat100g ?? this.fat100g,
+      sugar100g: sugar100g ?? this.sugar100g,
+      protein100g: protein100g ?? this.protein100g,
+      carb100: carb100 ?? this.carb100,
+      ingredients: ingredients ?? this.ingredients,
+      type: type ?? this.type,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
 }
 
 class Ingredient {
@@ -75,3 +108,4 @@ class Ingredient {
   final String ingredientName;
   final num amount;
 }
+

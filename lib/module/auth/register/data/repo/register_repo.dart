@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:smart_meal/core/network/remote/api_endpoint.dart';
-import 'package:smart_meal/module/auth/register/data/model/register_error_model/register_error_handler.dart';
-import 'package:smart_meal/module/auth/register/data/model/register_error_model/register_error_model.dart';
-import 'package:smart_meal/module/auth/register/data/model/register_request/register_model_request.dart';
+import '../../../../../core/network/remote/api_endpoint.dart';
+import '../model/register_error_model/register_error_handler.dart';
+import '../model/register_error_model/register_error_model.dart';
+import '../model/register_request/register_model_request.dart';
 
 class RegisterRepo {
   RegisterRepo({required Dio dio}) : _dio = dio;

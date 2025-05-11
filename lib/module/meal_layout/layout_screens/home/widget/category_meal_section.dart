@@ -1,10 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/category_screen/category_screen.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../../core/style/app_color.dart';
+import '../../../../category_screen/category_screen.dart';
+import '../../../cubit/cubit.dart';
+import '../../../cubit/stataes.dart';
+import '../../../../../reusable.dart';
 
 class CategoryMealSection extends StatefulWidget {
   const CategoryMealSection({super.key});
@@ -48,54 +51,61 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
             // textAlign: TextAlign.center,
           ),
           SizedBox(height: mediaQuery.size.height * 0.076),
-          BlocBuilder<MealLayoutCubit, MealStates>(
-            buildWhen:
-                (previous, current) =>
-                    current is MealGetAllMealLoadingState ||
-                    current is MealGetAllMealSuccessState ||
-                    current is MealGetAllMealErrorState,
 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:
+                MealLayoutCubit.get(context).mealCategories.map((category) {
+                  final title = category['title'] as String;
+                  final image = category['image'] as String;
+
+                  final icon = category['icon'] as IconData;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 3.5.w / 2,
+                    ), // spacing ~ spacing / 2 per side
+                    child: InkWell(
+                      onTap: () {
+                         MealLayoutCubit.get(context).getAllMeal(title, icon);
+                       
+                      },
+                      child: ItemCategory(text: title, image: image),
+                    ),
+                  );
+                }).toList(),
+          ),
+          BlocConsumer<MealLayoutCubit, MealStates>(
+            listener: (context, state) {
+              switch (state) {
+                case MealGetAllMealSuccessState _:
+                  Navigator.pushNamed(
+                    context,
+                    CategoryScreen.categoryScreen,
+                    arguments: {
+                      'meals':
+                          state.meals ?? [],
+                      'title': state.title,
+                      'icon': state.icon,
+                      'mealLayoutCubit': MealLayoutCubit.get(context),
+                    },
+                  );
+
+                  break;
+                case MealGetAllMealErrorState _:
+                  Fluttertoast.cancel();
+                  buildshowToast(msg: state.error, color: AppColor.deepOrange);
+                  break;
+                default:
+              }
+            },
             builder: (context, state) {
               switch (state) {
                 case MealGetAllMealLoadingState _:
-                  return const Center(child: CircularProgressIndicator());
-
-                case MealGetAllMealSuccessState _:
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                        MealLayoutCubit.get(context).mealCategories.map((
-                          category,
-                        ) {
-                          final title = category['title'] as String;
-                          final image = category['image'] as String;
-
-                          final icon = category['icon'] as IconData;
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 3.5.w / 2,
-                            ), // spacing ~ spacing / 2 per side
-                            child: InkWell(
-                              onTap: () {
-                              
-                                Navigator.pushNamed(
-
-                                  context,
-                                  CategoryScreen.categoryScreen,
-                                  arguments: {
-                                    'meals': state.meals[title] ?? [],
-                                    'title': title,
-                                    'icon': icon,
-                                    'mealLayoutCubit': MealLayoutCubit.get(context),
-
-                                  },
-                                );
-                              },
-                              child: ItemCategory(text: title, image: image),
-                            ),
-                          );
-                        }).toList(),
+                  return const Center(
+                    child: LinearProgressIndicator(color: AppColor.deepOrange),
                   );
+                case MealGetAllMealSuccessState _:
+                  return const SizedBox.shrink();
                 case MealGetAllMealErrorState _:
                   return Column(
                     children: [
@@ -117,12 +127,11 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                           ),
                         ),
                         onPressed: () {
-                          MealLayoutCubit.get(context).getAllMeal();
+                          // MealLayoutCubit.get(context).getAllMeal();
                         },
                       ),
                     ],
                   );
-
                 default:
                   return const SizedBox.shrink();
               }

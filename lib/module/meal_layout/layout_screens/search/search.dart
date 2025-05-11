@@ -1,15 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
+import '../../../../core/style/app_color.dart';
+import '../../../meal_details/meal_datails_screen.dart';
 
-import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/widgets/more_filter_search.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/widgets/search_text_field.dart';
-import 'package:smart_meal/module/shred_widget/custom_item_meal.dart';
+import 'cubit/cubit.dart';
+import 'widgets/custom_item_meal_search.dart';
+import 'widgets/more_filter_search.dart';
+import 'widgets/search_text_field.dart';
 
 class Search extends StatelessWidget {
   const Search({super.key});
@@ -23,11 +22,11 @@ class Search extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: mediaQuery.size.height * 0.03),
-        SearchTextField(),
+        const SearchTextField(),
         SizedBox(height: mediaQuery.size.height * 0.02),
 
         //more filters
-        MoreFilterSearch(),
+        const MoreFilterSearch(),
         SizedBox(height: mediaQuery.size.height * 0.033),
         BlocBuilder<SearchByMealCubit, SearchByMealStates>(
           buildWhen:
@@ -78,11 +77,7 @@ class Search extends StatelessWidget {
 
         Expanded(
           child: Container(
-            // foregroundDecoration: BoxDecoration(
-            //   borderRadius: BorderRadius.only(
-
-            //   ),
-            // ),
+            
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.r),
@@ -102,7 +97,7 @@ class Search extends StatelessWidget {
               builder: (context, state) {
                 switch (state) {
                   case SearchByMealLoading _:
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(
                         color: AppColor.deepOrange,
                         backgroundColor: AppColor.deepOrange,
@@ -110,10 +105,8 @@ class Search extends StatelessWidget {
                     );
 
                   case SearchByMealSuccess _:
-                    
-                   
                     return state.searchByMealResponseModel!.isEmpty
-                        ? Center(child: Text('search with meal name'))
+                        ? const Center(child: Text('search with meal name'))
                         : GridView.builder(
                           padding: const EdgeInsets.all(0),
 
@@ -139,12 +132,11 @@ class Search extends StatelessWidget {
                                         state.searchByMealResponseModel![index],
                                   );
                                 },
-                                child: CustomItemMeal(
-                                  searchByMealResponseModel:
-                                      state.searchByMealResponseModel![index],
+                                child: CustomItemMealSearch(
+                                  meal: state.searchByMealResponseModel![index],
 
                                   boxShadow: BoxShadow(
-                                    offset: Offset(0, 5),
+                                    offset: const Offset(0, 5),
                                     color: Colors.black.withValues(alpha: 0.1),
                                     blurRadius: 15,
 
@@ -158,7 +150,7 @@ class Search extends StatelessWidget {
                     return Center(child: Text(state.error));
 
                   default:
-                    return Center(child: Text('search with meal name'));
+                    return const Center(child: Text('search with meal name'));
                 }
               },
             ),

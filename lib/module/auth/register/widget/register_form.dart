@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/register/widget/register_listner.dart';
-import 'package:smart_meal/reusable.dart';
+import '../../../../core/style/app_color.dart';
+import '../cubit/cubit.dart';
+import 'register_listner.dart';
+import '../../../../reusable.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/category_screen/cubit/cubit.dart';
-import 'package:smart_meal/module/category_screen/cubit/state.dart';
-import 'package:smart_meal/module/category_screen/widget/category_search_field.dart';
-import 'package:smart_meal/module/category_screen/widget/more_filter_category.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/saved/widget/custom_item_meal_saved.dart';
-
-import 'package:smart_meal/module/shred_widget/custom_item_meal.dart';
+import '../../core/style/app_color.dart';
+import 'cubit/cubit.dart';
+import 'cubit/state.dart';
+import 'widget/category_search_field.dart';
+import 'widget/custom_item_meal_category.dart';
+import 'widget/more_filter_category.dart';
+import '../meal_details/meal_datails_screen.dart';
+import '../meal_layout/cubit/cubit.dart';
+import '../meal_layout/cubit/stataes.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -17,8 +17,6 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
-
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +31,6 @@ class CategoryScreen extends StatelessWidget {
             color: AppColor.deepOrange,
             size: 25.w,
           ),
-          // SvgPicture.asset('assets/images/Sun.svg', width: 30.w, height: 30.h),
         ],
       ),
       body: Column(
@@ -82,18 +79,35 @@ class CategoryScreen extends StatelessWidget {
                             );
                           },
                           child: BlocProvider.value(
-                            value:CategoryScreenCubit.get(context). mealLayoutCubit,
-                           
-                            child: CustomItemMealSaved(
-                              searchByMealResponseModel: state.meals[index],
+                            value:
+                                CategoryScreenCubit.get(
+                                  context,
+                                ).mealLayoutCubit,
 
-                              boxShadow: BoxShadow(
-                                offset: const Offset(0, 5),
-                                color: Colors.black.withValues(alpha: 0.1),
-                                blurRadius: 15,
+                            child: BlocBuilder<MealLayoutCubit, MealStates>(
+                              buildWhen:
+                                  (previous, current) =>
+                                      current
+                                      is MealChangeFavoriteTemporaryState||
+                                        current  is MealChangeFavoriteSuccessState ||
+                                      current is MealChangeFavoriteErrorState ,
+                                      
+                                    
+                                          
 
-                                spreadRadius: 5,
-                              ),
+                              builder: (context, stateMealLayoutCubit) {
+                                return CustomItemMealCategory(
+                                  searchByMealResponseModel: state.meals[index],
+
+                                  boxShadow: BoxShadow(
+                                    offset: const Offset(0, 5),
+                                    color: Colors.black.withValues(alpha: 0.1),
+                                    blurRadius: 15,
+
+                                    spreadRadius: 5,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

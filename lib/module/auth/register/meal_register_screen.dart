@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
-import 'package:smart_meal/module/auth/login/widget/custom_outlined_button.dart';
-import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/register/widget/register_form.dart';
+import '../../../core/style/app_color.dart';
+import '../login/meal_login_screen.dart';
+import '../login/widget/custom_outlined_button.dart';
+import 'cubit/cubit.dart';
+import 'widget/register_form.dart';
 
 class MealRegisterScreen extends StatelessWidget {
   const MealRegisterScreen({super.key});

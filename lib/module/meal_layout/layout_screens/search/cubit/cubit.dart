@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
+import '../../../data/model/meals_model.dart';
+import '../data/repo/repo.dart';
 
 part 'states.dart';
 

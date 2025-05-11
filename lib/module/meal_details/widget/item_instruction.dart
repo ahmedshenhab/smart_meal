@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
+import '../../../core/style/app_color.dart';
 
 class InstructionItem extends StatelessWidget {
   const InstructionItem({

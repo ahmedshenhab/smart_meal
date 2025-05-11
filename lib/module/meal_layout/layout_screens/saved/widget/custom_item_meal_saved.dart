@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+import '../../../../../core/style/app_color.dart';
+import '../../../cubit/cubit.dart';
+import '../../../data/model/meals_model.dart';
 
 class CustomItemMealSaved extends StatelessWidget {
   const CustomItemMealSaved({
     super.key,
 
-    // required this.foreground,
-    // required this.background,
+   
     this.boxShadow,
-    required this.searchByMealResponseModel,
+    this.meal,
   });
 
-  // final Color foreground;
 
-  // final Color background;
   final BoxShadow? boxShadow;
 
-  final MealsModel searchByMealResponseModel;
+  final MealsModel? meal;
 
   @override
   Widget build(BuildContext context) {
@@ -52,32 +49,31 @@ class CustomItemMealSaved extends StatelessWidget {
                 ),
               ),
 
-              InkWell(
-                onTap: () {
-                  if (MealLayoutCubit.get(context).favoriteMeals
-                      .map((e) => e.recipeId)
-                      .contains(searchByMealResponseModel.recipeId)) {
-                    MealLayoutCubit.get(
-                      context,
-                    ).deleteFavoriteById(searchByMealResponseModel.recipeId!);
-                  } else {
-                    MealLayoutCubit.get(
-                      context,
-                    ).addFavorite(searchByMealResponseModel.recipeId ?? 1);
-                  }
-                },
-                child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: const BoxDecoration(
-                    color: AppColor.deepOrange,
+     
+             
 
-                    shape: BoxShape.circle,
+                   InkWell(
+                    onTap: () {
+                      MealLayoutCubit.get(
+                        context,
+                      ).deleteFavoriteFromsaved(meal?.recipeId ?? 3);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor:
+                          meal?.isFavorite ?? false
+                              ? AppColor.deepOrange
+                              : AppColor.white,
+                      child: Icon(
+                        Icons.bookmark,
+                        color:
+                            meal?.isFavorite ?? false
+                                ? AppColor.white
+                                : AppColor.gray,
+                      ),
+                    ),
                   ),
-                  child: const Icon(Icons.bookmark, color: AppColor.white),
-                ),
-              ),
+                
+              
             ],
           ),
 
@@ -86,7 +82,7 @@ class CustomItemMealSaved extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
 
-            searchByMealResponseModel.recipeName ?? 'default',
+            meal?.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
               color: AppColor.black,
@@ -113,7 +109,7 @@ class CustomItemMealSaved extends StatelessWidget {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        searchByMealResponseModel.type ?? 'default',
+                        meal?.type ?? 'default',
                         // 'breakfast',
                         style: theme.textTheme.bodyMedium!.copyWith(
                           color: AppColor.gray,
@@ -141,8 +137,7 @@ class CustomItemMealSaved extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
 
                         TextSpan(
-                          text:
-                              searchByMealResponseModel.calories100g.toString(),
+                          text: meal?.calories100g.toString() ?? 'default',
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: AppColor.gray,
                             fontFamily: 'Roboto',

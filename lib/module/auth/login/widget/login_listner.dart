@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/app_constant.dart';
-import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/login/cubit/states.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
+import '../../../../core/app_constant.dart';
+import '../../../../core/network/local/shared_pref/cach_helper.dart';
+import '../../../../core/style/app_color.dart';
+import '../cubit/cubit.dart';
+import '../cubit/states.dart';
+import '../../../meal_layout/layout_screens/meal_layout_screen.dart';
 
 class LoginListner extends StatelessWidget {
   const LoginListner({super.key});

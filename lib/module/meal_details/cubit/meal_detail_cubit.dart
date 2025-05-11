@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/network/local/sql/sqldb.dart';
-import 'package:smart_meal/module/meal_details/cubit/meal_detail_state.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+import '../../../core/network/local/sql/sqldb.dart';
+import 'meal_detail_state.dart';
+import '../../meal_layout/data/model/meals_model.dart';
 
 class MealDetailCubit extends Cubit<MealDetailStatess> {
   MealDetailCubit({required this.mealsModel, required this.databaseHelper})

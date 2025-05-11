@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/shopping/cubit/shopping_cubit.dart';
+import '../../core/style/app_color.dart';
+import 'cubit/shopping_cubit.dart';
 
 class ShopingScreen extends StatelessWidget {
   const ShopingScreen({super.key});

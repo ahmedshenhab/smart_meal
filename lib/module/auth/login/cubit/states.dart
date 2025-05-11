@@ -1,5 +1,5 @@
 
-import 'package:smart_meal/module/auth/login/data/model/login_response/login_model_response.dart';
+import '../data/model/login_response/login_model_response.dart';
 
 abstract class MealLoginStates {}
 

@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
+import '../../../../../core/style/app_color.dart';
+import '../cubit/cubit.dart';
 
 class MoreFilterSearch extends StatelessWidget {
   const MoreFilterSearch({super.key});

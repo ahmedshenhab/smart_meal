@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:smart_meal/core/app_constant.dart';
-import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
-import 'package:smart_meal/core/network/remote/api_endpoint.dart';
-import 'package:smart_meal/core/network/remote/api_error_handler.dart';
-import 'package:smart_meal/core/network/remote/api_error_model.dart';
-import 'package:smart_meal/module/meal_layout/data/model/ingradiant_id_model.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+import '../../../../core/app_constant.dart';
+import '../../../../core/network/local/shared_pref/cach_helper.dart';
+import '../../../../core/network/remote/api_endpoint.dart';
+import '../../../../core/network/remote/api_error_handler.dart';
+import '../../../../core/network/remote/api_error_model.dart';
+import '../model/ingradiant_id_model.dart';
+import '../model/meals_model.dart';
 
 class MealsParser {
   static List<MealsModel> parse(dynamic data) {
@@ -60,7 +60,35 @@ class RepoLayout {
     }
   }
 
-  Future<Either<ApiErrorModel, String>> addFavorite(int mealId) async {
+  
+
+  Future<Either<ApiErrorModel, List<MealsModel>>> getFavorite() async {
+    try {
+      final result = await dio.get(
+        ApiEndpoint.getAllFavorite,
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${CachHelper.getData(key: AppConstant.tokenKey)}',
+          },
+        ),
+      );
+      final searchByMealResponseModel = MealsModel.fromList(result.data);
+      return right(searchByMealResponseModel);
+    } catch (e) {
+      if (e is DioException) {
+        if (e.response?.statusCode == 404) {
+          log(e.response.toString());
+          return left(ApiErrorModel(message: e.response!.data.toString(),code: e.response!.statusCode));
+        }
+      }
+      log('Error: $e');
+
+      return left(ApiErrorHandler.handle(e));
+    }
+  }
+
+Future<Either<ApiErrorModel, String>> addFavorite(int mealId) async {
     try {
       final result = await dio.post(
         '${ApiEndpoint.addFavorite}$mealId',
@@ -83,32 +111,6 @@ class RepoLayout {
       return left(ApiErrorHandler.handle(e));
     }
   }
-
-  Future<Either<ApiErrorModel, List<MealsModel>>> getFavorite() async {
-    try {
-      final result = await dio.get(
-        ApiEndpoint.getAllFavorite,
-        options: Options(
-          headers: {
-            'Authorization':
-                'Bearer ${CachHelper.getData(key: AppConstant.tokenKey)}',
-          },
-        ),
-      );
-      final searchByMealResponseModel = MealsModel.fromList(result.data);
-      return right(searchByMealResponseModel);
-    } catch (e) {
-      if (e is DioException) {
-        if (e.response?.statusCode == 404) {
-          log(e.response.toString());
-          return left(ApiErrorModel(message: e.response!.data.toString()));
-        }
-      }
-      log('Error: $e');
-      return left(ApiErrorHandler.handle(e));
-    }
-  }
-
   Future<Either<ApiErrorModel, String>> deleteFavoriteById(int mealId) async {
     try {
       await dio.delete(

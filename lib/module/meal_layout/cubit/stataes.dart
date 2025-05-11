@@ -1,4 +1,7 @@
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+
+import 'package:flutter/widgets.dart';
+import '../../../core/network/remote/api_error_model.dart';
+import '../data/model/meals_model.dart';
 
 sealed class MealStates {}
 
@@ -9,9 +12,11 @@ class MealChangeBottomNavState extends MealStates {}
 class MealGetAllMealLoadingState extends MealStates {}
 
 class MealGetAllMealSuccessState extends MealStates {
-  MealGetAllMealSuccessState(this.meals);
+  MealGetAllMealSuccessState(this.meals, this.title, this.icon);
 
-  final Map<String, List<MealsModel>> meals;
+  List<MealsModel>? meals;
+  final String title  ;
+  final IconData icon;
 }
 
 class MealGetAllMealErrorState extends MealStates {
@@ -34,38 +39,29 @@ class MealSearchByIngrediantErrorState extends MealStates {
   final String error;
 }
 
-class MealAddFavoriteSuccessState extends MealStates {
-  MealAddFavoriteSuccessState({required this.message});
-  final String message;
-}
+ class MealGetAllFavoriteLoadingState extends MealStates {}
 
-class MealAddFavoriteErrorState extends MealStates {
-  MealAddFavoriteErrorState({required this.error});
-
-  final String error;
-}
-
-class MealGetAllFavoriteLoadingState extends MealStates {
+class MealGetAllFavoriteSuccessState extends MealStates {
+  MealGetAllFavoriteSuccessState(  );
 
   
 }
-class MealGetAllFavoriteSuccessState extends MealStates {
 
- 
-}
 class MealGetAllFavoriteErrorState extends MealStates {
   MealGetAllFavoriteErrorState({required this.error});
 
-  final String error;
+  final ApiErrorModel error;
 }
 
+class MealChangeFavoriteTemporaryState extends MealStates {}
+class MealChangeFavoriteSuccessState extends MealStates {
+  MealChangeFavoriteSuccessState({required this.message});
 
-
- class MealDeleteFavoriteByIdLoadingState extends MealStates {}
- class MealDeleteFavoriteByIdSuccessState extends MealStates {}
-
-class MealDeleteFavoriteByIdErrorState extends MealStates {
-  MealDeleteFavoriteByIdErrorState({required this.error});
-
-  final String error;
+   final String message;
+   
 }
+class MealChangeFavoriteErrorState extends MealStates {
+  MealChangeFavoriteErrorState({required this.message});
+  final String message;
+}
+

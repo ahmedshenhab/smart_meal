@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/module/category_screen/cubit/state.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
+import 'state.dart';
+import '../../meal_layout/cubit/cubit.dart';
+import '../../meal_layout/data/model/meals_model.dart';
 
 class CategoryScreenCubit extends Cubit<CategoryScreenStates> {
   CategoryScreenCubit(this.meals, this.title, this.icon, this.mealLayoutCubit)

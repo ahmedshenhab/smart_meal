@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
+import '../../../../../core/style/app_color.dart';
+import '../../../../meal_details/meal_datails_screen.dart';
+import '../../../cubit/cubit.dart';
+import '../../../cubit/stataes.dart';
 
 class SearchByIngrediantSection extends StatelessWidget {
   const SearchByIngrediantSection({super.key});

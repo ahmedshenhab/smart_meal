@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
-import 'package:smart_meal/module/meal_details/widget/costom_read_more_text.dart';
-import 'package:smart_meal/module/meal_details/widget/properity_meal.dart';
+import '../../../core/style/app_color.dart';
+import '../cubit/meal_detail_cubit.dart';
+import 'costom_read_more_text.dart';
+import 'properity_meal.dart';
 
 class DetailsSection extends StatelessWidget {
   const DetailsSection({super.key});

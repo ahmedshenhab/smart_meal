@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
-import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/register/cubit/states.dart';
+import '../../../../core/style/app_color.dart';
+import '../../login/meal_login_screen.dart';
+import '../cubit/cubit.dart';
+import '../cubit/states.dart';
 
 class RegisterListner extends StatelessWidget {
   const RegisterListner({super.key});

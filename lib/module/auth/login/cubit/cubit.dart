@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/module/auth/login/data/model/login_request/login_model_request.dart';
-import 'package:smart_meal/module/auth/login/data/repo/login_repo.dart';
+import '../data/model/login_request/login_model_request.dart';
+import '../data/repo/login_repo.dart';
 import 'states.dart';
 
 class MealLoginCubit extends Cubit<MealLoginStates> {

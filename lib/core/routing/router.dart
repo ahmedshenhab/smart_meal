@@ -1,24 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/di/di.dart';
-import 'package:smart_meal/core/network/local/sql/sqldb.dart';
-import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/login/data/repo/login_repo.dart';
-import 'package:smart_meal/module/auth/login/meal_login_screen.dart';
-import 'package:smart_meal/module/auth/register/cubit/cubit.dart';
-import 'package:smart_meal/module/auth/register/data/repo/register_repo.dart';
-import 'package:smart_meal/module/auth/register/meal_register_screen.dart';
-import 'package:smart_meal/module/category_screen/category_screen.dart';
-import 'package:smart_meal/module/category_screen/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_details/cubit/meal_detail_cubit.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
-import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/meal_layout_screen.dart';
+import '../di/di.dart';
+import '../network/local/sql/sqldb.dart';
+import '../../module/auth/login/cubit/cubit.dart';
+import '../../module/auth/login/data/repo/login_repo.dart';
+import '../../module/auth/login/meal_login_screen.dart';
+import '../../module/auth/register/cubit/cubit.dart';
+import '../../module/auth/register/data/repo/register_repo.dart';
+import '../../module/auth/register/meal_register_screen.dart';
+import '../../module/category_screen/category_screen.dart';
+import '../../module/category_screen/cubit/cubit.dart';
+import '../../module/meal_details/cubit/meal_detail_cubit.dart';
+import '../../module/meal_details/meal_datails_screen.dart';
+import '../../module/meal_layout/cubit/cubit.dart';
+import '../../module/meal_layout/data/model/meals_model.dart';
+import '../../module/meal_layout/data/repo/repo_layout.dart.dart';
+import '../../module/meal_layout/layout_screens/meal_layout_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:smart_meal/module/shopping/cubit/shopping_cubit.dart';
-import 'package:smart_meal/module/shopping/shoping_screen.dart';
+import '../../module/shopping/cubit/shopping_cubit.dart';
+import '../../module/shopping/shoping_screen.dart';
 
 class AppRouter {
   static Route? onGenerateRoute(RouteSettings setting) {
@@ -53,9 +53,7 @@ class AppRouter {
           builder:
               (_) => BlocProvider(
                 create: (context) {
-                  return MealLayoutCubit(getIt<RepoLayout>())
-                    ..getAllMeal()
-                    ..getAllFavorite();
+                  return MealLayoutCubit(getIt<RepoLayout>())..getAllFavorite();
                 },
                 child: const MealLayoutScreen(),
               ),

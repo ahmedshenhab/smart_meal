@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
-import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
-import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/saved/widget/bloc_listner_save.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/saved/widget/custom_item_meal_saved.dart';
+import '../../../../core/style/app_color.dart';
+import '../../../meal_details/meal_datails_screen.dart';
+import '../../cubit/cubit.dart';
+import '../../cubit/stataes.dart';
+import 'widget/custom_item_meal_saved.dart';
+import '../../../shopping/shoping_screen.dart';
 
 class Saved extends StatelessWidget {
   const Saved({super.key});
@@ -19,12 +18,13 @@ class Saved extends StatelessWidget {
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+
         children: [
           SizedBox(height: 30.h),
           InkWell(
             onTap: () {
-              // Navigator.pushNamed(context, ShopingScreen.shopingScreen);
-              MealLayoutCubit.get(context).getAllFavorite();
+              Navigator.pushNamed(context, ShopingScreen.shopingScreen);
+            
             },
             child: const Icon(
               Icons.shopping_cart_outlined,
@@ -33,8 +33,10 @@ class Saved extends StatelessWidget {
             ),
           ),
           SizedBox(height: 1.h),
+
           Expanded(
             child: Container(
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.r),
@@ -48,9 +50,9 @@ class Saved extends StatelessWidget {
               child: BlocBuilder<MealLayoutCubit, MealStates>(
                 buildWhen:
                     (previous, current) =>
-                        current is MealGetAllFavoriteErrorState ||
+                        current is MealGetAllFavoriteLoadingState ||
                         current is MealGetAllFavoriteSuccessState ||
-                        current is MealGetAllFavoriteLoadingState,
+                        current is MealGetAllFavoriteErrorState,
                 builder: (context, state) {
                   final cubit = MealLayoutCubit.get(context);
                   switch (state) {
@@ -58,8 +60,24 @@ class Saved extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
 
                     case MealGetAllFavoriteErrorState _:
-                      return Center(
-                        child: Text(state.error, textAlign: TextAlign.center),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            state.error.message ?? '',
+                            textAlign: TextAlign.center,
+                          ),
+                          Visibility(
+                            visible: state.error.code != 404,
+
+                            child: TextButton(
+                              onPressed: () {
+                                MealLayoutCubit.get(context).getAllFavorite();
+                              },
+                              child: const Text('try again'),
+                            ),
+                          ),
+                        ],
                       );
 
                     case MealGetAllFavoriteSuccessState _:
@@ -80,13 +98,15 @@ class Saved extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, MealDetailsScreen.mealDetailsScreen,
-                                  arguments: cubit.favoriteMeals[index]);
+                              Navigator.pushNamed(
+                                context,
+                                MealDetailsScreen.mealDetailsScreen,
+                                arguments: cubit.favoriteMeals[index],
+                              );
                             },
 
                             child: CustomItemMealSaved(
-                              searchByMealResponseModel:
-                                  cubit.favoriteMeals[index],
+                              meal: cubit.favoriteMeals[index],
                               boxShadow: BoxShadow(
                                 blurStyle: BlurStyle.outer,
                                 offset: const Offset(0, 4),
@@ -105,10 +125,6 @@ class Saved extends StatelessWidget {
               ),
             ),
           ),
-
-       
-       const BlocListnerSave()
-       
         ],
       ),
     );

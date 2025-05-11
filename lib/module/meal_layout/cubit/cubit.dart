@@ -1,13 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/di/di.dart';
-import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
-import 'package:smart_meal/module/meal_layout/data/repo/repo_layout.dart.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/saved/saved.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/cubit/cubit.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/search/data/repo/repo.dart';
+import '../../../core/di/di.dart';
+import '../../../core/style/app_color.dart';
+import '../data/model/meals_model.dart';
+import '../data/repo/repo_layout.dart.dart';
+import '../layout_screens/saved/saved.dart';
+import '../layout_screens/search/cubit/cubit.dart';
+import '../layout_screens/search/data/repo/repo.dart';
+import '../../../reusable.dart';
 import '../layout_screens/profile.dart';
 import 'stataes.dart';
 
@@ -18,6 +18,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
   MealLayoutCubit(this.repoLayout) : super(MealInitialState());
   final RepoLayout repoLayout;
   List<MealsModel> favoriteMeals = [];
+
   final mealCategories = [
     {
       'title': 'Breakfast',
@@ -37,6 +38,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
   ];
 
   Map<String, List<MealsModel>> meals = {};
+  Map<int, bool> isFavouriteMap = {};
 
   final screens = [
     const Home(),
@@ -63,30 +65,37 @@ class MealLayoutCubit extends Cubit<MealStates> {
   void changeBottomNavIndex(int index) {
     if (index == currentIndex) return;
     currentIndex = index;
+   
 
     emit(MealChangeBottomNavState());
   }
 
-  void getAllMeal() async {
-    emit(MealGetAllMealLoadingState());
-    final result = await repoLayout.getAllMeal();
-    result.fold(
-      (l) {
-        emit(MealGetAllMealErrorState(error: l.message!));
-      },
-      (r) {
-        meals.addAll({
-          'Breakfast':
-              r.where((element) => element.type == 'Breakfast').toList(),
-          'Lunch': r.where((element) => element.type == 'Lunch').toList(),
-          'Dinner': r.where((element) => element.type == 'Dinner').toList(),
-        });
+  void getAllMeal(String title, IconData icon) async {
+    if (meals.isNotEmpty) {
+      emit(MealGetAllMealSuccessState(meals[title], title, icon));
+      return;
+    } else {
+      emit(MealGetAllMealLoadingState());
+      final result = await repoLayout.getAllMeal();
+      result.fold(
+        (l) {
+          emit(MealGetAllMealErrorState(error: l.message!));
+        },
+        (r) {
+          meals.addAll({
+            'Breakfast':
+                r.where((element) => element.type == 'Breakfast').toList(),
+            'Lunch': r.where((element) => element.type == 'Lunch').toList(),
+            'Dinner': r.where((element) => element.type == 'Dinner').toList(),
+          });
+          for (var element in r) {
+            isFavouriteMap.addAll({element.recipeId ?? 10: element.isFavorite});
+          }
 
-        log('hi${meals.keys}');
-
-        emit(MealGetAllMealSuccessState(meals));
-      },
-    );
+          emit(MealGetAllMealSuccessState(meals[title], title, icon));
+        },
+      );
+    }
   }
 
   void searchByIngrediant(String name) async {
@@ -108,63 +117,121 @@ class MealLayoutCubit extends Cubit<MealStates> {
     );
   }
 
+  void getAllFavorite() async {
+    emit(MealGetAllFavoriteLoadingState());
+    final result = await repoLayout.getFavorite();
+    result.fold(
+      (l) {
+        emit(MealGetAllFavoriteErrorState(error: l));
+      },
+      (r) {
+        if (favoriteMeals.isNotEmpty) {
+          favoriteMeals.clear();
+        }
+
+        favoriteMeals = r;
+
+        emit(MealGetAllFavoriteSuccessState());
+      },
+    );
+  }
+
+  changefavorite(int id) async {
+    if (isFavouriteMap[id]!) {
+      deleteFavorite(id);
+    } else {
+      addFavorite(id);
+    }
+  }
+
+  void addFavorite(int id) async {
+    isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+    emit(MealChangeFavoriteTemporaryState());
+    final result = await repoLayout.addFavorite(id);
+
+    result.fold(
+      (l) {
+        isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+        emit(MealChangeFavoriteErrorState(message: l.message ?? ''));
+      },
+      (r) {
+        emit(MealChangeFavoriteSuccessState(message: r));
+      },
+    );
+  }
+
+  void deleteFavorite(int id) async {
+    isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+    emit(MealChangeFavoriteTemporaryState());
+    final result = await repoLayout.deleteFavoriteById(id);
+
+    result.fold(
+      (l) {
+        isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+        emit(MealChangeFavoriteErrorState(message: l.message ?? ''));
+      },
+      (r) {
+        emit(MealChangeFavoriteSuccessState(message: r));
+      },
+    );
+  }
+
+  void deleteFavoriteFromsaved(int id) async {
+    if (isFavouriteMap.isNotEmpty) {
+      isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+    }
+
+    // facke delete(temporary)
+    for (int i = 0; i < favoriteMeals.length; i++) {
+      if (favoriteMeals[i].recipeId == id) {
+        favoriteMeals[i] = favoriteMeals[i].copyWith(
+          isFavorite: !(favoriteMeals[i].isFavorite),
+        );
+        break;
+      }
+    }
+    emit(MealGetAllFavoriteSuccessState());
+
+    // emit(MealChangeFavoriteTemporaryState());
+
+    final result = await repoLayout.deleteFavoriteById(id);
+
+    result.fold(
+      (l) {
+        if (isFavouriteMap.isNotEmpty) {
+          isFavouriteMap[id] = !(isFavouriteMap[id] ?? false);
+        }
+        for (int i = 0; i < favoriteMeals.length; i++) {
+          if (favoriteMeals[i].recipeId == id) {
+            favoriteMeals[i] = favoriteMeals[i].copyWith(
+              isFavorite: !(favoriteMeals[i].isFavorite),
+            );
+            break;
+          }
+        }
+
+        // back to normal because of error on delete
+
+        emit(MealGetAllFavoriteSuccessState());
+        buildshowToast(msg: l.message ?? '', color: AppColor.deepOrange);
+
+        // emit(MealChangeFavoriteErrorState(message: l.message ?? ''));
+      },
+      (r) {
+        favoriteMeals.removeWhere((element) => element.recipeId == id);
+
+        emit(MealGetAllFavoriteSuccessState());
+        buildshowToast(msg: r, color: AppColor.green);
+        // emit(MealChangeFavoriteSuccessState(message: r));
+      },
+    );
+  }
+
   final categoriesNames = {
     {"Breakfast": "assets/images/breakFast.png"},
     {"Lunch": "assets/images/lunch.png"},
     {"Dinner": "assets/images/dinner.png"},
   };
-
-  addFavorite(int mealId) async {
-    final result = await repoLayout.addFavorite(mealId);
-
-    result.fold(
-      (l) {
-        emit(MealAddFavoriteErrorState(error: l.message!));
-      },
-      (r) {
-        emit(MealAddFavoriteSuccessState(message: r));
-      },
-    );
-  }
-
-  void getAllFavorite({int? id}) async {
-    if (favoriteMeals.isNotEmpty) {
-      favoriteMeals.removeWhere((element) => element.recipeId == id);
-
-      emit(MealGetAllFavoriteSuccessState());
-    }
-
-    else{
-       emit(MealGetAllFavoriteLoadingState());
-    final result = await repoLayout.getFavorite();
-    result.fold(
-      (l) {
-        emit(MealGetAllFavoriteErrorState(error: l.message ?? ''));
-      },
-      (r) {
-        favoriteMeals = r;
-        emit(MealGetAllFavoriteSuccessState());
-      },
-    );
-    }
-   
-  }
-
-  deleteFavoriteById(int mealId) async {
-    emit(MealDeleteFavoriteByIdLoadingState());
-
-    final result = await repoLayout.deleteFavoriteById(mealId);
-
-    result.fold(
-      (l) {
-        emit(MealDeleteFavoriteByIdErrorState(error: l.message ?? ''));
-      },
-      (r) {
-        emit(MealDeleteFavoriteByIdSuccessState());
-        getAllFavorite(id: mealId);
-      },
-    );
-  }
 
   final searchIngrediantController = TextEditingController();
   @override
