@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/app_constant.dart';
 import '../../../core/network/local/shared_pref/cach_helper.dart';
 import '../../../core/style/app_color.dart';
@@ -86,11 +87,10 @@ class _ProfileState extends State<Profile> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const Text('I AM THE G.O.A.T'),
                   const SizedBox(height: 20),
-                  const Text('Full Name'),
+                  Text(S.of(context).fullName),
                   _buildTextField(nameController),
-                  const Text('Email'),
+                  Text(S.of(context).email),
                   _buildTextField(emailController),
 
                   // const Text('Phone Number'),

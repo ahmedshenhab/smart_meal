@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/style/app_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
@@ -19,7 +20,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    // log('hi');
+    
     final mediaQuery = MediaQuery.of(context);
     final cubit = MealLoginCubit.get(context);
     return BlocListener<MealLoginCubit, MealLoginStates>(
@@ -36,16 +37,16 @@ class _LoginFormState extends State<LoginForm> {
               buildLoginField(
                 context,
                 controller: cubit.emailController,
-                labelText: 'Email Address',
+                labelText: S.of(context).emailAddress,
 
                 validator: (value) {
                   // Enhanced validation
                   if (value!.isEmpty) {
-                    return 'Please enter your email';
+                    return S.of(context).validate1tionEmail;
                   } else if (!RegExp(
                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
                   ).hasMatch(value)) {
-                    return 'Please enter a valid email';
+                    return S.of(context).validate2tionEmail;
                   }
                   return null;
                 },
@@ -55,12 +56,12 @@ class _LoginFormState extends State<LoginForm> {
 
               // password
               buildLoginField(
-                labelText: 'Password',
+                labelText: S.of(context).Password,
                 context,
                 controller: cubit.passwordController,
                 validator: (value) {
                   if (value!.isEmpty || value.length < 6) {
-                    return 'at least 6 character';
+                    return S.of(context).Password;
                   }
                   // else if (!RegExp(
                   //   r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
@@ -99,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {},
 
                 child: Text(
-                  'forget password?',
+                   S.of(context).forgetPassword,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     decoration: TextDecoration.underline,
                     decorationThickness: 1.3.w,

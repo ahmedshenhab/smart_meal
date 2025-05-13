@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_redundant_argument_values
 
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_meal/core/app_constant.dart';
@@ -15,20 +13,18 @@ class DioHelper {
   static Dio get init {
     {
       if (_dio == null) {
-
         _dio = Dio(
           BaseOptions(
             receiveDataWhenStatusError: true,
-            
+
             connectTimeout: const Duration(seconds: 30),
             receiveTimeout: const Duration(seconds: 30),
             headers: {
+              'Accept-Language': 'ar',
               'Content-Type': 'application/json',
 
-
-              'Authorization': 'Bearer ${CachHelper.getData(key: AppConstant.tokenKey)}',
-                 
-
+              'Authorization':
+                  'Bearer ${CachHelper.getData(key: AppConstant.tokenKey)}',
             },
 
             baseUrl: ApiEndpoint.baseUrl,
@@ -46,8 +42,6 @@ class DioHelper {
             maxWidth: 90,
           ),
         );
-
-        log('Dio initialized successfully');
 
         return _dio!;
       }

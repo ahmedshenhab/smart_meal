@@ -8,11 +8,10 @@ import '../../meal_layout/data/model/meals_model.dart';
 
 class MealDetailCubit extends Cubit<MealDetailStatess> {
   MealDetailCubit({required this.mealsModel, required this.databaseHelper})
-    : super(const MealDetailTitleButtonChangeState(title: 'ingredients'));
+    : super(const MealDetailTitleButtonChangeState());
   final MealsModel mealsModel;
   final DatabaseHelper databaseHelper;
 
-  final Set<String> mealCategory = {'ingredients', 'instructions'};
   String selectedCategory = 'ingredients';
 
   static MealDetailCubit get(context) => BlocProvider.of(context);
@@ -23,7 +22,7 @@ class MealDetailCubit extends Cubit<MealDetailStatess> {
     }
     selectedCategory = e;
 
-    emit(MealDetailTitleButtonChangeState(title: e));
+    emit(const MealDetailTitleButtonChangeState());
   }
 
   void updateQuantity() {
@@ -37,20 +36,19 @@ class MealDetailCubit extends Cubit<MealDetailStatess> {
     if (selectedIngredientIndexes.isEmpty) {
       return;
     }
-     
-   final selectedIngrediant = selectedIngredientIndexes.map((element) {
-      return mealsModel.ingredients?[element].ingredientName ?? '';
-    }).toList();
-  
 
-    databaseHelper.insertIngrediantsBatch(  mealsModel.recipeName ?? '', selectedIngrediant);
+    final selectedIngrediant =
+        selectedIngredientIndexes.map((element) {
+          return mealsModel.ingredients?[element].ingredientName ?? '';
+        }).toList();
 
+    databaseHelper.insertIngrediantsBatch(
+      mealsModel.recipeName ?? '',
+      selectedIngrediant,
+    );
 
     emit(MealDetailAddSuccessToCartState());
-
   }
-
-
 
   final Set<int> selectedIngredientIndexes = {};
   void toggleIngredientSelection(int index) {
@@ -61,7 +59,7 @@ class MealDetailCubit extends Cubit<MealDetailStatess> {
     }
 
     log(selectedIngredientIndexes.toString());
-   
+
     emit(MealDetailToggleIngredientCartState());
   }
 

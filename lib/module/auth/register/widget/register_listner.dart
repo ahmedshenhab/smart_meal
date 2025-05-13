@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/style/app_color.dart';
 import '../../login/meal_login_screen.dart';
 import '../cubit/cubit.dart';
@@ -44,7 +45,7 @@ class RegisterListner extends StatelessWidget {
                       color: Colors.green,
                     ),
                     content: Text(
-                      'Account created successfully,click ok and go to login',
+                      S.of(context).successCreateAccount,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 14),
@@ -63,7 +64,7 @@ class RegisterListner extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'OK',
+                            S.of(context).ok,
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium!.copyWith(fontSize: 16),
@@ -99,7 +100,7 @@ class RegisterListner extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Text(
-                          'OK',
+                          S.of(context).ok,
                           style: Theme.of(
                             context,
                           ).textTheme.bodyMedium!.copyWith(fontSize: 16),

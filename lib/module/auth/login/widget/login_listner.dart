@@ -1,7 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/app_constant.dart';
 import '../../../../core/network/local/shared_pref/cach_helper.dart';
 import '../../../../core/style/app_color.dart';
@@ -46,7 +46,7 @@ class LoginListner extends StatelessWidget {
                       color: Colors.red,
                     ),
                     content: Text(
-                      ' please check your email and password ',
+                      S.of(context).checkYourEmailAndPassword,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 14),
@@ -57,7 +57,7 @@ class LoginListner extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Text(
-                          'OK,',
+                          S.of(context).ok,
                           style: Theme.of(
                             context,
                           ).textTheme.bodyMedium!.copyWith(fontSize: 16),
@@ -93,7 +93,7 @@ class LoginListner extends StatelessWidget {
             }
           }
 
-          log('success');
+         
         }
 
         if (state is MealLoginErrorState) {
@@ -118,7 +118,7 @@ class LoginListner extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                           child: Text(
-                            'OK',
+                            S.of(context).ok,
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium!.copyWith(fontSize: 16),

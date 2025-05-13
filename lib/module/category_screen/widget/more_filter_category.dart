@@ -1,8 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import '../cubit/cubit.dart';
 
@@ -35,7 +35,7 @@ class MoreFilterCategory extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'More Filters',
+              S.of(context).MoreFilters,
               style: theme.textTheme.bodyMedium!.copyWith(
                 color: AppColor.frannyColor,
                 fontFamily: 'Inter',
@@ -68,7 +68,7 @@ class _FiltersModalState extends State<FiltersModal> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Filters',
+            S.of(context).Filters,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontFamily: 'cambria',
               fontSize: 25,
@@ -78,7 +78,7 @@ class _FiltersModalState extends State<FiltersModal> {
           SizedBox(height: 30.h),
           FilterSlider(
             max: 1000,
-            label: 'Calories',
+            label: S.of(context).calories,
             rangeText: '0 - 1000 cal',
             value: widget.cubit.calories,
             onChanged: (val) {
@@ -87,14 +87,14 @@ class _FiltersModalState extends State<FiltersModal> {
           ),
           FilterSlider(
             max: 100,
-            label: 'Protein',
+            label: S.of(context).protein,
             rangeText: '0 - 100 g',
             value: widget.cubit.protein,
             onChanged: (val) => setState(() => widget.cubit.protein = val),
           ),
           FilterSlider(
             max: 1000,
-            label: 'Sugar',
+            label: S.of(context).sugar,
             rangeText: '0 - 1000 g',
 
             value: widget.cubit.sugar,
@@ -102,7 +102,7 @@ class _FiltersModalState extends State<FiltersModal> {
           ),
           FilterSlider(
             max: 1000,
-            label: 'Fats',
+            label: S.of(context).fats,
             rangeText: '0 - 1000 g',
             value: widget.cubit.fats,
 
@@ -110,7 +110,7 @@ class _FiltersModalState extends State<FiltersModal> {
           ),
           FilterSlider(
             max: 1000,
-            label: 'Carbs',
+            label: S.of(context).carbs,
             rangeText: '0 - 100 g',
             value: widget.cubit.carbs,
             onChanged: (val) => setState(() => widget.cubit.carbs = val),
@@ -118,7 +118,7 @@ class _FiltersModalState extends State<FiltersModal> {
           SizedBox(height: 20.h),
           InkWell(
             onTap: () {
-              log('hi inkwell');
+              
               widget.cubit.filterSearch();
               Navigator.pop(context);
             },
@@ -130,8 +130,8 @@ class _FiltersModalState extends State<FiltersModal> {
                 color: AppColor.deepOrange,
                 borderRadius: BorderRadius.circular(20.r),
               ),
-              child: const Text(
-                'Save',
+              child:  Text(
+                S.of(context).save,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

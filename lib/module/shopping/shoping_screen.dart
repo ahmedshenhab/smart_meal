@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../core/style/app_color.dart';
 import 'cubit/shopping_cubit.dart';
 
@@ -79,7 +80,7 @@ class ShopingScreen extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'Delete All',
+                              S.of(context).deleteAll,
                               style: Theme.of(
                                 context,
                               ).textTheme.bodyMedium!.copyWith(
@@ -156,10 +157,11 @@ class ShopingScreen extends StatelessWidget {
 
                                       InkWell(
                                         onTap: () {
-                                          ShoppingCubit.get(
-                                            context,
-                                          ).deleteRow(
-                                            ShoppingCubit.get(context).carts[index].id??0,
+                                          ShoppingCubit.get(context).deleteRow(
+                                            ShoppingCubit.get(
+                                                  context,
+                                                ).carts[index].id ??
+                                                0,
                                           );
                                         },
                                         child: Container(

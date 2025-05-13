@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/di/di.dart';
+import '../../../core/di/setup.dart';
 import '../../../core/style/app_color.dart';
 import '../data/model/meals_model.dart';
 import '../data/repo/repo_layout.dart.dart';
@@ -19,24 +19,6 @@ class MealLayoutCubit extends Cubit<MealStates> {
   final RepoLayout repoLayout;
   List<MealsModel> favoriteMeals = [];
 
-  final mealCategories = [
-    {
-      'title': 'Breakfast',
-      'image': 'assets/images/breakFast.png',
-      'icon': Icons.breakfast_dining_outlined,
-    },
-    {
-      'title': 'Lunch',
-      'image': 'assets/images/lunch.png',
-      'icon': Icons.lunch_dining_outlined,
-    },
-    {
-      'title': 'Dinner',
-      'image': 'assets/images/dinner.png',
-      'icon': Icons.dinner_dining_outlined,
-    },
-  ];
-
   Map<String, List<MealsModel>> meals = {};
   Map<int, bool> isFavouriteMap = {};
 
@@ -52,12 +34,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
     const Saved(),
   ];
 
-  List<BottomNavigationBarItem> items = const [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-    BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-    BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
-  ];
+ 
 
   static MealLayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -65,14 +42,16 @@ class MealLayoutCubit extends Cubit<MealStates> {
   void changeBottomNavIndex(int index) {
     if (index == currentIndex) return;
     currentIndex = index;
-   
+    if (index == 3) {
+      getAllFavorite();
+    }
 
     emit(MealChangeBottomNavState());
   }
 
-  void getAllMeal(String title, IconData icon) async {
+  void getAllMeal(String title, IconData icon,String key) async {
     if (meals.isNotEmpty) {
-      emit(MealGetAllMealSuccessState(meals[title], title, icon));
+      emit(MealGetAllMealSuccessState(meals[key], title, icon));
       return;
     } else {
       emit(MealGetAllMealLoadingState());
@@ -92,7 +71,7 @@ class MealLayoutCubit extends Cubit<MealStates> {
             isFavouriteMap.addAll({element.recipeId ?? 10: element.isFavorite});
           }
 
-          emit(MealGetAllMealSuccessState(meals[title], title, icon));
+          emit(MealGetAllMealSuccessState(meals[key], title, icon));
         },
       );
     }

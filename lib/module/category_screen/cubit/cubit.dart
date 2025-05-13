@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +37,7 @@ class CategoryScreenCubit extends Cubit<CategoryScreenStates> {
               (meal.carb100 ?? 0) <= carbs;
         }).toList();
 
-    log('Filtered: ${filteredList.length}');
+   
     emit(CategoryScreenStates(meals: filteredList));
   }
 

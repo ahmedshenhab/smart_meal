@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import '../login/meal_login_screen.dart';
-import '../login/widget/custom_outlined_button.dart';
 import 'cubit/cubit.dart';
 import 'widget/register_form.dart';
 
@@ -27,7 +26,7 @@ class MealRegisterScreen extends StatelessWidget {
           children: [
             // Logo Section
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.asset(
                   'assets/images/logo_app.png',
@@ -35,21 +34,21 @@ class MealRegisterScreen extends StatelessWidget {
                   width: 120.w,
                   height: 100.h,
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    overlayColor: Colors.transparent,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Later',
-                    style: theme.textTheme.bodyMedium!.copyWith(
-                      fontSize: 17.sp,
-                      fontFamily: 'SofiaSans',
-                      color: AppColor.logInLaterColor,
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   style: TextButton.styleFrom(
+                //     padding: EdgeInsets.zero,
+                //     overlayColor: Colors.transparent,
+                //   ),
+                //   onPressed: () {},
+                //   child: Text(
+                //     'Later',
+                //     style: theme.textTheme.bodyMedium!.copyWith(
+                //       fontSize: 17.sp,
+                //       fontFamily: 'SofiaSans',
+                //       color: AppColor.logInLaterColor,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
 
@@ -71,7 +70,7 @@ class MealRegisterScreen extends StatelessWidget {
                     children: [
                       SizedBox(height: 20.h),
                       Text(
-                        'Create Account',
+                      S.of(context).createAccount,
                         style: theme.textTheme.bodyMedium!.copyWith(
                           fontFamily: 'Poppins',
                           fontSize: 24.sp,
@@ -79,41 +78,41 @@ class MealRegisterScreen extends StatelessWidget {
                       ),
                       SizedBox(height: mediaQuery.size.height * 0.06),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomOutlinedButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              width: 25.w,
-                              'assets/images/google_icon.svg',
-                            ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     CustomOutlinedButton(
+                      //       onPressed: () {},
+                      //       icon: SvgPicture.asset(
+                      //         width: 25.w,
+                      //         'assets/images/google_icon.svg',
+                      //       ),
 
-                            label: 'Sign up with Facebook',
-                          ),
-                          CustomOutlinedButton(
-                            onPressed: () {},
+                      //       label: 'Sign up with Facebook',
+                      //     ),
+                      //     CustomOutlinedButton(
+                      //       onPressed: () {},
 
-                            icon: Icon(
-                              Icons.facebook_outlined,
-                              color: AppColor.blue,
-                              size: 25.w,
-                            ),
+                      //       icon: Icon(
+                      //         Icons.facebook_outlined,
+                      //         color: AppColor.blue,
+                      //         size: 25.w,
+                      //       ),
 
-                            label: 'Sign up with Facebook',
-                          ),
-                        ],
-                      ),
+                      //       label: 'Sign up with Facebook',
+                      //     ),
+                      //   ],
+                      // ),
 
-                      SizedBox(height: mediaQuery.size.height * 0.03),
-                      Text(
-                        '-OR-',
-                        style: theme.textTheme.bodyMedium!.copyWith(
-                          fontSize: 18.sp,
-                          fontFamily: 'Poppins',
-                          color: AppColor.fieldColorHint,
-                        ),
-                      ),
+                      // SizedBox(height: mediaQuery.size.height * 0.03),
+                      // Text(
+                      //   '-OR-',
+                      //   style: theme.textTheme.bodyMedium!.copyWith(
+                      //     fontSize: 18.sp,
+                      //     fontFamily: 'Poppins',
+                      //     color: AppColor.fieldColorHint,
+                      //   ),
+                      // ),
 
                       //register form
                       const RegisterForm(),
@@ -135,7 +134,7 @@ class MealRegisterScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Create Account',
+                          S.of(context).createAccount,
                           style: theme.textTheme.bodyMedium!.copyWith(
                             fontFamily: 'SofiaSans',
                             fontSize: 20.sp,
@@ -148,7 +147,7 @@ class MealRegisterScreen extends StatelessWidget {
 
                       RichText(
                         text: TextSpan(
-                          text: "do you have an account? ",
+                          text: S.of(context).haveAccount,
                           style: theme.textTheme.bodyMedium!.copyWith(
                             fontFamily: 'SofiaSans',
                             fontSize: 14.sp,
@@ -157,7 +156,7 @@ class MealRegisterScreen extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Log in',
+                              text: S.of(context).LogIn,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 decoration: TextDecoration.underline,
                                 decorationThickness: 0.7.w,

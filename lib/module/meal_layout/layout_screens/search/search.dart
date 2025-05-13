@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/style/app_color.dart';
 import '../../../meal_details/meal_datails_screen.dart';
 
@@ -10,12 +10,25 @@ import 'widgets/custom_item_meal_search.dart';
 import 'widgets/more_filter_search.dart';
 import 'widgets/search_text_field.dart';
 
+// Category model
+class MealKeyValue {
+  MealKeyValue({required this.key, required this.label});
+  final String key;
+  final String label;
+}
+
 class Search extends StatelessWidget {
   const Search({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    final categories = [
+      MealKeyValue(key: 'Breakfast', label: S.of(context).breakfast),
+      MealKeyValue(key: 'Lunch', label: S.of(context).lunch),
+      MealKeyValue(key: 'Dinner', label: S.of(context).dinner),
+    ];
 
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
@@ -25,49 +38,45 @@ class Search extends StatelessWidget {
         const SearchTextField(),
         SizedBox(height: mediaQuery.size.height * 0.02),
 
-        //more filters
         const MoreFilterSearch(),
         SizedBox(height: mediaQuery.size.height * 0.033),
+
         BlocBuilder<SearchByMealCubit, SearchByMealStates>(
           buildWhen:
               (previous, current) =>
                   current is SearchByMealChangeBottomCategoryState,
-
           builder: (context, state) {
-            final cubit = BlocProvider.of<SearchByMealCubit>(context);
+            final cubit = SearchByMealCubit.get(context);
 
             return Row(
-              spacing: 10.w,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...cubit.categorys.map(
-                  (e) => ElevatedButton(
-                    key: Key(cubit.categorys.indexOf(e).toString()),
-                    onPressed: () => cubit.changeCategory(e),
-                    style: ElevatedButton.styleFrom(
-                      overlayColor: Colors.transparent,
-                      // shadowColor: Colors.transparent,
-                      backgroundColor:
-                          cubit.selectedCategory == e
-                              ? Colors.orange
-                              : Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.r),
+                ...categories.map((category) {
+                  final isSelected = cubit.selectedCategoryKey == category.key;
+
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    child: ElevatedButton(
+                      key: Key(category.key),
+                      onPressed: () => cubit.changeCategory(category.key),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isSelected ? Colors.orange : Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.r),
+                        ),
+                      ),
+                      child: Text(
+                        category.label,
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontFamily: 'Sofia Pro',
+                          fontSize: 15.sp,
+                        ),
                       ),
                     ),
-                    child: Text(
-                      e,
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color:
-                            cubit.selectedCategory == e
-                                ? Colors.white
-                                : Colors.black,
-                        fontFamily: 'Sofia Pro',
-                        fontSize: 15.sp,
-                      ),
-                    ),
-                  ),
-                ),
+                  );
+                }),
               ],
             );
           },
@@ -77,7 +86,6 @@ class Search extends StatelessWidget {
 
         Expanded(
           child: Container(
-            
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.r),
@@ -93,7 +101,6 @@ class Search extends StatelessWidget {
                       current is SearchByMealSuccess ||
                       current is SearchByMealLoading ||
                       current is SearchByMealError,
-
               builder: (context, state) {
                 switch (state) {
                   case SearchByMealLoading _:
@@ -103,20 +110,16 @@ class Search extends StatelessWidget {
                         backgroundColor: AppColor.deepOrange,
                       ),
                     );
-
                   case SearchByMealSuccess _:
                     return state.searchByMealResponseModel!.isEmpty
-                        ? const Center(child: Text('search with meal name'))
+                        ? Center(child: Text(S.of(context).noMealsFound))
                         : GridView.builder(
                           padding: const EdgeInsets.all(0),
-
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
-
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-
                                 crossAxisSpacing: 10.w,
                                 mainAxisSpacing: 20.h,
                               ),
@@ -134,23 +137,21 @@ class Search extends StatelessWidget {
                                 },
                                 child: CustomItemMealSearch(
                                   meal: state.searchByMealResponseModel![index],
-
                                   boxShadow: BoxShadow(
                                     offset: const Offset(0, 5),
                                     color: Colors.black.withValues(alpha: 0.1),
                                     blurRadius: 15,
-
                                     spreadRadius: 5,
                                   ),
                                 ),
                               ),
                         );
-
                   case SearchByMealError _:
                     return Center(child: Text(state.error));
-
                   default:
-                    return const Center(child: Text('search with meal name'));
+                    return Center(
+                      child: Text(S.of(context).searchWithMealName),
+                    );
                 }
               },
             ),

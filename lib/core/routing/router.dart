@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../di/di.dart';
+import '../di/setup.dart';
 import '../network/local/sql/sqldb.dart';
 import '../../module/auth/login/cubit/cubit.dart';
 import '../../module/auth/login/data/repo/login_repo.dart';
@@ -67,6 +67,7 @@ class AppRouter {
               (_) => BlocProvider<MealDetailCubit>(
                 create:
                     (context) => MealDetailCubit(
+                      
                       mealsModel: args,
                       databaseHelper: getIt<DatabaseHelper>(),
                     ),

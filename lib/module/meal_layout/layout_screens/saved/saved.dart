@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/style/app_color.dart';
 import '../../../meal_details/meal_datails_screen.dart';
 import '../../cubit/cubit.dart';
@@ -74,7 +75,7 @@ class Saved extends StatelessWidget {
                               onPressed: () {
                                 MealLayoutCubit.get(context).getAllFavorite();
                               },
-                              child: const Text('try again'),
+                              child:  Text(S.of(context).tryAgain),
                             ),
                           ),
                         ],
@@ -82,7 +83,7 @@ class Saved extends StatelessWidget {
 
                     case MealGetAllFavoriteSuccessState _:
                       if (cubit.favoriteMeals.isEmpty) {
-                        return const Center(child: Text('no meals saved'));
+                        return  Center(child: Text(S.of(context).noMealsFound));
                       }
 
                       return GridView.builder(

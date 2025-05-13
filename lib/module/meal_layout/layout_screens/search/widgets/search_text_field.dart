@@ -6,7 +6,6 @@ import '../cubit/cubit.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,8 @@ class SearchTextField extends StatelessWidget {
       ),
 
       child: TextField(
-        onChanged: (_)async {
+     
+        onChanged: (_) async {
           BlocProvider.of<SearchByMealCubit>(context).search();
         },
         controller:

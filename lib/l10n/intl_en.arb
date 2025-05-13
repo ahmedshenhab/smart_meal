@@ -1,1 +1,91 @@
-{}
+{
+
+
+    "loginWithHeader": "login with",
+    "LogIn": "Log in",
+    "dontHaveAnccount": "don't have an account? ",
+    "Register": "Register",
+    "emailAddress": "Email Address",
+    "email": "Email",
+    "ok": "ok",
+    "Password": "Password",
+    "validationPassword": "at least 6 character",
+    "validate1tionEmail": "'Please enter your email",
+    "validate2tionEmail": "'Please enter a valid email'",
+    
+    "forgetPassword" : "forget password?",
+    "checkYourEmailAndPassword" : "please check your email and password",
+    
+
+
+
+
+
+
+      "createAccount": "Create Account"  ,
+      "fullName": "Full Name"  ,
+      
+      "haveAccount": "do you have an account?"  ,
+      "login": "Log in"  ,
+      "validateName" : "Please enter your name",
+      "validation2Password" : "Passwords must have at least one non alphanumeric character, one uppercase, one number",
+      "successCreateAccount" : "Account created successfully,click ok and go to login",
+
+
+      "dontKnowWhatToCook": "Don't Know What\nTo Cook?",
+  "searchWithIngredients": "Search With Ingredients",
+  "yourIngredients": "Your Ingredients",
+  "noMealsFound": "No Meals Found",
+  "searchForIngredient": "Search for Ingredient...",
+
+
+
+   "recipesByCategories": "Recipes By Categories",
+  "forEverytime": "For Everytime",
+  "retry": "Retry",
+  "recipeCount": "150+ recipe",
+
+  
+  "breakfast": "Breakfast",
+  "lunch": "Lunch",
+  "dinner": "Dinner",
+  "invalidIngredient": "Invalid ingredient",
+  "searchWithMealName":"search with meal name",
+  "MoreFilters": "More Filters",
+  "Filters": "Filters",
+  "calories": "Calories",
+  "protein": "Protein",
+  "sugar": "Sugar",
+  "fats": "Fats",
+  "carbs": "Carbs",
+  
+  "save": "save",
+  "tryAgain": "try again",
+  "search": "search",
+  "serving": "serving",
+  "update": "update",
+  "ingredients": "ingredients",
+  "instructions": "instructions",
+  "deleteAll" : "Delete All",
+  "home" : "Home",
+  "profile" : "Profile",
+  "saved" : "Saved"
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+
+
+}

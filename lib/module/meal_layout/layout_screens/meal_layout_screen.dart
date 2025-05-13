@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/stataes.dart';
@@ -53,7 +54,12 @@ class _MealLayoutScreenState extends State<MealLayoutScreen> {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
             onTap: (index) => cubit.changeBottomNavIndex(index), // ✅ FIXED
-            items: cubit.items,
+            items:   [
+    BottomNavigationBarItem(icon: const Icon(Icons.home), label: S.of(context).home),
+    BottomNavigationBarItem(icon: const Icon(Icons.search), label: S.of(context).search),
+    BottomNavigationBarItem(icon: const Icon(Icons.person), label: S.of(context).profile),
+    BottomNavigationBarItem(icon: const Icon(Icons.bookmark), label: S.of(context).save),
+  ],
             type: BottomNavigationBarType.fixed,
           ),
         );

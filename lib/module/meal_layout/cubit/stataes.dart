@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import '../../../core/network/remote/api_error_model.dart';
 import '../data/model/meals_model.dart';
@@ -15,7 +14,7 @@ class MealGetAllMealSuccessState extends MealStates {
   MealGetAllMealSuccessState(this.meals, this.title, this.icon);
 
   List<MealsModel>? meals;
-  final String title  ;
+  final String title;
   final IconData icon;
 }
 
@@ -39,12 +38,10 @@ class MealSearchByIngrediantErrorState extends MealStates {
   final String error;
 }
 
- class MealGetAllFavoriteLoadingState extends MealStates {}
+class MealGetAllFavoriteLoadingState extends MealStates {}
 
 class MealGetAllFavoriteSuccessState extends MealStates {
-  MealGetAllFavoriteSuccessState(  );
-
-  
+  MealGetAllFavoriteSuccessState();
 }
 
 class MealGetAllFavoriteErrorState extends MealStates {
@@ -54,14 +51,14 @@ class MealGetAllFavoriteErrorState extends MealStates {
 }
 
 class MealChangeFavoriteTemporaryState extends MealStates {}
+
 class MealChangeFavoriteSuccessState extends MealStates {
   MealChangeFavoriteSuccessState({required this.message});
 
-   final String message;
-   
+  final String message;
 }
+
 class MealChangeFavoriteErrorState extends MealStates {
   MealChangeFavoriteErrorState({required this.message});
   final String message;
 }
-

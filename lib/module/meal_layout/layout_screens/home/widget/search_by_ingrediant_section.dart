@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../../core/style/app_color.dart';
 import '../../../../meal_details/meal_datails_screen.dart';
 import '../../../cubit/cubit.dart';
@@ -25,7 +26,7 @@ class SearchByIngrediantSection extends StatelessWidget {
         children: [
           SizedBox(height: 20.h),
           Text(
-            "Don't Know What\nTo Cook?",
+            S.of(context).dontKnowWhatToCook,
             style: theme.textTheme.bodyMedium!.copyWith(
               color: Colors.white,
               fontSize: 22.sp,
@@ -34,7 +35,7 @@ class SearchByIngrediantSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Search With Ingredients',
+            S.of(context).searchWithIngredients,
             style: theme.textTheme.bodyMedium!.copyWith(
               color: AppColor.deepOrange,
               fontSize: 22.sp,
@@ -43,15 +44,16 @@ class SearchByIngrediantSection extends StatelessWidget {
           SizedBox(height: mediaQuery.size.height * 0.017),
           Container(
             width: mediaQuery.size.width * 0.86,
-            height: mediaQuery.size.height * 0.37,
+            height: mediaQuery.size.height * 0.4,
             decoration: BoxDecoration(
               color: AppColor.white,
               borderRadius: BorderRadius.circular(30.r),
             ),
             child: Column(
               children: [
+                SizedBox(height: mediaQuery.size.height * 0.008),
                 Text(
-                  'Your Ingredients',
+                  S.of(context).yourIngredients,
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: AppColor.brown,
                     fontSize: 20.sp,
@@ -86,17 +88,17 @@ class SearchByIngrediantSection extends StatelessWidget {
 
                       case MealSearchByIngrediantSuccessState _:
                         if (state.meals.isEmpty) {
-                          return const Column(
+                          return Column(
                             children: [
-                              SizedBox(height: 60),
+                              const SizedBox(height: 60),
 
-                              Text('No Meals Found'),
+                              Text(S.of(context).noMealsFound),
                             ],
                           );
                         }
 
                         return SizedBox(
-                          height: mediaQuery.size.height * 0.24,
+                          height: mediaQuery.size.height * 0.263,
                           child: GridView.builder(
                             padding: EdgeInsets.only(
                               right: 12.w,
@@ -136,9 +138,7 @@ class SearchByIngrediantSection extends StatelessWidget {
                         );
 
                       default:
-                        return const Center(
-                          child: Text('serach by ingrediant'),
-                        );
+                        return const SizedBox.shrink();
                     }
                   },
                 ),
@@ -230,7 +230,7 @@ class SearchWithIngrediant extends StatelessWidget {
             color: AppColor.fieldHintSearchColor,
             size: 20.h,
           ),
-          hintText: 'Search for Ingredient...',
+          hintText: S.of(context).searchForIngredient,
           hintStyle: theme.textTheme.bodyMedium!.copyWith(
             fontFamily: 'Roboto',
             fontSize: 14.sp,

@@ -1,1 +1,62 @@
-{}
+{
+  "loginWithHeader": "تسجيل الدخول باستخدام",
+  "LogIn": "تسجيل الدخول",
+  "dontHaveAnccount": "ليس لديك حساب؟ ",
+  "Register": "تسجيل",
+  "emailAddress": "عنوان البريد الإلكتروني",
+  "email": "البريد الإلكتروني",
+  "ok": "موافق",
+  "Password": "كلمة المرور",
+  "validationPassword": "على الأقل 6 أحرف",
+  "validate1tionEmail": "يرجى إدخال بريدك الإلكتروني",
+  "validate2tionEmail": "يرجى إدخال بريد إلكتروني صالح",
+  
+  "forgetPassword": "هل نسيت كلمة المرور؟",
+  "checkYourEmailAndPassword": "يرجى التحقق من بريدك الإلكتروني وكلمة المرور",
+  
+  "createAccount": "إنشاء حساب",
+  "fullName": "الاسم الكامل",
+  
+  "haveAccount": "هل لديك حساب؟",
+  "login": "تسجيل الدخول",
+  "validateName": "يرجى إدخال اسمك",
+  "validation2Password": "يجب أن تحتوي كلمات المرور على الأقل على حرف غير أبجدي، حرف كبير، رقم",
+  "successCreateAccount": "تم إنشاء الحساب بنجاح، انقر على موافق وانتقل إلى تسجيل الدخول",
+  
+  "dontKnowWhatToCook": "لا تعرف ماذا تطبخ؟",
+  "searchWithIngredients": "ابحث بالمكونات",
+  "yourIngredients": "مكونّاتك",
+  "noMealsFound": "لم يتم العثور على وجبات",
+  "searchForIngredient": "ابحث عن مكون...",
+  
+  "recipesByCategories": "الوصفات حسب الفئات",
+  "forEverytime": "لكل الأوقات",
+  "retry": "إعادة المحاولة",
+  "recipeCount": "150+ وصفة",
+  
+  "breakfast": "إفطار",
+  "lunch": "غداء",
+  "dinner": "عشاء",
+  "invalidIngredient": "مكون غير صالح",
+  "searchWithMealName": "ابحث باسم الوجبة",
+  "MoreFilters": "مزيد من الفلاتر",
+  "Filters": "الفلاتر",
+  "calories": "السعرات الحرارية",
+  "protein": "البروتين",
+  "sugar": "السكر",
+  "fats": "الدهون",
+  "carbs": "الكربوهيدرات",
+  
+  "save": "حفظ",
+  "tryAgain": "حاول مرة أخرى",
+  "search": "بحث",
+  "serving": "الحصة",
+  "update": "تحديث",
+  "ingredients": "المكونات",
+  "instructions": "التعليمات",
+    "deleteAll" : "حذف الكل",
+    "home" : "الرئيسية",
+  "profile" : "الملف الشخصي",
+  "saved" : "المفضلة"
+
+}

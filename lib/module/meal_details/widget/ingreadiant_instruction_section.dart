@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/search/search.dart';
 import '../../../core/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import '../cubit/meal_detail_state.dart';
@@ -12,6 +14,11 @@ class IngreadiantInstructionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ingriantInstruction = [
+      MealKeyValue(key: 'ingredients', label: S.of(context).ingredients),
+      MealKeyValue(key: 'instructions', label: S.of(context).instructions),
+    ];
+
     return Column(
       children: [
         // Toggle buttons
@@ -26,9 +33,11 @@ class IngreadiantInstructionSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children:
-                MealDetailCubit.get(context).mealCategory.map((e) {
+                ingriantInstruction.map((e) {
                   return InkWell(
-                    onTap: () => MealDetailCubit.get(context).changeCategory(e),
+                    onTap:
+                        () =>
+                            MealDetailCubit.get(context).changeCategory(e.key),
                     child: BlocBuilder<MealDetailCubit, MealDetailStatess>(
                       buildWhen:
                           (previous, current) =>
@@ -41,13 +50,13 @@ class IngreadiantInstructionSection extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 MealDetailCubit.get(context).selectedCategory ==
-                                        e
+                                        e.key
                                     ? AppColor.deepOrange
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(18.r),
                           ),
                           child: Text(
-                            e,
+                            e.label,
                             textAlign: TextAlign.center,
                             style: Theme.of(
                               context,
@@ -56,7 +65,7 @@ class IngreadiantInstructionSection extends StatelessWidget {
                                   MealDetailCubit.get(
                                             context,
                                           ).selectedCategory ==
-                                          e
+                                          e.key
                                       ? AppColor.white
                                       : AppColor.black,
                               fontSize: 16.sp,
@@ -76,7 +85,7 @@ class IngreadiantInstructionSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'serving',
+              S.of(context).serving,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 18.sp,
                 color: AppColor.black,
@@ -118,7 +127,7 @@ class IngreadiantInstructionSection extends StatelessWidget {
                 MealDetailCubit.get(context).updateQuantity();
               },
               child: Text(
-                'update',
+                S.of(context).update,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 18.sp,
                   color: AppColor.deepOrange,

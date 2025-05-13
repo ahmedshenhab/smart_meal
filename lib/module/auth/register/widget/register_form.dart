@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/style/app_color.dart';
 import '../cubit/cubit.dart';
 import 'register_listner.dart';
@@ -31,12 +32,12 @@ class _RegisterFormState extends State<RegisterForm> {
             buildLoginField(
               context,
               controller: cubit.nameController,
-              labelText: 'full name',
+              labelText: S.of(context).fullName,
 
               validator: (value) {
                 // Enhanced validation
                 if (value!.isEmpty) {
-                  return 'Please enter your name';
+                  return S.of(context).validateName;
                 }
                 return null;
               },
@@ -47,16 +48,16 @@ class _RegisterFormState extends State<RegisterForm> {
             buildLoginField(
               context,
               controller: cubit.emailController,
-              labelText: 'Email Address',
+              labelText: S.of(context).emailAddress,
 
               validator: (value) {
                 // Enhanced validation
                 if (value!.isEmpty) {
-                  return 'Please enter your email';
+                  return S.of(context).validate1tionEmail;
                 } else if (!RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
                 ).hasMatch(value)) {
-                  return 'Please enter a valid email';
+                  return S.of(context).validate2tionEmail;
                 }
                 return null;
               },
@@ -66,16 +67,16 @@ class _RegisterFormState extends State<RegisterForm> {
 
             // password
             buildLoginField(
-              labelText: 'Password',
+              labelText: S.of(context).Password,
               context,
               controller: cubit.passwordController,
               validator: (value) {
                 if (value!.isEmpty || value.length < 6) {
-                  return 'at least 6 character';
+                  return S.of(context).validationPassword;
                 } else if (!RegExp(
                   r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
                 ).hasMatch(value)) {
-                  return 'Passwords must have at least one non alphanumeric character, one uppercase, one number';
+                  return S.of(context).validation2Password;
                 }
                 return null;
               },
@@ -98,32 +99,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
             SizedBox(height: mediaQuery.size.height * 0.02),
 
-            TextButton(
-              style: Theme.of(context).textButtonTheme.style!.copyWith(
-                padding: WidgetStateProperty.all(EdgeInsets.zero),
-                alignment: Alignment.center,
-                minimumSize: WidgetStateProperty.all(Size.zero),
-
-                // shadowColor: WidgetStateProperty.all(Colors.transparent),
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
-                backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              ),
-              onPressed: () {},
-
-              child: Text(
-                'forget password?',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  decoration: TextDecoration.underline,
-                  decorationThickness: 1.3.w,
-                  decorationColor: AppColor.gray,
-
-                  fontFamily: 'Poppins',
-                  fontSize: 13.8.sp,
-                  fontWeight: FontWeight.w100,
-                  color: AppColor.fieldColorHint,
-                ),
-              ),
-            ),
+           
 
             const RegisterListner(),
           ],

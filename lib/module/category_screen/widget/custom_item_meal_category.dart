@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,9 +24,7 @@ class CustomItemMealCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(
-      'searchByMealResponseModel.name: ${searchByMealResponseModel.recipeName}',
-    );
+   
     final theme = Theme.of(context);
     return Container(
       width: 150.w,

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
-import 'widget/custom_outlined_button.dart';
 import 'widget/login_form.dart';
 import '../register/meal_register_screen.dart';
 
@@ -36,21 +35,21 @@ class MealLoginScreen extends StatelessWidget {
                   width: 120.w,
                   height: 100.h,
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    overlayColor: Colors.transparent,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Later',
-                    style: theme.textTheme.bodyMedium!.copyWith(
-                      fontSize: 17.sp,
-                      fontFamily: 'SofiaSans',
-                      color: AppColor.logInLaterColor,
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   style: TextButton.styleFrom(
+                //     padding: EdgeInsets.zero,
+                //     overlayColor: Colors.transparent,
+                //   ),
+                //   onPressed: () {},
+                //   child: Text(
+                //     'Later',
+                //     style: theme.textTheme.bodyMedium!.copyWith(
+                //       fontSize: 17.sp,
+                //       fontFamily: 'SofiaSans',
+                //       color: AppColor.logInLaterColor,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
 
@@ -64,7 +63,6 @@ class MealLoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.r),
                     topRight: Radius.circular(45.r),
-                    // bottomLeft: Radius.circular(45.r),
                   ),
                 ),
                 child: SingleChildScrollView(
@@ -72,7 +70,7 @@ class MealLoginScreen extends StatelessWidget {
                     children: [
                       SizedBox(height: 20.h),
                       Text(
-                        'login with',
+                        S.of(context).loginWithHeader,
                         style: theme.textTheme.bodyMedium!.copyWith(
                           fontFamily: 'Poppins',
                           fontSize: 24.sp,
@@ -80,42 +78,41 @@ class MealLoginScreen extends StatelessWidget {
                       ),
                       SizedBox(height: mediaQuery.size.height * 0.06),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomOutlinedButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              width: 25.w,
-                              'assets/images/google_icon.svg',
-                            ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     CustomOutlinedButton(
+                      //       onPressed: () {},
+                      //       icon: SvgPicture.asset(
+                      //         width: 25.w,
+                      //         'assets/images/google_icon.svg',
+                      //       ),
 
-                            label: 'Sign up with Facebook',
-                          ),
-                          CustomOutlinedButton(
-                            onPressed: () {},
+                      //       label: 'Sign up with Facebook',
+                      //     ),
+                      //     CustomOutlinedButton(
+                      //       onPressed: () {},
 
-                            icon: Icon(
-                              Icons.facebook_outlined,
-                              color: AppColor.blue,
-                              size: 25.w,
-                            ),
+                      //       icon: Icon(
+                      //         Icons.facebook_outlined,
+                      //         color: AppColor.blue,
+                      //         size: 25.w,
+                      //       ),
 
-                            label: 'Sign up with Facebook',
-                          ),
-                        ],
-                      ),
+                      //       label: 'Sign up with Facebook',
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(height: mediaQuery.size.height * 0.03),
 
-                      SizedBox(height: mediaQuery.size.height * 0.03),
-                      Text(
-                        '-OR-',
-                        style: theme.textTheme.bodyMedium!.copyWith(
-                          fontSize: 18.sp,
-                          fontFamily: 'Poppins',
-                          color: AppColor.fieldColorHint,
-                        ),
-                      ),
-
+                      // Text(
+                      //   '-OR-',
+                      //   style: theme.textTheme.bodyMedium!.copyWith(
+                      //     fontSize: 18.sp,
+                      //     fontFamily: 'Poppins',
+                      //     color: AppColor.fieldColorHint,
+                      //   ),
+                      // ),
                       SizedBox(height: mediaQuery.size.height * 0.02),
 
                       //login form
@@ -124,7 +121,6 @@ class MealLoginScreen extends StatelessWidget {
 
                       // Log In Button
                       BlocBuilder<MealLoginCubit, MealLoginStates>(
-                        
                         builder: (context, state) {
                           return ElevatedButton(
                             onPressed: () {
@@ -144,7 +140,7 @@ class MealLoginScreen extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'Log in',
+                              S.of(context).LogIn,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 fontFamily: 'SofiaSans',
                                 fontSize: 20.sp,
@@ -159,7 +155,7 @@ class MealLoginScreen extends StatelessWidget {
 
                       RichText(
                         text: TextSpan(
-                          text: "don't have an account? ",
+                          text: S.of(context).dontHaveAnccount,
                           style: theme.textTheme.bodyMedium!.copyWith(
                             fontFamily: 'SofiaSans',
                             fontSize: 14.sp,
@@ -168,7 +164,7 @@ class MealLoginScreen extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Register',
+                              text: S.of(context).Register,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 decoration: TextDecoration.underline,
                                 decorationThickness: 0.7.w,

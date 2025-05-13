@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/network/local/sql/sqldb.dart';
@@ -15,8 +14,7 @@ class ShoppingCubit extends Cubit<ShoppingState> {
   getAllCarts() async {
     carts = await db.getAllIngredients();
 
-    log(carts.length.toString());
-
+  
     emit(ShoppingGetAllCartsState());
   }
 

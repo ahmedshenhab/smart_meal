@@ -1,13 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../../../core/style/app_color.dart';
 import '../../../../category_screen/category_screen.dart';
 import '../../../cubit/cubit.dart';
 import '../../../cubit/stataes.dart';
 import '../../../../../reusable.dart';
+
+class Categorymodel {
+  Categorymodel( { required this.key, required this.title, required this.image, required this.icon});
+  final String key;
+  final String title;
+  final String image;
+  final IconData icon;
+}
 
 class CategoryMealSection extends StatefulWidget {
   const CategoryMealSection({super.key});
@@ -22,6 +30,28 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
     final theme = Theme.of(context);
 
     final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final mealCategories = [
+      Categorymodel(
+
+        key: 'Breakfast',
+        title: S.of(context).breakfast,
+        image: 'assets/images/breakFast.png',
+        icon: Icons.breakfast_dining_outlined,
+      ),
+
+      Categorymodel(
+        key: 'Lunch',
+        title: S.of(context).lunch,
+        image: 'assets/images/lunch.png',
+        icon: Icons.lunch_dining_outlined,
+      ),
+      Categorymodel(
+        key: 'Dinner',
+        title: S.of(context).dinner,
+        image: 'assets/images/dinner.png',
+        icon: Icons.dinner_dining_outlined,
+      ),
+    ];
 
     return Container(
       width: double.infinity,
@@ -35,7 +65,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
         children: [
           SizedBox(height: mediaQuery.size.height * 0.02),
           Text(
-            "Recipes By Categories",
+            S.of(context).recipesByCategories,
             style: theme.textTheme.bodyMedium!.copyWith(
               color: AppColor.black,
               fontSize: 22.sp,
@@ -43,7 +73,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
           ),
 
           Text(
-            "For Everytime",
+            S.of(context).forEverytime,
             style: theme.textTheme.bodyMedium!.copyWith(
               color: Colors.brown,
               fontSize: 22.sp,
@@ -55,19 +85,19 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children:
-                MealLayoutCubit.get(context).mealCategories.map((category) {
-                  final title = category['title'] as String;
-                  final image = category['image'] as String;
+                mealCategories.map((category) {
+                  final key = category.key;
+                  final title = category.title;
+                  final image = category.image;
 
-                  final icon = category['icon'] as IconData;
+                  final icon = category.icon;
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 3.5.w / 2,
                     ), // spacing ~ spacing / 2 per side
                     child: InkWell(
                       onTap: () {
-                         MealLayoutCubit.get(context).getAllMeal(title, icon);
-                       
+                        MealLayoutCubit.get(context).getAllMeal(title, icon, key);
                       },
                       child: ItemCategory(text: title, image: image),
                     ),
@@ -82,8 +112,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                     context,
                     CategoryScreen.categoryScreen,
                     arguments: {
-                      'meals':
-                          state.meals ?? [],
+                      'meals': state.meals ?? [],
                       'title': state.title,
                       'icon': state.icon,
                       'mealLayoutCubit': MealLayoutCubit.get(context),
@@ -118,7 +147,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                       SizedBox(height: mediaQuery.size.height * 0.01),
                       TextButton(
                         child: Text(
-                          'Retry',
+                          S.of(context).retry,
                           style: Theme.of(
                             context,
                           ).textTheme.bodyMedium!.copyWith(
@@ -189,7 +218,7 @@ class ItemCategory extends StatelessWidget {
             ),
             Text(
               textAlign: TextAlign.center,
-              "150+ recipe",
+              S.of(context).recipeCount,
               style: theme.textTheme.bodyMedium!.copyWith(
                 color: AppColor.white.withValues(alpha: 0.8),
                 fontSize: 10.sp,

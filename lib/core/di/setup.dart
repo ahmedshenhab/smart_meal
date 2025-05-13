@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import '../app_constant.dart';
 import '../network/local/shared_pref/cach_helper.dart';
 import '../network/local/sql/sqldb.dart';
@@ -29,40 +31,42 @@ setupGetIt() {
   getIt.registerLazySingleton(() => RegisterRepo(dio: getIt<Dio>()));
 
   // shopping
-  getIt.registerLazySingleton< DatabaseHelper>(() =>  DatabaseHelper());
+  getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // searchbyname
   getIt.registerLazySingleton(() => SearchByMealRepo(dio: getIt<Dio>()));
   //searchbyingrediant
   getIt.registerLazySingleton(() => RepoLayout(dio: getIt<Dio>()));
-
-  
 }
 
 Future<void> setupApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  
-    await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown, 
-    // Optional: allow upside-down portrait
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getTemporaryDirectory()).path,
+    ),
+  );
+
+  await Future.wait([
+    CachHelper.init,
+    ScreenUtil.ensureScreenSize(),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      // Optional: allow upside-down portrait
+    ]),
+    
   ]);
-
-
-  await Future.wait([CachHelper.init, ScreenUtil.ensureScreenSize()]);
 
   setupGetIt();
 }
-String  get getIntialRoute{
 
-final token = CachHelper.getData(key: AppConstant.tokenKey);
+String get getIntialRoute {
+  final token = CachHelper.getData(key: AppConstant.tokenKey);
   if (token != null && token.isNotEmpty) {
-   return MealLayoutScreen.homeScreen;
+    return MealLayoutScreen.homeScreen;
   } else {
     return MealLoginScreen.loginScreen;
   }
-
-
-
-  }
+}
