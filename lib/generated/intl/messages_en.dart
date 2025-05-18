@@ -53,6 +53,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Delete All"),
+    "dinger": MessageLookupByLibrary.simpleMessage(
+      "not sutable to your case🙅‍♂️",
+    ),
     "dinner": MessageLookupByLibrary.simpleMessage("Dinner"),
     "dontHaveAnccount": MessageLookupByLibrary.simpleMessage(
       "don\'t have an account? ",

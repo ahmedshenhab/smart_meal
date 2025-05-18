@@ -144,7 +144,7 @@ class ShopingScreen extends StatelessWidget {
                                         child: Text(
                                           ShoppingCubit.get(
                                             context,
-                                          ).carts[index].ingrediant,
+                                          ).carts[index].ingrediant??'',
                                           style: Theme.of(
                                             context,
                                           ).textTheme.bodyMedium!.copyWith(

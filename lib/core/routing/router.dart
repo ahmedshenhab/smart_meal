@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/module/auth/forgget_password/meal_forgget_password.dart';
+import 'package:smart_meal/module/recommendation_meal_screen/cubit/recommendation_cubit.dart';
+import 'package:smart_meal/module/recommendation_meal_screen/recommendation_meal_screen.dart';
 import '../di/setup.dart';
 import '../network/local/sql/sqldb.dart';
 import '../../module/auth/login/cubit/cubit.dart';
@@ -116,6 +118,25 @@ class AppRouter {
                       title,
                       icon,
                       mealLayoutCubit,
+                    ),
+                child: const CategoryScreen(),
+              ),
+        );
+         case RecommendationMealScreen.recommendationMealScreen:
+        // final args = setting.arguments as Map<String, dynamic>;
+
+       
+        // final mealLayoutCubit = args['mealLayoutCubit'] as MealLayoutCubit;
+
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) => RecommendationCubit(
+                      meals: []
+
+                     
+                    
                     ),
                 child: const CategoryScreen(),
               ),

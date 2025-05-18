@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../../core/style/app_color.dart';
-import '../cubit/cubit.dart';
+import '../../core/style/app_color.dart';
 
-class CategorySearchField extends StatelessWidget {
-  const CategorySearchField({super.key});
+class CustomSearchField extends StatelessWidget {
+  const CustomSearchField({super.key,required this.onChanged});
+  final void Function(String)? onChanged;
   
 
   @override
@@ -18,9 +18,7 @@ class CategorySearchField extends StatelessWidget {
       ),
 
       child: TextField(
-        onChanged: (value) {
-         CategoryScreenCubit.get(context).serch(value);
-        },
+        onChanged: onChanged,
        
         decoration: InputDecoration(
           hintText:  S.of(context).search,

@@ -20,6 +20,7 @@ class DatabaseHelper {
     return await openDatabase(
       path,
       version: 1,
+     
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE cart (
@@ -28,17 +29,41 @@ class DatabaseHelper {
             ingrediant TEXT
           )
         ''');
+        await db.execute('''
+          CREATE TABLE meal (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE
+          )
+        ''');
       },
     );
   }
 
+  void insertName(String name) async {
+    final db = await database;
+    await db.insert(
+      'meal',
+      CartItem(name: name).toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<CartItem>> getAllNames() async {
+    final db = await database;
+    final List<Map<String, dynamic>> result = await db.query('meal');
+    return result.map((json) => CartItem.fromJson(json)).toList();
+  }
+
   // Insert a list of ingredients with the same name
-  Future<void> insertIngrediantsBatch(String name, List<String> ingrediants) async {
+  Future<void> insertIngrediantsBatch(
+    String name,
+    List<String> ingrediants,
+  ) async {
     final db = await database;
     final joined = ingrediants.join(', ');
     await db.insert(
       'cart',
-            CartItem(name: name, ingrediant: joined).toJson(),
+      CartItem(name: name, ingrediant: joined).toJson(),
 
       // {
       //   'name': name,
@@ -55,23 +80,19 @@ class DatabaseHelper {
     return result.map((json) => CartItem.fromJson(json)).toList();
   }
 
-  deleteAll()async{
+  deleteAll() async {
     final db = await database;
-     db.delete('cart');
+    db.delete('cart');
   }
-  deleteRow(int id)async{
+
+  deleteRow(int id) async {
     final db = await database;
-     db.delete('cart',where: 'id=?',whereArgs: [id]);
+    db.delete('cart', where: 'id=?', whereArgs: [id]);
   }
 }
 
 class CartItem {
-
-  CartItem({
-    this.id,
-    required this.name,
-    required this.ingrediant,
-  });
+  CartItem({this.id, this.name, this.ingrediant});
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
@@ -81,14 +102,10 @@ class CartItem {
     );
   }
   final int? id;
-  final String name;
-  final String ingrediant;
+  final String? name;
+  final String? ingrediant;
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'ingrediant': ingrediant,
-    };
+    return {'id': id, 'name': name, 'ingrediant': ingrediant};
   }
 }

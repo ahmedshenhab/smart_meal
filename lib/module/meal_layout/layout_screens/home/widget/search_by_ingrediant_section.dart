@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/di/setup.dart';
+import 'package:smart_meal/core/network/local/sql/sqldb.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../../../core/style/app_color.dart';
 import '../../../../meal_details/meal_datails_screen.dart';
@@ -113,6 +115,7 @@ class SearchByIngrediantSection extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
+                                  getIt<DatabaseHelper>().insertName( state.meals[index].recipeName ?? '');
                                   Navigator.of(context).pushNamed(
                                     MealDetailsScreen.mealDetailsScreen,
                                     arguments: state.meals[index],

@@ -1,26 +1,28 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../../core/style/app_color.dart';
-import '../../../cubit/cubit.dart';
-import '../../../data/model/meals_model.dart';
+import 'package:smart_meal/core/style/app_color.dart';
 
-class CustomItemMealSaved extends StatelessWidget {
-  const CustomItemMealSaved({
+import '../../../data/model/meals_model.dart';
+class CustomItemMealRecomendation extends StatelessWidget {
+  const CustomItemMealRecomendation({
     super.key,
 
    
     this.boxShadow,
-    this.meal,
+    required this.searchByMealResponseModel,
   });
 
+  // final Color foreground;
 
+  // final Color background;
   final BoxShadow? boxShadow;
 
-  final MealsModel? meal;
+  final MealsModel searchByMealResponseModel;
 
   @override
   Widget build(BuildContext context) {
+   
     final theme = Theme.of(context);
     return Container(
       width: 150.w,
@@ -50,33 +52,36 @@ class CustomItemMealSaved extends StatelessWidget {
                 ),
               ),
 
-     
-             
+              // InkWell(
+              //   onTap: () {
+                 
+              //   },
+              //   child: CircleAvatar(
+              //     radius: 15.r,
+              //     backgroundColor:
+              //         MealLayoutCubit.get(
+              //                   context,
+              //                 ).isFavouriteMap[searchByMealResponseModel
+              //                     .recipeId] ==
+              //                 true
+              //             ? AppColor.deepOrange
+              //             : AppColor.white,
 
-                   InkWell(
-                    onTap: () {
-                      Fluttertoast.cancel();
-                      
-                      MealLayoutCubit.get(
-                        context,
-                      ).deleteFavoriteFromsaved(meal?.recipeId ?? 3);
-                    },
-                    child: CircleAvatar(
-                      backgroundColor:
-                          meal?.isFavorite ?? false
-                              ? AppColor.deepOrange
-                              : AppColor.white,
-                      child: Icon(
-                        Icons.bookmark,
-                        color:
-                            meal?.isFavorite ?? false
-                                ? AppColor.white
-                                : AppColor.gray,
-                      ),
-                    ),
-                  ),
-                
-              
+              //     child: Icon(
+              //       Icons.bookmark,
+              //       color:
+              //           MealLayoutCubit.get(
+              //                     context,
+              //                   ).isFavouriteMap[searchByMealResponseModel
+              //                       .recipeId] ==
+              //                   true
+              //               ? AppColor.white
+              //               : AppColor.gray,
+              //     ),
+              //   ),
+              // ),
+           
+           
             ],
           ),
 
@@ -85,7 +90,7 @@ class CustomItemMealSaved extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
 
-            meal?.recipeName ?? 'default',
+            searchByMealResponseModel.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
               color: AppColor.black,
@@ -112,7 +117,7 @@ class CustomItemMealSaved extends StatelessWidget {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        meal?.type ?? 'default',
+                        searchByMealResponseModel.type ?? 'default',
                         // 'breakfast',
                         style: theme.textTheme.bodyMedium!.copyWith(
                           color: AppColor.gray,
@@ -140,7 +145,8 @@ class CustomItemMealSaved extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
 
                         TextSpan(
-                          text: meal?.calories100g.toString() ?? 'default',
+                          text:
+                              searchByMealResponseModel.calories100g.toString(),
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: AppColor.gray,
                             fontFamily: 'Roboto',
@@ -148,7 +154,7 @@ class CustomItemMealSaved extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'cal                     ',
+                              text: 'cal',
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 color: AppColor.gray,
                                 fontFamily: 'Roboto',

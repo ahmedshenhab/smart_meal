@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/style/app_color.dart';
 import 'cubit/cubit.dart';
 import 'cubit/state.dart';
-import 'widget/category_search_field.dart';
+import '../shred_widget/custom_search_field.dart';
 import 'widget/custom_item_meal_category.dart';
 import 'widget/more_filter_category.dart';
 import '../meal_details/meal_datails_screen.dart';
@@ -36,7 +36,11 @@ class CategoryScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: mediaQuery.size.height * 0.01),
-          const CategorySearchField(),
+          CustomSearchField(
+            onChanged: (String value) {
+              CategoryScreenCubit.get(context).serch(value);
+            },
+          ),
           SizedBox(height: mediaQuery.size.height * 0.02),
 
           //more filters
@@ -88,12 +92,10 @@ class CategoryScreen extends StatelessWidget {
                               buildWhen:
                                   (previous, current) =>
                                       current
-                                      is MealChangeFavoriteTemporaryState||
-                                        current  is MealChangeFavoriteSuccessState ||
-                                      current is MealChangeFavoriteErrorState ,
-                                      
-                                    
-                                          
+                                          is MealChangeFavoriteTemporaryState ||
+                                      current
+                                          is MealChangeFavoriteSuccessState ||
+                                      current is MealChangeFavoriteErrorState,
 
                               builder: (context, stateMealLayoutCubit) {
                                 return CustomItemMealCategory(

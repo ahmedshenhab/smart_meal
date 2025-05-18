@@ -5,6 +5,7 @@ class AppConstant {
   static const String email = "email";
   static const String userDisease = "userDisease";
   static const String userallergy = "userallergy";
+  static const String lang = "lang";
 
  
 }

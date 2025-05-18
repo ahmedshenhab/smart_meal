@@ -544,6 +544,16 @@ class S {
   String get sugar {
     return Intl.message('sugar', name: 'sugar', desc: '', args: []);
   }
+
+  /// `not sutable to your case🙅‍♂️`
+  String get dinger {
+    return Intl.message(
+      'not sutable to your case🙅‍♂️',
+      name: 'dinger',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

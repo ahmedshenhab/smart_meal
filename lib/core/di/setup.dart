@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,6 @@ setupGetIt() {
   // register
   getIt.registerLazySingleton(() => RegisterRepo(dio: getIt<Dio>()));
 
-  // shopping
   getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // searchbyname
@@ -48,16 +48,19 @@ Future<void> setupApp() async {
       (await getTemporaryDirectory()).path,
     ),
   );
-  
+
   await Future.wait([
     CachHelper.init,
     ScreenUtil.ensureScreenSize(),
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-      
     ]),
   ]);
+  CachHelper.setData(
+    key: AppConstant.lang,
+    value: ui.PlatformDispatcher.instance.locale.languageCode,
+  );
 
   setupGetIt();
 }

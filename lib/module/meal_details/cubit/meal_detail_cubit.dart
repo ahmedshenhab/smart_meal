@@ -1,18 +1,86 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/app_constant.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/profile/data/model/avoidance_model.dart';
 import '../../../core/network/local/sql/sqldb.dart';
 import 'meal_detail_state.dart';
 import '../../meal_layout/data/model/meals_model.dart';
 
 class MealDetailCubit extends Cubit<MealDetailStatess> {
   MealDetailCubit({required this.mealsModel, required this.databaseHelper})
-    : super(const MealDetailTitleButtonChangeState());
+    : super(const MealDetailTitleButtonChangeState()) {
+    loadcases();
+    checkDinger();
+  }
+
   final MealsModel mealsModel;
   final DatabaseHelper databaseHelper;
-
+  late Map<String, bool>? diseases;
+  late Map<String, bool>? allergies;
   String selectedCategory = 'ingredients';
+  bool isdinger = false;
+
+ 
+ void checkDinger() {
+  if (allergies == null || diseases == null) return;
+  isdinger = false;
+
+  // 🔎 Check allergies
+  for (final entry in allergies!.entries ) {
+    if (entry.value) {
+      final avoidance = AvoidanceModel.allergyAvoidanceList.firstWhere(
+        (element) => element.key == entry.key,
+        orElse: () => AvoidanceModel(key: '', items: []),
+      );
+
+      for (final item in avoidance.items) {
+        final found = mealsModel.ingredients?.any((ingredient) =>
+            ingredient.ingredientName.toLowerCase().contains(item.toLowerCase()) );
+
+        if (found == true) {
+          isdinger = true;
+          return; // 🚨 Stop immediately once a dangerous item is found
+        }
+      }
+    }
+  }
+
+  // 🔎 Check diseases
+  for (final entry in diseases!.entries ) {
+    if (entry.value) {
+      final avoidance = AvoidanceModel.diseaseAvoidanceList.firstWhere(
+        (element) => element.key == entry.key,
+        orElse: () => AvoidanceModel(key: '', items: []),
+      );
+
+      for (final item in avoidance.items) {
+        final found = mealsModel.ingredients?.any((ingredient) =>
+            ingredient.ingredientName.toLowerCase().contains(item.toLowerCase()) );
+
+        if (found == true) {
+          isdinger = true;
+          return; // 🚨 Stop immediately once a dangerous item is found
+        }
+      }
+    }
+  }
+}
+
+ 
+   void loadcases() {
+    final savedAllergyJson = CachHelper.getData(key: AppConstant.userallergy);
+    final savedDiseaseJson = CachHelper.getData(key: AppConstant.userDisease);
+    if (savedAllergyJson != null && savedAllergyJson.isNotEmpty) {
+      allergies = Map<String, bool>.from(json.decode(savedAllergyJson));
+    }
+    if (savedDiseaseJson != null && savedDiseaseJson.isNotEmpty) {
+      diseases = Map<String, bool>.from(json.decode(savedDiseaseJson));
+    }
+  }
 
   static MealDetailCubit get(context) => BlocProvider.of(context);
 

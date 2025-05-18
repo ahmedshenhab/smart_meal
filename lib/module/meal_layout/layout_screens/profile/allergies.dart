@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +34,7 @@ class Allergies extends StatelessWidget {
                       current is MealChangeAllergiesState &&
                       current.key == key,
               builder: (context, state) {
-                final updatedChecked = cubit.allergies[key];
+                final updatedChecked = cubit.allergies[key]??false;
 
                 return ListTile(
                   title: Text(allergyName),
@@ -43,7 +42,7 @@ class Allergies extends StatelessWidget {
                     value: updatedChecked,
                     onChanged: (value) {
                       cubit.toggleAllergy(key, value);
-                      log(cubit.allergies.toString());
+                 
                     },
                   ),
                 );

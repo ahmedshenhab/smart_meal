@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("حذف الكل"),
+    "dinger": MessageLookupByLibrary.simpleMessage("غير مناسب لحالتك 🙅‍♂️"),
     "dinner": MessageLookupByLibrary.simpleMessage("عشاء"),
     "dontHaveAnccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
     "dontKnowWhatToCook": MessageLookupByLibrary.simpleMessage(

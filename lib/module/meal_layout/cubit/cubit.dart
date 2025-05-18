@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +22,7 @@ import '../layout_screens/search/search.dart';
 
 class MealLayoutCubit extends Cubit<MealStates> {
   MealLayoutCubit(this.repoLayout) : super(MealInitialState()) {
-    for (var allergy in AvoidanceModel.allergyAvoidanceList) {
-      allergies[allergy.key] = false;
-    }
-    for (var disease in AvoidanceModel.diseaseAvoidanceList) {
-      diseases[disease.key] = false;
-    }
+    loadInitialUserConditions();
   }
   final RepoLayout repoLayout;
   List<MealsModel> favoriteMeals = [];
@@ -63,33 +59,54 @@ class MealLayoutCubit extends Cubit<MealStates> {
     emit(MealChangeBottomNavState());
   }
 
+  void loadInitialUserConditions() {
+    final savedAllergyJson = CachHelper.getData(key: AppConstant.userallergy);
+    final savedDiseaseJson = CachHelper.getData(key: AppConstant.userDisease);
+    if (savedAllergyJson != null) {
+      allergies = Map<String, bool>.from(json.decode(savedAllergyJson));
+    } else {
+      for (var allergy in AvoidanceModel.allergyAvoidanceList) {
+        allergies[allergy.key] = false;
+      }
+    }
+
+    if (savedDiseaseJson != null) {
+      diseases = Map<String, bool>.from(json.decode(savedDiseaseJson));
+    } else {
+      for (var disease in AvoidanceModel.diseaseAvoidanceList) {
+        diseases[disease.key] = false;
+      }
+    }
+  }
+
   void toggleAllergy(String key, bool? value) async {
     allergies[key] = value ?? false;
-    await CachHelper.setData(
+
+    emit(MealChangeAllergiesState(key));
+    CachHelper.setData(
       key: AppConstant.userallergy,
       value: jsonEncode(allergies),
     );
-    emit(MealChangeAllergiesState(key));
   }
 
   void toggleDisease(String key, bool? value) {
     diseases[key] = value ?? false;
+
+    emit(MealChangeDiseasesState(key));
     CachHelper.setData(
       key: AppConstant.userDisease,
       value: jsonEncode(diseases),
     );
-
-    emit(MealChangeDiseasesState(key));
   }
 
   void loadUserAvoidanceData() {
-    final savedAllergies = CachHelper.getData(key: 'user_allergies');
+    final savedAllergies = CachHelper.getData(key: AppConstant.userallergy);
     if (savedAllergies != null) {
       final decoded = jsonDecode(savedAllergies) as Map<String, bool>;
       allergies = Map<String, bool>.from(decoded);
     }
 
-    final savedDiseases = CachHelper.getData(key: 'user_diseases');
+    final savedDiseases = CachHelper.getData(key: AppConstant.userDisease);
     if (savedDiseases != null) {
       final decoded = jsonDecode(savedDiseases);
       diseases = Map<String, bool>.from(decoded);
@@ -97,10 +114,16 @@ class MealLayoutCubit extends Cubit<MealStates> {
   }
 
   void getAllMeal(String title, IconData icon, String key) async {
-    if (meals.isNotEmpty) {
+    final isequal = CachHelper.getData(key: AppConstant.lang)==ui.PlatformDispatcher.instance.locale.languageCode;
+
+
+
+    if (meals.isNotEmpty && isequal) {
       emit(MealGetAllMealSuccessState(meals[key], title, icon));
       return;
     } else {
+      CachHelper.setData(key: AppConstant.lang, value: ui.PlatformDispatcher.instance.locale.languageCode);
+
       emit(MealGetAllMealLoadingState());
       final result = await repoLayout.getAllMeal();
       result.fold(

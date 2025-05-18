@@ -4,7 +4,6 @@ import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import '../../../../core/app_constant.dart';
 import '../../../../core/network/remote/api_endpoint.dart';

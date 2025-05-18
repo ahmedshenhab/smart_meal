@@ -13,6 +13,7 @@ class DetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = S.of(context);
+    final cubit = MealDetailCubit.get(context);
     return Column(
       children: [
         Row(
@@ -23,7 +24,7 @@ class DetailsSection extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
 
-                MealDetailCubit.get(context).mealsModel.recipeName ?? 'defult',
+                cubit.mealsModel.recipeName ?? 'defult',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 27.sp,
@@ -39,6 +40,24 @@ class DetailsSection extends StatelessWidget {
         ),
 
         SizedBox(height: 10.h),
+        Visibility(
+          visible: cubit.isdinger,
+          child: Column(
+            children: [
+              Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                localization.dinger,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColor.deepOrange,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10.h),
+            ],
+          ),
+        ),
 
         // Description
         CustomReadMoreText(
@@ -54,7 +73,7 @@ class DetailsSection extends StatelessWidget {
             fontFamily: 'SofiaSans',
             fontSize: 15.5,
           ),
-          text: MealDetailCubit.get(context).mealsModel.description ?? 'defult',
+          text: cubit.mealsModel.description ?? 'defult',
         ),
 
         SizedBox(height: 10.h),

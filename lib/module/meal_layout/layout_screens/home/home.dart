@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/style/app_color.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section1.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section4.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section.dart';
 
 import 'widget/category_meal_section.dart';
@@ -49,7 +50,7 @@ class Home extends StatelessWidget {
 
             SizedBox(height: 20.h), // Spacing between sections
             // Section 4
-            // const HomeSection4(),
+            const HomeSection4(),
 
             // Section 5 - Bottom section
             // const HomeSection5(),
