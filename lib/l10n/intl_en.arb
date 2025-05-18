@@ -9,6 +9,7 @@
     "email": "Email",
     "ok": "ok",
     "Password": "Password",
+    "newPassword": "New Password",
     "validationPassword": "at least 6 character",
     "validate1tionEmail": "'Please enter your email",
     "validate2tionEmail": "'Please enter a valid email'",
@@ -53,11 +54,7 @@
   "searchWithMealName":"search with meal name",
   "MoreFilters": "More Filters",
   "Filters": "Filters",
-  "calories": "Calories",
-  "protein": "Protein",
-  "sugar": "Sugar",
-  "fats": "Fats",
-  "carbs": "Carbs",
+ 
   
   "save": "save",
   "tryAgain": "try again",
@@ -69,7 +66,34 @@
   "deleteAll" : "Delete All",
   "home" : "Home",
   "profile" : "Profile",
-  "saved" : "Saved"
+  "saved" : "Saved",
+  "change" : "Change",
+  "account" : "Account",
+  "Allergies"  :"Allergies",
+  "Diseases"  :"Diseases"
+  ,
+  "Diabetes": "Diabetes",
+  "HighBloodPressure": "High Blood Pressure",
+  "HighCholesterol": "High Cholesterol",
+  "Gout": "Gout",
+  "AnemiaG6PD": "Anemia (G6PD)",
+
+  "Nuts": "Nuts",
+  "Dairy": "Dairy",
+  "Gluten": "Gluten",
+  "Eggs": "Eggs",
+  "Seafood": "Seafood",
+  "Soy": "Soy",
+  "Sesame": "Sesame"
+  ,"minute" : "min",
+  "protein": "protein",
+  "carbs": "carbs",
+  "fats": "fats",
+  "calories": "cal",
+  "sugar": "sugar"
+ 
+
+
 
   
 

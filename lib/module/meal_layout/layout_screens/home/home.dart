@@ -15,57 +15,50 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
-  
-        return SingleChildScrollView(
-          
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                topRight: Radius.circular(20.r),
-              ),
-              color: AppColor.scaffoldBackgroundheavy,
-            ),
-            margin: EdgeInsets.only(
-              left: mediaQuery.size.width * 0.02,
-              right: mediaQuery.size.width * 0.02,
-              top: mediaQuery.size.height * 0.02,
-            ),
-            padding: EdgeInsets.only(
-              left: mediaQuery.size.width * 0.02,
-              right: mediaQuery.size.width * 0.02,
-              top: mediaQuery.size.height * 0.02,
-            ),
-            child: Column(
-              children: [
-               
-                // Section 1 - Top section
-                const HomeSection1(),
-
-                SizedBox(height: 20.h), // Spacing between sections
-                // Section 2 - Search by ingredient
-                const SearchByIngrediantSection(),
-
-                SizedBox(height: 20.h), // Spacing between sections
-                // Section 3 - Categories
-                const CategoryMealSection(),
-
-                SizedBox(height: 20.h), // Spacing between sections
-                // Section 4
-                // const HomeSection4(),
-
-                SizedBox(height: 20.h), // Spacing between sections
-                // Section 5 - Bottom section
-                // const HomeSection5(),
-
-                // Add bottom padding if needed
-                SizedBox(height: 20.h),
-              ],
-            ),
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
           ),
-        );
-      
-    
+          color: AppColor.scaffoldBackgroundheavy,
+        ),
+        margin: EdgeInsets.only(
+          left: mediaQuery.size.width * 0.02,
+          right: mediaQuery.size.width * 0.02,
+          top: mediaQuery.size.height * 0.02,
+        ),
+        padding: EdgeInsets.only(
+          left: mediaQuery.size.width * 0.02,
+          right: mediaQuery.size.width * 0.02,
+          top: mediaQuery.size.height * 0.01,
+        ),
+        child: ListView(
+          children: [
+            // Section 1 - Top section
+            const HomeSection1(),
+
+            SizedBox(height: 20.h), // Spacing between sections
+            // Section 2 - Search by ingredient
+            const SearchByIngrediantSection(),
+
+            SizedBox(height: 20.h), // Spacing between sections
+            // Section 3 - Categories
+            const CategoryMealSection(),
+
+            SizedBox(height: 20.h), // Spacing between sections
+            // Section 4
+            // const HomeSection4(),
+
+            // Section 5 - Bottom section
+            // const HomeSection5(),
+
+            // Add bottom padding if needed
+          ],
+        ),
+      ),
+    );
   }
 }
 

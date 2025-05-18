@@ -38,10 +38,12 @@ class DatabaseHelper {
     final joined = ingrediants.join(', ');
     await db.insert(
       'cart',
-      {
-        'name': name,
-        'ingrediant': joined,
-      },
+            CartItem(name: name, ingrediant: joined).toJson(),
+
+      // {
+      //   'name': name,
+      //   'ingrediant': joined,
+      // },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

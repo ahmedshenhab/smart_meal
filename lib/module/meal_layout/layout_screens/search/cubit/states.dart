@@ -5,8 +5,8 @@ sealed class SearchByMealStates {}
 class SearchByMealInitial extends SearchByMealStates {}
 
 class SearchByMealChangeBottomCategoryState extends SearchByMealStates {
-  SearchByMealChangeBottomCategoryState({required this.title});
-  final String title;
+  SearchByMealChangeBottomCategoryState();
+  
 }
 
 class SearchByMealLoading extends SearchByMealStates {}

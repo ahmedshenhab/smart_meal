@@ -10,6 +10,7 @@ class MealLoginCubit extends Cubit<MealLoginStates> {
       super(MealLoginIntialState());
 
   final LoginRepo _loginRepo;
+  bool  isLoading = false;
 
   static MealLoginCubit get(BuildContext context) => BlocProvider.of(context);
   void checkValidate() {
@@ -32,10 +33,27 @@ class MealLoginCubit extends Cubit<MealLoginStates> {
         emit(MealLoginErrorState(error: l.message));
       },
       (r) {
-
-        
         emit(MealLoginSuccessState(loginModelResponse: r));
+      },
+    );
+  }
 
+  void forggtePassword() async {
+    isLoading = true;
+    emit(MealForggetPasswordLoadingState());
+    final result = await _loginRepo.forggtePassword(
+      emailController.text,
+      passwordController.text,
+    );
+    result.fold(
+      (l) {
+           isLoading = false;
+        emit(MealForggetPasswordErrorState(error: l.message));
+
+      },
+      (r) {
+        isLoading = false;
+        emit(MealForggetPasswordSuccessState(message: r));
       },
     );
   }
@@ -43,9 +61,16 @@ class MealLoginCubit extends Cubit<MealLoginStates> {
   // ui
 
   final formState = GlobalKey<FormState>();
+  final formStateForggetePassword = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isPasswordVisible = true;
+
+  void clearform() {
+   
+    emailController.clear();
+    passwordController.clear();
+  }
 
   @override
   Future<void> close() {

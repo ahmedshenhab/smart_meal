@@ -62,3 +62,14 @@ class MealChangeFavoriteErrorState extends MealStates {
   MealChangeFavoriteErrorState({required this.message});
   final String message;
 }
+
+class MealChangeAllergiesState extends MealStates {
+
+  MealChangeAllergiesState(this.key);
+  final String key;
+}
+class MealChangeDiseasesState extends MealStates {
+
+  MealChangeDiseasesState(this.key);
+  final String key;
+}

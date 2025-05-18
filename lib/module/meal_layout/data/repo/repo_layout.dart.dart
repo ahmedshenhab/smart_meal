@@ -1,22 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import '../../../../core/app_constant.dart';
-import '../../../../core/network/local/shared_pref/cach_helper.dart';
 import '../../../../core/network/remote/api_endpoint.dart';
 import '../../../../core/network/remote/api_error_handler.dart';
 import '../../../../core/network/remote/api_error_model.dart';
 import '../model/ingradiant_id_model.dart';
 import '../model/meals_model.dart';
-
-class MealsParser {
-  static List<MealsModel> parse(dynamic data) {
-    return MealsModel.fromList(data);
-  }
-}
 
 class RepoLayout {
   RepoLayout({required this.dio});
@@ -28,7 +23,9 @@ class RepoLayout {
       final result = await dio.get(ApiEndpoint.getAllMeal);
 
       // Parse in background thread
-      final parsedMeals = await compute(MealsParser.parse, result.data);
+      final parsedMeals = await Isolate.run(() {
+        return MealsModel.fromList(result.data);
+      });
 
       return right(parsedMeals);
     } catch (e) {
@@ -60,8 +57,6 @@ class RepoLayout {
     }
   }
 
-  
-
   Future<Either<ApiErrorModel, List<MealsModel>>> getFavorite() async {
     try {
       final result = await dio.get(
@@ -79,7 +74,12 @@ class RepoLayout {
       if (e is DioException) {
         if (e.response?.statusCode == 404) {
           log(e.response.toString());
-          return left(ApiErrorModel(message: e.response!.data.toString(),code: e.response!.statusCode));
+          return left(
+            ApiErrorModel(
+              message: e.response!.data.toString(),
+              code: e.response!.statusCode,
+            ),
+          );
         }
       }
       log('Error: $e');
@@ -88,7 +88,7 @@ class RepoLayout {
     }
   }
 
-Future<Either<ApiErrorModel, String>> addFavorite(int mealId) async {
+  Future<Either<ApiErrorModel, String>> addFavorite(int mealId) async {
     try {
       final result = await dio.post(
         '${ApiEndpoint.addFavorite}$mealId',
@@ -111,6 +111,7 @@ Future<Either<ApiErrorModel, String>> addFavorite(int mealId) async {
       return left(ApiErrorHandler.handle(e));
     }
   }
+
   Future<Either<ApiErrorModel, String>> deleteFavoriteById(int mealId) async {
     try {
       await dio.delete(

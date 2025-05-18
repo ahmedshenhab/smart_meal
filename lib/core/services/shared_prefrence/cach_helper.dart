@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CachHelper {
   static SharedPreferences? _pref;
 
-  static Future<void> init() async {
+  static Future<void> get init async {
     _pref ??= await SharedPreferences.getInstance();
   }
 

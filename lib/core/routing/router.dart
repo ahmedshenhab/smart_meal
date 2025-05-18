@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/module/auth/forgget_password/meal_forgget_password.dart';
 import '../di/setup.dart';
 import '../network/local/sql/sqldb.dart';
 import '../../module/auth/login/cubit/cubit.dart';
@@ -35,6 +36,19 @@ class AppRouter {
               ),
         );
 
+      case MealForggetPassword.mealForggetPassword:
+        final cubit = setting.arguments as MealLoginCubit;
+      
+
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider.value(
+                value: cubit,
+
+                child: const MealForggetPassword(),
+              ),
+        );
+
       // register
       case MealRegisterScreen.registerScreen:
         return MaterialPageRoute(
@@ -53,7 +67,7 @@ class AppRouter {
           builder:
               (_) => BlocProvider(
                 create: (context) {
-                  return MealLayoutCubit(getIt<RepoLayout>())..getAllFavorite();
+                  return MealLayoutCubit(getIt<RepoLayout>());
                 },
                 child: const MealLayoutScreen(),
               ),
@@ -67,7 +81,6 @@ class AppRouter {
               (_) => BlocProvider<MealDetailCubit>(
                 create:
                     (context) => MealDetailCubit(
-                      
                       mealsModel: args,
                       databaseHelper: getIt<DatabaseHelper>(),
                     ),

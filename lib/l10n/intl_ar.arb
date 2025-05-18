@@ -41,12 +41,7 @@
   "searchWithMealName": "ابحث باسم الوجبة",
   "MoreFilters": "مزيد من الفلاتر",
   "Filters": "الفلاتر",
-  "calories": "السعرات الحرارية",
-  "protein": "البروتين",
-  "sugar": "السكر",
-  "fats": "الدهون",
-  "carbs": "الكربوهيدرات",
-  
+
   "save": "حفظ",
   "tryAgain": "حاول مرة أخرى",
   "search": "بحث",
@@ -57,6 +52,35 @@
     "deleteAll" : "حذف الكل",
     "home" : "الرئيسية",
   "profile" : "الملف الشخصي",
-  "saved" : "المفضلة"
+  "saved" : "المفضلة",
+      "newPassword": "كلمة المرور الجديدة",
+        "change" : "تغيير",
+          "account" : "الحساب",
+           "Allergies"  :"الحساسية",
+          "Diseases"  :"الحالات" ,
+  "Diabetes": "السكري",
+  "HighBloodPressure": "ارتفاع ضغط الدم",
+  "HighCholesterol": "ارتفاع الكوليسترول",
+  "Gout": "النقرس",
+  "AnemiaG6PD": "أنيميا الفول",
+
+  "Nuts": "المكسرات",
+  "Dairy": "منتجات الألبان",
+  "Gluten": "الجلوتين",
+  "Eggs": "البيض",
+  "Seafood": "المأكولات البحرية",
+  "Soy": "الصويا",
+  "Sesame": "السمسم"
+  ,"minute" : "دقيقة",
+  "protein": "برتين",
+  "carbs": "كربوهيدرات",
+  "fats": "دهون",
+  "calories": "سعرات حرارية",
+  "sugar": "سكر"
+
+
+
+
+
 
 }

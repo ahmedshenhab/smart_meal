@@ -110,6 +110,16 @@ class S {
     return Intl.message('Password', name: 'Password', desc: '', args: []);
   }
 
+  /// `New Password`
+  String get newPassword {
+    return Intl.message(
+      'New Password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `at least 6 character`
   String get validationPassword {
     return Intl.message(
@@ -350,31 +360,6 @@ class S {
     return Intl.message('Filters', name: 'Filters', desc: '', args: []);
   }
 
-  /// `Calories`
-  String get calories {
-    return Intl.message('Calories', name: 'calories', desc: '', args: []);
-  }
-
-  /// `Protein`
-  String get protein {
-    return Intl.message('Protein', name: 'protein', desc: '', args: []);
-  }
-
-  /// `Sugar`
-  String get sugar {
-    return Intl.message('Sugar', name: 'sugar', desc: '', args: []);
-  }
-
-  /// `Fats`
-  String get fats {
-    return Intl.message('Fats', name: 'fats', desc: '', args: []);
-  }
-
-  /// `Carbs`
-  String get carbs {
-    return Intl.message('Carbs', name: 'carbs', desc: '', args: []);
-  }
-
   /// `save`
   String get save {
     return Intl.message('save', name: 'save', desc: '', args: []);
@@ -433,6 +418,131 @@ class S {
   /// `Saved`
   String get saved {
     return Intl.message('Saved', name: 'saved', desc: '', args: []);
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message('Change', name: 'change', desc: '', args: []);
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Allergies`
+  String get Allergies {
+    return Intl.message('Allergies', name: 'Allergies', desc: '', args: []);
+  }
+
+  /// `Diseases`
+  String get Diseases {
+    return Intl.message('Diseases', name: 'Diseases', desc: '', args: []);
+  }
+
+  /// `Diabetes`
+  String get Diabetes {
+    return Intl.message('Diabetes', name: 'Diabetes', desc: '', args: []);
+  }
+
+  /// `High Blood Pressure`
+  String get HighBloodPressure {
+    return Intl.message(
+      'High Blood Pressure',
+      name: 'HighBloodPressure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High Cholesterol`
+  String get HighCholesterol {
+    return Intl.message(
+      'High Cholesterol',
+      name: 'HighCholesterol',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gout`
+  String get Gout {
+    return Intl.message('Gout', name: 'Gout', desc: '', args: []);
+  }
+
+  /// `Anemia (G6PD)`
+  String get AnemiaG6PD {
+    return Intl.message(
+      'Anemia (G6PD)',
+      name: 'AnemiaG6PD',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nuts`
+  String get Nuts {
+    return Intl.message('Nuts', name: 'Nuts', desc: '', args: []);
+  }
+
+  /// `Dairy`
+  String get Dairy {
+    return Intl.message('Dairy', name: 'Dairy', desc: '', args: []);
+  }
+
+  /// `Gluten`
+  String get Gluten {
+    return Intl.message('Gluten', name: 'Gluten', desc: '', args: []);
+  }
+
+  /// `Eggs`
+  String get Eggs {
+    return Intl.message('Eggs', name: 'Eggs', desc: '', args: []);
+  }
+
+  /// `Seafood`
+  String get Seafood {
+    return Intl.message('Seafood', name: 'Seafood', desc: '', args: []);
+  }
+
+  /// `Soy`
+  String get Soy {
+    return Intl.message('Soy', name: 'Soy', desc: '', args: []);
+  }
+
+  /// `Sesame`
+  String get Sesame {
+    return Intl.message('Sesame', name: 'Sesame', desc: '', args: []);
+  }
+
+  /// `min`
+  String get minute {
+    return Intl.message('min', name: 'minute', desc: '', args: []);
+  }
+
+  /// `protein`
+  String get protein {
+    return Intl.message('protein', name: 'protein', desc: '', args: []);
+  }
+
+  /// `carbs`
+  String get carbs {
+    return Intl.message('carbs', name: 'carbs', desc: '', args: []);
+  }
+
+  /// `fats`
+  String get fats {
+    return Intl.message('fats', name: 'fats', desc: '', args: []);
+  }
+
+  /// `cal`
+  String get calories {
+    return Intl.message('cal', name: 'calories', desc: '', args: []);
+  }
+
+  /// `sugar`
+  String get sugar {
+    return Intl.message('sugar', name: 'sugar', desc: '', args: []);
   }
 }
 

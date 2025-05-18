@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import 'cubit/cubit.dart';
-import 'cubit/states.dart';
 import 'widget/login_form.dart';
 import '../register/meal_register_screen.dart';
 
@@ -74,6 +73,8 @@ class MealLoginScreen extends StatelessWidget {
                         style: theme.textTheme.bodyMedium!.copyWith(
                           fontFamily: 'Poppins',
                           fontSize: 24.sp,
+
+                          color: AppColor.black,
                         ),
                       ),
                       SizedBox(height: mediaQuery.size.height * 0.06),
@@ -120,35 +121,28 @@ class MealLoginScreen extends StatelessWidget {
                       SizedBox(height: mediaQuery.size.height * 0.06),
 
                       // Log In Button
-                      BlocBuilder<MealLoginCubit, MealLoginStates>(
-                        builder: (context, state) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<MealLoginCubit>(
-                                context,
-                              ).checkValidate();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(
-                                mediaQuery.size.width * 0.86,
-                                48.h,
-                              ),
-                              backgroundColor: AppColor.deepOrange,
-                              padding: const EdgeInsets.all(0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.r),
-                              ),
-                            ),
-                            child: Text(
-                              S.of(context).LogIn,
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                fontFamily: 'SofiaSans',
-                                fontSize: 20.sp,
-                                color: AppColor.white,
-                              ),
-                            ),
-                          );
+                      ElevatedButton(
+                        onPressed: () {
+                          BlocProvider.of<MealLoginCubit>(
+                            context,
+                          ).checkValidate();
                         },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(mediaQuery.size.width * 0.86, 48.h),
+                          backgroundColor: AppColor.deepOrange,
+                          padding: const EdgeInsets.all(0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
+                        ),
+                        child: Text(
+                          S.of(context).LogIn,
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            fontFamily: 'SofiaSans',
+                            fontSize: 20.sp,
+                            color: AppColor.white,
+                          ),
+                        ),
                       ),
 
                       SizedBox(height: mediaQuery.size.height * 0.038),

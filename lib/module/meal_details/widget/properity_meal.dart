@@ -6,9 +6,8 @@ class ProperitylItemMeal extends StatelessWidget {
   const ProperitylItemMeal({
     super.key,
     required this.image,
-    required this.title, this.widget,
-
-
+    required this.title,
+    this.widget,
   });
   final String? image;
   final String title;
@@ -18,20 +17,21 @@ class ProperitylItemMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-
-
-
         Image.asset(image!, width: 40.w, height: 40.h),
 
         SizedBox(width: 10.w),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: AppColor.gray.withValues(alpha: 0.8),
-            fontSize: 17.sp,
-            height: 1.3,
-            fontFamily: 'SofiaSans',
-            fontWeight: FontWeight.bold,
+        Expanded(
+          child: Text(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            title,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: AppColor.gray.withValues(alpha: 0.8),
+              fontSize: 17.sp,
+              height: 1.3,
+              fontFamily: 'SofiaSans',
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],

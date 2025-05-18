@@ -22,14 +22,34 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "Allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
+    "AnemiaG6PD": MessageLookupByLibrary.simpleMessage("أنيميا الفول"),
+    "Dairy": MessageLookupByLibrary.simpleMessage("منتجات الألبان"),
+    "Diabetes": MessageLookupByLibrary.simpleMessage("السكري"),
+    "Diseases": MessageLookupByLibrary.simpleMessage("الحالات"),
+    "Eggs": MessageLookupByLibrary.simpleMessage("البيض"),
     "Filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
+    "Gluten": MessageLookupByLibrary.simpleMessage("الجلوتين"),
+    "Gout": MessageLookupByLibrary.simpleMessage("النقرس"),
+    "HighBloodPressure": MessageLookupByLibrary.simpleMessage(
+      "ارتفاع ضغط الدم",
+    ),
+    "HighCholesterol": MessageLookupByLibrary.simpleMessage(
+      "ارتفاع الكوليسترول",
+    ),
     "LogIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "MoreFilters": MessageLookupByLibrary.simpleMessage("مزيد من الفلاتر"),
+    "Nuts": MessageLookupByLibrary.simpleMessage("المكسرات"),
     "Password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "Register": MessageLookupByLibrary.simpleMessage("تسجيل"),
+    "Seafood": MessageLookupByLibrary.simpleMessage("المأكولات البحرية"),
+    "Sesame": MessageLookupByLibrary.simpleMessage("السمسم"),
+    "Soy": MessageLookupByLibrary.simpleMessage("الصويا"),
+    "account": MessageLookupByLibrary.simpleMessage("الحساب"),
     "breakfast": MessageLookupByLibrary.simpleMessage("إفطار"),
-    "calories": MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
-    "carbs": MessageLookupByLibrary.simpleMessage("الكربوهيدرات"),
+    "calories": MessageLookupByLibrary.simpleMessage("سعرات حرارية"),
+    "carbs": MessageLookupByLibrary.simpleMessage("كربوهيدرات"),
+    "change": MessageLookupByLibrary.simpleMessage("تغيير"),
     "checkYourEmailAndPassword": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من بريدك الإلكتروني وكلمة المرور",
     ),
@@ -44,7 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailAddress": MessageLookupByLibrary.simpleMessage(
       "عنوان البريد الإلكتروني",
     ),
-    "fats": MessageLookupByLibrary.simpleMessage("الدهون"),
+    "fats": MessageLookupByLibrary.simpleMessage("دهون"),
     "forEverytime": MessageLookupByLibrary.simpleMessage("لكل الأوقات"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage(
       "هل نسيت كلمة المرور؟",
@@ -60,12 +80,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "تسجيل الدخول باستخدام",
     ),
     "lunch": MessageLookupByLibrary.simpleMessage("غداء"),
+    "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "noMealsFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على وجبات",
     ),
     "ok": MessageLookupByLibrary.simpleMessage("موافق"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
-    "protein": MessageLookupByLibrary.simpleMessage("البروتين"),
+    "protein": MessageLookupByLibrary.simpleMessage("برتين"),
     "recipeCount": MessageLookupByLibrary.simpleMessage("150+ وصفة"),
     "recipesByCategories": MessageLookupByLibrary.simpleMessage(
       "الوصفات حسب الفئات",
@@ -87,7 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "successCreateAccount": MessageLookupByLibrary.simpleMessage(
       "تم إنشاء الحساب بنجاح، انقر على موافق وانتقل إلى تسجيل الدخول",
     ),
-    "sugar": MessageLookupByLibrary.simpleMessage("السكر"),
+    "sugar": MessageLookupByLibrary.simpleMessage("سكر"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("حاول مرة أخرى"),
     "update": MessageLookupByLibrary.simpleMessage("تحديث"),
     "validate1tionEmail": MessageLookupByLibrary.simpleMessage(

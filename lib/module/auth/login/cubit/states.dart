@@ -16,4 +16,16 @@ class MealLoginErrorState extends MealLoginStates {
   MealLoginErrorState({required this.error});
   final String? error;
 }
+class MealForggetPasswordLoadingState extends MealLoginStates {}
+
+class MealForggetPasswordSuccessState extends MealLoginStates {
+  MealForggetPasswordSuccessState({required this.message});
+  final String? message;
+  
+} 
+
+class MealForggetPasswordErrorState extends MealLoginStates {
+  MealForggetPasswordErrorState({required this.error});
+  final String? error;
+}
 

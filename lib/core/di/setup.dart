@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import '../app_constant.dart';
-import '../network/local/shared_pref/cach_helper.dart';
 import '../network/local/sql/sqldb.dart';
 import '../network/remote/dio_helper.dart';
 import '../observer/observer.dart';
@@ -47,16 +48,15 @@ Future<void> setupApp() async {
       (await getTemporaryDirectory()).path,
     ),
   );
-
+  
   await Future.wait([
     CachHelper.init,
     ScreenUtil.ensureScreenSize(),
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-      // Optional: allow upside-down portrait
+      
     ]),
-    
   ]);
 
   setupGetIt();

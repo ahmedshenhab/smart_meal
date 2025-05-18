@@ -60,13 +60,8 @@ class SearchByIngrediantSection extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: mediaQuery.size.height * 0.024),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: mediaQuery.size.width * 0.05,
-                  ),
-                  child: SearchWithIngrediant(theme: theme),
-                ),
+                SizedBox(height: mediaQuery.size.height * 0.015),
+                SearchWithIngrediant(theme: theme),
                 SizedBox(height: mediaQuery.size.height * 0.008),
                 BlocBuilder<MealLayoutCubit, MealStates>(
                   buildWhen:
@@ -217,6 +212,7 @@ class SearchWithIngrediant extends StatelessWidget {
         //   return null; // Validation passed
         // },
         onChanged: (value) {
+          if (value.isEmpty) return;
           MealLayoutCubit.get(context).searchByIngrediant(value);
 
           // if (MealLayoutCubit.get(context).formKey.currentState!.validate()) {

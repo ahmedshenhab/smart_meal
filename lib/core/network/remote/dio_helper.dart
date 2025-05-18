@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_redundant_argument_values
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_meal/core/app_constant.dart';
-import 'package:smart_meal/core/network/local/shared_pref/cach_helper.dart';
 import 'package:smart_meal/core/network/remote/api_endpoint.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 
 class DioHelper {
   DioHelper._();
@@ -20,7 +21,7 @@ class DioHelper {
             connectTimeout: const Duration(seconds: 30),
             receiveTimeout: const Duration(seconds: 30),
             headers: {
-              'Accept-Language': 'ar',
+              'Accept-Language': 'en',
               'Content-Type': 'application/json',
 
               'Authorization':
@@ -30,8 +31,8 @@ class DioHelper {
             baseUrl: ApiEndpoint.baseUrl,
           ),
         );
-
-        _dio?.interceptors.add(
+        if (kDebugMode) {
+            _dio?.interceptors.add(
           PrettyDioLogger(
             requestHeader: true,
             requestBody: true,
@@ -42,6 +43,9 @@ class DioHelper {
             maxWidth: 90,
           ),
         );
+        }
+
+      
 
         return _dio!;
       }

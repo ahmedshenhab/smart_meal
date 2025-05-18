@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import 'costom_read_more_text.dart';
@@ -11,6 +12,7 @@ class DetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = S.of(context);
     return Column(
       children: [
         Row(
@@ -67,33 +69,33 @@ class DetailsSection extends StatelessWidget {
             ProperitylItemMeal(
               image: 'assets/images/time.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.time ?? '0'} min',
+                  '${MealDetailCubit.get(context).mealsModel.time ?? '0'} ${localization.minute}',
             ),
 
             ProperitylItemMeal(
               image: 'assets/images/cal.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.calories100g ?? '0'} cal',
+                  '${MealDetailCubit.get(context).mealsModel.calories100g ?? '0'} ${localization.calories}',
             ),
             ProperitylItemMeal(
               image: 'assets/images/protien.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.protein100g ?? '0'} protein',
+                  '${MealDetailCubit.get(context).mealsModel.protein100g ?? '0'} ${localization.protein}',
             ),
             ProperitylItemMeal(
               image: 'assets/images/carb.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.carb100 ?? '0'} carbs',
+                  '${MealDetailCubit.get(context).mealsModel.carb100 ?? '0'} ${localization.carbs}',
             ),
             ProperitylItemMeal(
               image: 'assets/images/suger.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.sugar100g ?? '0'} sugar',
+                  '${MealDetailCubit.get(context).mealsModel.sugar100g ?? '0'} ${localization.sugar}',
             ),
             ProperitylItemMeal(
               image: 'assets/images/fat.png',
               title:
-                  '${MealDetailCubit.get(context).mealsModel.fat100g ?? '0'} fats',
+                  '${MealDetailCubit.get(context).mealsModel.fat100g ?? '0'} ${localization.fats}',
             ),
           ],
         ),

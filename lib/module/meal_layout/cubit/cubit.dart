@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/app_constant.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/profile/data/model/avoidance_model.dart';
 import '../../../core/di/setup.dart';
 import '../../../core/style/app_color.dart';
 import '../data/model/meals_model.dart';
@@ -15,12 +20,23 @@ import '../layout_screens/home/home.dart';
 import '../layout_screens/search/search.dart';
 
 class MealLayoutCubit extends Cubit<MealStates> {
-  MealLayoutCubit(this.repoLayout) : super(MealInitialState());
+  MealLayoutCubit(this.repoLayout) : super(MealInitialState()) {
+    for (var allergy in AvoidanceModel.allergyAvoidanceList) {
+      allergies[allergy.key] = false;
+    }
+    for (var disease in AvoidanceModel.diseaseAvoidanceList) {
+      diseases[disease.key] = false;
+    }
+  }
   final RepoLayout repoLayout;
   List<MealsModel> favoriteMeals = [];
+  late Map<String, String> categoryMap = {};
 
   Map<String, List<MealsModel>> meals = {};
+
   Map<int, bool> isFavouriteMap = {};
+  Map<String, bool> allergies = {};
+  Map<String, bool> diseases = {};
 
   final screens = [
     const Home(),
@@ -33,8 +49,6 @@ class MealLayoutCubit extends Cubit<MealStates> {
     const Profile(),
     const Saved(),
   ];
-
- 
 
   static MealLayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -49,7 +63,40 @@ class MealLayoutCubit extends Cubit<MealStates> {
     emit(MealChangeBottomNavState());
   }
 
-  void getAllMeal(String title, IconData icon,String key) async {
+  void toggleAllergy(String key, bool? value) async {
+    allergies[key] = value ?? false;
+    await CachHelper.setData(
+      key: AppConstant.userallergy,
+      value: jsonEncode(allergies),
+    );
+    emit(MealChangeAllergiesState(key));
+  }
+
+  void toggleDisease(String key, bool? value) {
+    diseases[key] = value ?? false;
+    CachHelper.setData(
+      key: AppConstant.userDisease,
+      value: jsonEncode(diseases),
+    );
+
+    emit(MealChangeDiseasesState(key));
+  }
+
+  void loadUserAvoidanceData() {
+    final savedAllergies = CachHelper.getData(key: 'user_allergies');
+    if (savedAllergies != null) {
+      final decoded = jsonDecode(savedAllergies) as Map<String, bool>;
+      allergies = Map<String, bool>.from(decoded);
+    }
+
+    final savedDiseases = CachHelper.getData(key: 'user_diseases');
+    if (savedDiseases != null) {
+      final decoded = jsonDecode(savedDiseases);
+      diseases = Map<String, bool>.from(decoded);
+    }
+  }
+
+  void getAllMeal(String title, IconData icon, String key) async {
     if (meals.isNotEmpty) {
       emit(MealGetAllMealSuccessState(meals[key], title, icon));
       return;
@@ -63,9 +110,19 @@ class MealLayoutCubit extends Cubit<MealStates> {
         (r) {
           meals.addAll({
             'Breakfast':
-                r.where((element) => element.type == 'Breakfast').toList(),
-            'Lunch': r.where((element) => element.type == 'Lunch').toList(),
-            'Dinner': r.where((element) => element.type == 'Dinner').toList(),
+                r
+                    .where(
+                      (element) => element.type == categoryMap['Breakfast'],
+                    )
+                    .toList(),
+            'Lunch':
+                r
+                    .where((element) => element.type == categoryMap['Lunch'])
+                    .toList(),
+            'Dinner':
+                r
+                    .where((element) => element.type == categoryMap['Dinner'])
+                    .toList(),
           });
           for (var element in r) {
             isFavouriteMap.addAll({element.recipeId ?? 10: element.isFavorite});
@@ -78,11 +135,11 @@ class MealLayoutCubit extends Cubit<MealStates> {
   }
 
   void searchByIngrediant(String name) async {
-    final pattern = RegExp(r'^[A-Za-z]+$');
-    if (!pattern.hasMatch(name)) {
-      emit(MealSearchByIngrediantErrorState(error: 'invalid ingrediant'));
-      return;
-    }
+    // final pattern = RegExp(r'^[A-Za-z]+$');
+    // if (!pattern.hasMatch(name)) {
+    //   emit(MealSearchByIngrediantErrorState(error: 'invalid ingrediant'));
+    //   return;
+    // }
 
     emit(MealSearchByIngrediantLoadingState());
     final result = await repoLayout.searchByIngrediant(name);
@@ -206,12 +263,12 @@ class MealLayoutCubit extends Cubit<MealStates> {
     );
   }
 
-  final categoriesNames = {
-    {"Breakfast": "assets/images/breakFast.png"},
-    {"Lunch": "assets/images/lunch.png"},
-    {"Dinner": "assets/images/dinner.png"},
-  };
-
+  final TextEditingController nameController = TextEditingController(
+    text: CachHelper.getData(key: AppConstant.userName),
+  );
+  final TextEditingController emailController = TextEditingController(
+    text: CachHelper.getData(key: AppConstant.email),
+  );
   final searchIngrediantController = TextEditingController();
   @override
   Future<void> close() {

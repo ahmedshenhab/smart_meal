@@ -10,7 +10,12 @@ import '../../../cubit/stataes.dart';
 import '../../../../../reusable.dart';
 
 class Categorymodel {
-  Categorymodel( { required this.key, required this.title, required this.image, required this.icon});
+  Categorymodel({
+    required this.key,
+    required this.title,
+    required this.image,
+    required this.icon,
+  });
   final String key;
   final String title;
   final String image;
@@ -32,7 +37,6 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final mealCategories = [
       Categorymodel(
-
         key: 'Breakfast',
         title: S.of(context).breakfast,
         image: 'assets/images/breakFast.png',
@@ -52,6 +56,12 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
         icon: Icons.dinner_dining_outlined,
       ),
     ];
+    final categoryMap = {
+      'Breakfast': S.of(context).breakfast,
+      'Lunch': S.of(context).lunch,
+      'Dinner': S.of(context).dinner,
+    };
+    MealLayoutCubit.get(context).categoryMap = categoryMap;
 
     return Container(
       width: double.infinity,
@@ -97,7 +107,9 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                     ), // spacing ~ spacing / 2 per side
                     child: InkWell(
                       onTap: () {
-                        MealLayoutCubit.get(context).getAllMeal(title, icon, key);
+                        MealLayoutCubit.get(
+                          context,
+                        ).getAllMeal(title, icon, key);
                       },
                       child: ItemCategory(text: title, image: image),
                     ),
@@ -127,14 +139,24 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
                 default:
               }
             },
+            buildWhen:
+                (previous, current) =>
+                    current is MealGetAllMealLoadingState ||
+                    current is MealGetAllMealErrorState ||
+                    current is MealGetAllMealSuccessState,
             builder: (context, state) {
               switch (state) {
                 case MealGetAllMealLoadingState _:
-                  return const Center(
-                    child: LinearProgressIndicator(color: AppColor.deepOrange),
+                  return Column(
+                    children: [
+                      SizedBox(height: mediaQuery.size.height * 0.01),
+                      const LinearProgressIndicator(color: AppColor.deepOrange),
+                    ],
                   );
+
                 case MealGetAllMealSuccessState _:
                   return const SizedBox.shrink();
+
                 case MealGetAllMealErrorState _:
                   return Column(
                     children: [

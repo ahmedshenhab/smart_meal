@@ -15,7 +15,7 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
   final SearchByMealRepo _searchByMealRepo;
   List<MealsModel> searchByMealResponseModel = [];
 
-  String selectedCategoryKey = 'Lunch';
+  late String selectedCategory;
   double calories = 1000;
   double protein = 100;
   double sugar = 100;
@@ -35,15 +35,15 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
               (meal.sugar100g ?? 0) <= sugar &&
               (meal.fat100g ?? 0) <= fats &&
               (meal.carb100 ?? 0) <= carbs &&
-              meal.type == selectedCategoryKey;
+              meal.type == selectedCategory;
         }).toList();
 
-   
     emit(SearchByMealSuccess(searchByMealResponseModel: filteredList));
   }
 
   Future<void> search() async {
     if (searchController.text.isEmpty) {
+      emit(SearchByMealSuccess(searchByMealResponseModel: []));
       return;
     }
 
@@ -65,7 +65,7 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
                   (meal.sugar100g ?? 0) <= sugar &&
                   (meal.fat100g ?? 0) <= fats &&
                   (meal.carb100 ?? 0) <= carbs &&
-                  meal.type == selectedCategoryKey;
+                  meal.type == selectedCategory;
             }).toList();
 
         emit(SearchByMealSuccess(searchByMealResponseModel: filteredList));
@@ -73,12 +73,12 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
     );
   }
 
-  void changeCategory(String key) {
-    if (selectedCategoryKey == key) {
+  void changeCategory(String value) {
+    if (selectedCategory == value) {
       return;
     }
-    selectedCategoryKey = key;
-    emit(SearchByMealChangeBottomCategoryState(title: key));
+    selectedCategory = value;
+    emit(SearchByMealChangeBottomCategoryState());
 
     final filteredList =
         searchByMealResponseModel.where((meal) {
@@ -87,7 +87,7 @@ class SearchByMealCubit extends Cubit<SearchByMealStates> {
               (meal.sugar100g ?? 0) <= sugar &&
               (meal.fat100g ?? 0) <= fats &&
               (meal.carb100 ?? 0) <= carbs &&
-              meal.type == selectedCategoryKey;
+              meal.type == selectedCategory;
         }).toList();
 
     emit(SearchByMealSuccess(searchByMealResponseModel: filteredList));

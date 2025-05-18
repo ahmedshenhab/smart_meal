@@ -1,51 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/auth/constantauth.dart';
+import 'package:smart_meal/module/auth/forgget_password/widget/forgget_password_listner.dart';
+import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
 import '../../../../core/style/app_color.dart';
-import '../cubit/cubit.dart';
-import 'register_listner.dart';
+
 import '../../../../reusable.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+class ForggetPasswordForm extends StatefulWidget {
+  const ForggetPasswordForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<ForggetPasswordForm> createState() => _ForggetPasswordFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _ForggetPasswordFormState extends State<ForggetPasswordForm> {
   bool isPasswordVisible = true;
 
   @override
   Widget build(BuildContext context) {
-    // log('hi');
     final mediaQuery = MediaQuery.of(context);
-    final cubit = MealRegisterCubit.get(context);
+    final cubit = BlocProvider.of<MealLoginCubit>(context);
+   
+
     return Form(
       autovalidateMode: AutovalidateMode.disabled,
-      key: cubit.formKey,
+      key: cubit.formStateForggetePassword,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildCustomField(
-              context,
-              controller: cubit.nameController,
-              labelText: S.of(context).fullName,
-
-              validator: (value) {
-                // Enhanced validation
-                if (value!.isEmpty) {
-                  return S.of(context).validateName;
-                }
-                return null;
-              },
-              type: TextInputType.name,
-            ),
-            SizedBox(height: mediaQuery.size.height * 0.02),
-
             buildCustomField(
               context,
               controller: cubit.emailController,
@@ -62,11 +48,11 @@ class _RegisterFormState extends State<RegisterForm> {
               },
               type: TextInputType.name,
             ),
-            SizedBox(height: mediaQuery.size.height * 0.02),
+            SizedBox(height: mediaQuery.size.height * 0.03),
 
             // password
             buildCustomField(
-              labelText: S.of(context).Password,
+              labelText: S.of(context).newPassword,
               context,
               controller: cubit.passwordController,
               validator: (value) {
@@ -85,18 +71,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   setState(() {});
                 },
                 child: Icon(
-                  cubit.isPasswordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
+                  isPasswordVisible ? Icons.visibility_off : Icons.visibility,
                   size: 20.w,
                   color: AppColor.gray,
                 ),
               ),
             ),
-
-            SizedBox(height: mediaQuery.size.height * 0.02),
-
-            const RegisterListner(),
+            const ForggetPasswordListner()
           ],
         ),
       ),

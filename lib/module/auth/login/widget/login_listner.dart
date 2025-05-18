@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/app_constant.dart';
-import '../../../../core/network/local/shared_pref/cach_helper.dart';
 import '../../../../core/style/app_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
@@ -15,6 +14,11 @@ class LoginListner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<MealLoginCubit, MealLoginStates>(
+      listenWhen:
+          (previous, current) =>
+              current is MealLoginSuccessState ||
+              current is MealLoginErrorState ||
+              current is MealLoginLoadingState,
       listener: (context, state) async {
         if (state is MealLoginLoadingState) {
           showDialog(
@@ -92,8 +96,6 @@ class LoginListner extends StatelessWidget {
               );
             }
           }
-
-         
         }
 
         if (state is MealLoginErrorState) {

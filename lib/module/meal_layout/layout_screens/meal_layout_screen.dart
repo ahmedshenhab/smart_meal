@@ -45,21 +45,31 @@ class _MealLayoutScreenState extends State<MealLayoutScreen> {
 
         return Scaffold(
           resizeToAvoidBottomInset: true,
-          body: SafeArea(
-            child: IndexedStack(
-              index: cubit.currentIndex,
-              children: cubit.screens,
-            ),
+          body: IndexedStack(
+            index: cubit.currentIndex,
+            children: cubit.screens,
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
             onTap: (index) => cubit.changeBottomNavIndex(index), // ✅ FIXED
-            items:   [
-    BottomNavigationBarItem(icon: const Icon(Icons.home), label: S.of(context).home),
-    BottomNavigationBarItem(icon: const Icon(Icons.search), label: S.of(context).search),
-    BottomNavigationBarItem(icon: const Icon(Icons.person), label: S.of(context).profile),
-    BottomNavigationBarItem(icon: const Icon(Icons.bookmark), label: S.of(context).save),
-  ],
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.home),
+                label: S.of(context).home,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.search),
+                label: S.of(context).search,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person),
+                label: S.of(context).profile,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.bookmark),
+                label: S.of(context).save,
+              ),
+            ],
             type: BottomNavigationBarType.fixed,
           ),
         );

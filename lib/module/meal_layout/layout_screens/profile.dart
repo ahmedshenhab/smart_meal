@@ -1,57 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/generated/l10n.dart';
-import '../../../core/app_constant.dart';
-import '../../../core/network/local/shared_pref/cach_helper.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/profile/allergies.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/profile/widget/account.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/profile/widget/disease.dart';
 import '../../../core/style/app_color.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-  final TextEditingController nameController = TextEditingController(
-    text: CachHelper.getData(key: AppConstant.userName),
-  );
-  final TextEditingController emailController = TextEditingController(
-    text: CachHelper.getData(key: AppConstant.email),
-  );
-  // final TextEditingController phoneController = TextEditingController(
-  //   text: '01200000000',
-  // );
-  // final TextEditingController bioController = TextEditingController(
-  //   text: 'I AM THE G.O.A.T',s
-  // );
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    // phoneController.dispose();
-    // bioController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+  
     return Stack(
       children: [
-        SizedBox(
-          child: Image.asset(
-            'assets/images/image_profile.png',
-            fit: BoxFit.fitHeight,
-          ),
-        ),
-        // const Positioned(
-        //   top: 40,
-        //   left: 16,
-        //   child: CircleAvatar(
-        //     backgroundColor: Colors.white,
-        //     child: Icon(Icons.close, color: Colors.black),
-        //   ),
-        // ),
+        Image.asset('assets/images/image_profile.png', fit: BoxFit.fitHeight),
+
         Positioned(
           top: 25.h,
           right: 10.w,
@@ -83,48 +46,17 @@ class _ProfileState extends State<Profile> {
                 topRight: Radius.circular(30),
               ),
             ),
-            height: 400.h,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Text(S.of(context).fullName),
-                  _buildTextField(nameController),
-                  Text(S.of(context).email),
-                  _buildTextField(emailController),
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: ListView(
+              children: const [
+                // account
+                Account(),
 
-                  // const Text('Phone Number'),
-                  // _buildTextField(phoneController),
-
-                  // const Text('Bio'),
-
-                  // _buildTextField(bioController),
-                  const SizedBox(height: 20),
-
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   style: Theme.of(
-                  //     context,
-                  //   ).elevatedButtonTheme.style!.copyWith(
-                  //     elevation: const WidgetStatePropertyAll(0),
-                  //     padding: WidgetStatePropertyAll(
-                  //       EdgeInsets.symmetric(horizontal: 90.w),
-                  //     ),
-                  //   ),
-                  //   child: Text(
-                  //     'save',
-                  //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  //       fontSize: 30.sp,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold,
-
-                  //       fontFamily: 'SofiaSans',
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(height: 30),
-                ],
-              ),
+                //allergy
+                Allergies(),
+                // disease
+                Disease(),
+              ],
             ),
           ),
         ),
@@ -133,7 +65,12 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-Widget _buildTextField(TextEditingController controller) {
+Widget buildTextField(
+  TextEditingController controller, {
+  bool readOnly = true,
+
+  void Function(String)? onChanged,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     margin: EdgeInsets.only(bottom: 12.h, top: 5.h, left: 5.w, right: 5.w),
@@ -143,7 +80,8 @@ Widget _buildTextField(TextEditingController controller) {
     ),
 
     child: TextFormField(
-      readOnly: true,
+      onChanged: onChanged,
+      readOnly: readOnly,
       controller: controller,
       decoration: const InputDecoration(border: InputBorder.none),
     ),

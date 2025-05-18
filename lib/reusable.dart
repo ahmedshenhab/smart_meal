@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/style/app_color.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-TextFormField buildLoginField(
+TextFormField buildCustomField(
   BuildContext context, {
   void Function(String)? onSubmit,
   required TextEditingController controller,
@@ -13,10 +13,9 @@ TextFormField buildLoginField(
   bool isHiddenPassword = false,
   Widget? sufixIconBotton,
   required String? Function(String?) validator,
-   TextInputType? type,
+  TextInputType? type,
 }) {
   return TextFormField(
-
     autovalidateMode: AutovalidateMode.disabled,
 
     // autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -26,7 +25,7 @@ TextFormField buildLoginField(
     onFieldSubmitted: onSubmit,
     obscureText: isHiddenPassword,
     controller: controller,
-    keyboardType: type?? TextInputType.none,
+    keyboardType: type ?? TextInputType.none,
     validator: validator,
     decoration: InputDecoration(
       errorMaxLines: 3,

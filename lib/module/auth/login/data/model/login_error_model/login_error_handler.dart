@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
@@ -43,12 +42,7 @@ class LoginErrorHandler implements Exception {
 }
 
 LoginErrorModel _handleError(dynamic e) {
-  if (e is DioException) {
-    log('error from server ${e.response?.statusCode}');
-    log('error from server ${e.response!.data}');
-    log('error from server ${e.response!.requestOptions.path}');
-    log('error  server ${e.response!.requestOptions.uri}');
-  }
+  
 
   return LoginErrorModel(message: 'error from server ');
 }
