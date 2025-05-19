@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/stataes.dart';
 import '../../../reusable.dart';

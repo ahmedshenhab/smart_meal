@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 
 class ProperitylItemMeal extends StatelessWidget {
   const ProperitylItemMeal({

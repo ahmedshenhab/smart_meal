@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../../../core/network/remote/api_error_model.dart';
+import '../../../core/network/api_error_model.dart';
 import '../data/model/meals_model.dart';
 
 sealed class MealStates {}

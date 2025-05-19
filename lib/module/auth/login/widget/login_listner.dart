@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/app_constant.dart';
-import '../../../../core/style/app_color.dart';
+import '../../../../core/ui/style/app_color.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../../../meal_layout/layout_screens/meal_layout_screen.dart';

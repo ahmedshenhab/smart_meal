@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../../../../core/style/app_color.dart';
+import '../../../../../core/ui/style/app_color.dart';
 import '../../../../category_screen/category_screen.dart';
 import '../../../cubit/cubit.dart';
 import '../../../cubit/stataes.dart';
@@ -68,7 +69,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
       height: mediaQuery.size.height * 0.48,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        color: AppColor.white,
+        color: context.isDark ? AppColor.black : AppColor.white,
       ),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +78,7 @@ class _CategoryMealSectionState extends State<CategoryMealSection> {
           Text(
             S.of(context).recipesByCategories,
             style: theme.textTheme.bodyMedium!.copyWith(
-              color: AppColor.black,
+              color: context.isDark ? AppColor.white : AppColor.black,
               fontSize: 22.sp,
             ),
           ),

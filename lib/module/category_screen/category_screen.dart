@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../core/style/app_color.dart';
+import '../../core/ui/style/app_color.dart';
 import 'cubit/cubit.dart';
 import 'cubit/state.dart';
 import '../shred_widget/custom_search_field.dart';

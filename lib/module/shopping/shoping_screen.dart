@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../core/style/app_color.dart';
+import '../../core/ui/style/app_color.dart';
 import 'cubit/shopping_cubit.dart';
 
 class ShopingScreen extends StatelessWidget {
@@ -13,6 +13,7 @@ class ShopingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ShoppingCubit, ShoppingState>(
       builder: (context, state) {
+        final cubit = ShoppingCubit.get(context);
         return Scaffold(
           backgroundColor: AppColor.scaffoldBackgroundheavy,
 
@@ -128,58 +129,77 @@ class ShopingScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10.r),
                                   ),
 
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                          maxWidth:
-                                              MediaQuery.of(
-                                                context,
-                                              ).size.width *
-                                              0.6,
-                                        ),
-
-                                        child: Text(
-                                          ShoppingCubit.get(
-                                            context,
-                                          ).carts[index].ingrediant??'',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium!.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            fontFamily: 'SofiaSans',
-                                          ),
+                                      Text(
+                                        cubit.carts[index].name ?? '',
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium!.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.deepOrange,
+                                          fontSize: 18.sp,
+                                          fontFamily: 'SofiaSans',
                                         ),
                                       ),
-
-                                      InkWell(
-                                        onTap: () {
-                                          ShoppingCubit.get(context).deleteRow(
-                                            ShoppingCubit.get(
-                                                  context,
-                                                ).carts[index].id ??
-                                                0,
-                                          );
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: 25.w,
-                                          height: 25.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              10.r,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              maxWidth:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).size.width *
+                                                  0.6,
                                             ),
-                                            color: AppColor.deepOrange,
+
+                                            child: Text(
+                                              ShoppingCubit.get(
+                                                    context,
+                                                  ).carts[index].ingrediant ??
+                                                  '',
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium!.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                fontFamily: 'SofiaSans',
+                                              ),
+                                            ),
                                           ),
 
-                                          child: const Icon(
-                                            Icons.close_outlined,
-                                            color: AppColor.white,
+                                          InkWell(
+                                            onTap: () {
+                                              ShoppingCubit.get(
+                                                context,
+                                              ).deleteRow(
+                                                ShoppingCubit.get(
+                                                      context,
+                                                    ).carts[index].id ??
+                                                    0,
+                                              );
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: 25.w,
+                                              height: 25.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                color: AppColor.deepOrange,
+                                              ),
+
+                                              child: const Icon(
+                                                Icons.close_outlined,
+                                                color: AppColor.white,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ],
                                   ),

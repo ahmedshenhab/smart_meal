@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/module/auth/forgget_password/meal_forgget_password.dart';
 import 'package:smart_meal/module/recommendation_meal_screen/cubit/recommendation_cubit.dart';
+import 'package:smart_meal/module/recommendation_meal_screen/data/repo.dart';
 import 'package:smart_meal/module/recommendation_meal_screen/recommendation_meal_screen.dart';
-import '../di/setup.dart';
-import '../network/local/sql/sqldb.dart';
+import '../setup/setup.dart';
+import '../services/sql/sqldb.dart';
 import '../../module/auth/login/cubit/cubit.dart';
 import '../../module/auth/login/data/repo/login_repo.dart';
 import '../../module/auth/login/meal_login_screen.dart';
@@ -40,7 +41,6 @@ class AppRouter {
 
       case MealForggetPassword.mealForggetPassword:
         final cubit = setting.arguments as MealLoginCubit;
-      
 
         return MaterialPageRoute(
           builder:
@@ -122,24 +122,15 @@ class AppRouter {
                 child: const CategoryScreen(),
               ),
         );
-         case RecommendationMealScreen.recommendationMealScreen:
-        // final args = setting.arguments as Map<String, dynamic>;
+      case RecommendationMealScreen.recommendationMealScreen:
+        final args = setting.arguments as List<MealsModel>;
 
-       
         // final mealLayoutCubit = args['mealLayoutCubit'] as MealLayoutCubit;
+
 
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create:
-                    (context) => RecommendationCubit(
-                      meals: []
-
-                     
-                    
-                    ),
-                child: const CategoryScreen(),
-              ),
+              (_) =>  RecommendationMealScreen(meals: args,),
         );
 
       default:

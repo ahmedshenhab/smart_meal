@@ -6,9 +6,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import '../../../../core/app_constant.dart';
-import '../../../../core/network/remote/api_endpoint.dart';
-import '../../../../core/network/remote/api_error_handler.dart';
-import '../../../../core/network/remote/api_error_model.dart';
+import '../../../../core/network/api_endpoint.dart';
+import '../../../../core/network/api_error_handler.dart';
+import '../../../../core/network/api_error_model.dart';
 import '../model/ingradiant_id_model.dart';
 import '../model/meals_model.dart';
 

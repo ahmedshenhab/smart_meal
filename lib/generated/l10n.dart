@@ -554,6 +554,71 @@ class S {
       args: [],
     );
   }
+
+  /// `recommended`
+  String get recommended {
+    return Intl.message('recommended', name: 'recommended', desc: '', args: []);
+  }
+
+  /// `search to build your recommendation`
+  String get buildRecommendation {
+    return Intl.message(
+      'search to build your recommendation',
+      name: 'buildRecommendation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Made Just  For\nYou`
+  String get makeForYou {
+    return Intl.message(
+      'Made Just  For\nYou',
+      name: 'makeForYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommended Meals`
+  String get recommendedMeals {
+    return Intl.message(
+      'Recommended Meals',
+      name: 'recommendedMeals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show More`
+  String get showMore {
+    return Intl.message('Show More', name: 'showMore', desc: '', args: []);
+  }
+
+  /// `Show Less`
+  String get showLess {
+    return Intl.message('Show Less', name: 'showLess', desc: '', args: []);
+  }
+
+  /// `search for\n a meal ?`
+  String get seachForMeal {
+    return Intl.message(
+      'search for\n a meal ?',
+      name: 'seachForMeal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `let us cook\n for you`
+  String get letUsCockForYou {
+    return Intl.message(
+      'let us cook\n for you',
+      name: 'letUsCockForYou',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,16 +1,17 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 
 import '../../../data/model/meals_model.dart';
+
 class CustomItemMealRecomendation extends StatelessWidget {
   const CustomItemMealRecomendation({
     super.key,
 
-   
     this.boxShadow,
-    required this.searchByMealResponseModel,
+    required this.meal,
   });
 
   // final Color foreground;
@@ -18,11 +19,10 @@ class CustomItemMealRecomendation extends StatelessWidget {
   // final Color background;
   final BoxShadow? boxShadow;
 
-  final MealsModel searchByMealResponseModel;
+  final MealsModel meal;
 
   @override
   Widget build(BuildContext context) {
-   
     final theme = Theme.of(context);
     return Container(
       width: 150.w,
@@ -30,7 +30,7 @@ class CustomItemMealRecomendation extends StatelessWidget {
 
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: AppColor.white,
+        color: context.isDark ? AppColor.black : AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(
@@ -43,25 +43,39 @@ class CustomItemMealRecomendation extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(
-                  'assets/images/m1.png',
-                  width: 135.w,
-                  height: 80.h,
+                child:
+                    meal.imageUrl == null || meal.imageUrl == ''
+                        ? Image.asset(
+                          'assets/images/m1.png',
+                          width: 135.w,
+                          height: 80.h,
 
-                  fit: BoxFit.cover,
-                ),
+                          fit: BoxFit.cover,
+                        )
+                        : CachedNetworkImage(
+                          width: 135.w,
+                          height: 80.h,
+                          fit: BoxFit.cover,
+                          imageUrl: meal.imageUrl ?? '',
+                          placeholder:
+                              (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          errorWidget:
+                              (context, url, error) => const Icon(Icons.error),
+                        ),
               ),
 
               // InkWell(
               //   onTap: () {
-                 
+
               //   },
               //   child: CircleAvatar(
               //     radius: 15.r,
               //     backgroundColor:
               //         MealLayoutCubit.get(
               //                   context,
-              //                 ).isFavouriteMap[searchByMealResponseModel
+              //                 ).isFavouriteMap[meal
               //                     .recipeId] ==
               //                 true
               //             ? AppColor.deepOrange
@@ -72,7 +86,7 @@ class CustomItemMealRecomendation extends StatelessWidget {
               //       color:
               //           MealLayoutCubit.get(
               //                     context,
-              //                   ).isFavouriteMap[searchByMealResponseModel
+              //                   ).isFavouriteMap[meal
               //                       .recipeId] ==
               //                   true
               //               ? AppColor.white
@@ -80,8 +94,6 @@ class CustomItemMealRecomendation extends StatelessWidget {
               //     ),
               //   ),
               // ),
-           
-           
             ],
           ),
 
@@ -90,10 +102,10 @@ class CustomItemMealRecomendation extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
 
-            searchByMealResponseModel.recipeName ?? 'default',
+            meal.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
-              color: AppColor.black,
+              color: context.isDark ? AppColor.white : AppColor.black,
               fontWeight: FontWeight.normal,
               fontSize: 13.sp,
             ),
@@ -117,7 +129,7 @@ class CustomItemMealRecomendation extends StatelessWidget {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        searchByMealResponseModel.type ?? 'default',
+                        meal.type ?? 'default',
                         // 'breakfast',
                         style: theme.textTheme.bodyMedium!.copyWith(
                           color: AppColor.gray,
@@ -145,8 +157,7 @@ class CustomItemMealRecomendation extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
 
                         TextSpan(
-                          text:
-                              searchByMealResponseModel.calories100g.toString(),
+                          text: meal.calories100g.toString(),
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: AppColor.gray,
                             fontFamily: 'Roboto',

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_meal/generated/l10n.dart';
 
 class CustomReadMoreText extends StatefulWidget {
   const CustomReadMoreText({
@@ -34,7 +35,9 @@ class _CostomReadMoreTextState extends State<CustomReadMoreText> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final linkText = _expanded ? ' Show less' : ' Show more';
+        final localization = S.of(context);
+        final linkText =
+            _expanded ? localization.showLess : localization.showMore;
 
         final fullTextPainter = TextPainter(
           text: TextSpan(text: widget.text, style: defaultStyle),

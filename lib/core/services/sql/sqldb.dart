@@ -43,7 +43,9 @@ class DatabaseHelper {
     final db = await database;
     await db.insert(
       'meal',
-      CartItem(name: name).toJson(),
+       {
+      'name': name, 
+    },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

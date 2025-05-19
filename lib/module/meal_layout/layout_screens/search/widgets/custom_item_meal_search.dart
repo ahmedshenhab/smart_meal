@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/style/app_color.dart';
+import '../../../../../core/ui/style/app_color.dart';
 import '../../../data/model/meals_model.dart';
 
 class CustomItemMealSearch extends StatelessWidget {
@@ -32,13 +33,21 @@ class CustomItemMealSearch extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(
-                  'assets/images/m1.png',
-                  width: 135.w,
-                  height: 80.h,
-
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    meal?.imageUrl == null || meal?.imageUrl == ''
+                        ? Image.asset('assets/images/m1.png')
+                        : CachedNetworkImage(
+                          width: 135.w,
+                          height: 80.h,
+                          fit: BoxFit.cover,
+                          imageUrl: meal?.imageUrl ?? '',
+                          placeholder:
+                              (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          errorWidget:
+                              (context, url, error) => const Icon(Icons.error),
+                        ),
               ),
 
               //  InkWell(

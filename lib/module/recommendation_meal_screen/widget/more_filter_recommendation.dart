@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/recommendation_meal_screen/cubit/recommendation_cubit.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 
 class MoreFilterRecommendation extends StatelessWidget {
   const MoreFilterRecommendation({super.key});

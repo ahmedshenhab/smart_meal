@@ -1,7 +1,8 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 import '../../meal_layout/cubit/cubit.dart';
 import '../../meal_layout/data/model/meals_model.dart';
 
@@ -12,7 +13,7 @@ class CustomItemMealCategory extends StatelessWidget {
     // required this.foreground,
     // required this.background,
     this.boxShadow,
-    required this.searchByMealResponseModel,ujhy
+    required this.searchByMealResponseModel,
   });
 
   // final Color foreground;
@@ -45,13 +46,21 @@ class CustomItemMealCategory extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(
-                  'assets/images/m1.png',
-                  width: 135.w,
-                  height: 80.h,
-
-                  fit: BoxFit.cover,
-                ),
+                child:  
+                    searchByMealResponseModel.imageUrl == null || searchByMealResponseModel.imageUrl == ''
+                        ? Image.asset('assets/images/m1.png')
+                        : CachedNetworkImage(
+                          width: 135.w,
+                          height: 80.h,
+                          fit: BoxFit.cover,
+                          imageUrl: searchByMealResponseModel.imageUrl ?? '',
+                          placeholder:
+                              (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          errorWidget:
+                              (context, url, error) => const Icon(Icons.error),
+                        ),
               ),
 
               InkWell(

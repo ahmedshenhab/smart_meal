@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_meal/core/app_constant.dart';
-import 'package:smart_meal/core/network/remote/api_endpoint.dart';
+import 'package:smart_meal/core/network/api_endpoint.dart';
 import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 
 

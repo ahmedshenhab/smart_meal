@@ -1,6 +1,6 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/network/local/sql/sqldb.dart';
+import '../../../core/services/sql/sqldb.dart';
 
 part 'shopping_state.dart';
 

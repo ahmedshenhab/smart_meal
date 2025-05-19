@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/style/app_color.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import '../../../../../core/ui/style/app_color.dart';
 import '../cubit/cubit.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -17,7 +18,6 @@ class SearchTextField extends StatelessWidget {
       ),
 
       child: TextField(
-     
         onChanged: (_) async {
           BlocProvider.of<SearchByMealCubit>(context).search();
         },
@@ -37,7 +37,7 @@ class SearchTextField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: AppColor.white,
+          fillColor: context.isDark ? Colors.grey.shade900 : AppColor.white,
 
           // isCollapsed: true,
         ),

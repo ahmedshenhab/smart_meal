@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/module/meal_details/widget/ingreadiant_instruction_section.dart';
 import 'package:smart_meal/module/meal_details/widget/properities_section.dart';
 

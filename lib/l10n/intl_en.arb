@@ -91,7 +91,17 @@
   "fats": "fats",
   "calories": "cal",
   "sugar": "sugar",
-  "dinger": "not sutable to your case🙅‍♂️"
+  "dinger": "not sutable to your case🙅‍♂️",
+  "recommended": "recommended",
+  "buildRecommendation": "search to build your recommendation",
+  "makeForYou": "Made Just  For\nYou",
+                "recommendedMeals" : "Recommended Meals"
+                ,
+                "showMore" : "Show More",
+                "showLess" : "Show Less",
+                "seachForMeal" : "search for\n a meal ?",
+                "letUsCockForYou" : "let us cook\n for you"
+
  
 
 

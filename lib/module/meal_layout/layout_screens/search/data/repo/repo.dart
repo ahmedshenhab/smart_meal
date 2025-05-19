@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../../../core/network/remote/api_endpoint.dart';
-import '../../../../../../core/network/remote/api_error_handler.dart';
-import '../../../../../../core/network/remote/api_error_model.dart';
+import '../../../../../../core/network/api_endpoint.dart';
+import '../../../../../../core/network/api_error_handler.dart';
+import '../../../../../../core/network/api_error_model.dart';
 import '../../../../data/model/meals_model.dart';
 
 class SearchByMealRepo {

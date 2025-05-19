@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../../core/network/remote/api_endpoint.dart';
+import '../../../../../core/network/api_endpoint.dart';
 import '../model/register_error_model/register_error_handler.dart';
 import '../model/register_error_model/register_error_model.dart';
 import '../model/register_request/register_model_request.dart';

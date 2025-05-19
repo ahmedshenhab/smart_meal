@@ -45,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Soy": MessageLookupByLibrary.simpleMessage("Soy"),
     "account": MessageLookupByLibrary.simpleMessage("Account"),
     "breakfast": MessageLookupByLibrary.simpleMessage("Breakfast"),
+    "buildRecommendation": MessageLookupByLibrary.simpleMessage(
+      "search to build your recommendation",
+    ),
     "calories": MessageLookupByLibrary.simpleMessage("cal"),
     "carbs": MessageLookupByLibrary.simpleMessage("carbs"),
     "change": MessageLookupByLibrary.simpleMessage("Change"),
@@ -78,9 +81,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidIngredient": MessageLookupByLibrary.simpleMessage(
       "Invalid ingredient",
     ),
+    "letUsCockForYou": MessageLookupByLibrary.simpleMessage(
+      "let us cook\n for you",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Log in"),
     "loginWithHeader": MessageLookupByLibrary.simpleMessage("login with"),
     "lunch": MessageLookupByLibrary.simpleMessage("Lunch"),
+    "makeForYou": MessageLookupByLibrary.simpleMessage("Made Just  For\nYou"),
     "minute": MessageLookupByLibrary.simpleMessage("min"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "noMealsFound": MessageLookupByLibrary.simpleMessage("No Meals Found"),
@@ -91,9 +98,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "recipesByCategories": MessageLookupByLibrary.simpleMessage(
       "Recipes By Categories",
     ),
+    "recommended": MessageLookupByLibrary.simpleMessage("recommended"),
+    "recommendedMeals": MessageLookupByLibrary.simpleMessage(
+      "Recommended Meals",
+    ),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "save": MessageLookupByLibrary.simpleMessage("save"),
     "saved": MessageLookupByLibrary.simpleMessage("Saved"),
+    "seachForMeal": MessageLookupByLibrary.simpleMessage(
+      "search for\n a meal ?",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("search"),
     "searchForIngredient": MessageLookupByLibrary.simpleMessage(
       "Search for Ingredient...",
@@ -105,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "search with meal name",
     ),
     "serving": MessageLookupByLibrary.simpleMessage("serving"),
+    "showLess": MessageLookupByLibrary.simpleMessage("Show Less"),
+    "showMore": MessageLookupByLibrary.simpleMessage("Show More"),
     "successCreateAccount": MessageLookupByLibrary.simpleMessage(
       "Account created successfully,click ok and go to login",
     ),

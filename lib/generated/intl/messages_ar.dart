@@ -47,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Soy": MessageLookupByLibrary.simpleMessage("الصويا"),
     "account": MessageLookupByLibrary.simpleMessage("الحساب"),
     "breakfast": MessageLookupByLibrary.simpleMessage("إفطار"),
+    "buildRecommendation": MessageLookupByLibrary.simpleMessage(
+      "ابحث لبناء وصفات مقترحة",
+    ),
     "calories": MessageLookupByLibrary.simpleMessage("سعرات حرارية"),
     "carbs": MessageLookupByLibrary.simpleMessage("كربوهيدرات"),
     "change": MessageLookupByLibrary.simpleMessage("تغيير"),
@@ -76,11 +79,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "ingredients": MessageLookupByLibrary.simpleMessage("المكونات"),
     "instructions": MessageLookupByLibrary.simpleMessage("التعليمات"),
     "invalidIngredient": MessageLookupByLibrary.simpleMessage("مكون غير صالح"),
+    "letUsCockForYou": MessageLookupByLibrary.simpleMessage("دعنا نطبخ\nلك"),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "loginWithHeader": MessageLookupByLibrary.simpleMessage(
       "تسجيل الدخول باستخدام",
     ),
     "lunch": MessageLookupByLibrary.simpleMessage("غداء"),
+    "makeForYou": MessageLookupByLibrary.simpleMessage("صنع لك"),
     "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "noMealsFound": MessageLookupByLibrary.simpleMessage(
@@ -93,9 +98,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "recipesByCategories": MessageLookupByLibrary.simpleMessage(
       "الوصفات حسب الفئات",
     ),
+    "recommended": MessageLookupByLibrary.simpleMessage("وصفات مقترحة"),
+    "recommendedMeals": MessageLookupByLibrary.simpleMessage("وصفات مقترحة"),
     "retry": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "save": MessageLookupByLibrary.simpleMessage("حفظ"),
     "saved": MessageLookupByLibrary.simpleMessage("المفضلة"),
+    "seachForMeal": MessageLookupByLibrary.simpleMessage("ابحث عن \nوصفة"),
     "search": MessageLookupByLibrary.simpleMessage("بحث"),
     "searchForIngredient": MessageLookupByLibrary.simpleMessage(
       "ابحث عن مكون...",
@@ -107,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "ابحث باسم الوجبة",
     ),
     "serving": MessageLookupByLibrary.simpleMessage("الحصة"),
+    "showLess": MessageLookupByLibrary.simpleMessage("عرض اقل"),
+    "showMore": MessageLookupByLibrary.simpleMessage("عرض اكثر"),
     "successCreateAccount": MessageLookupByLibrary.simpleMessage(
       "تم إنشاء الحساب بنجاح، انقر على موافق وانتقل إلى تسجيل الدخول",
     ),

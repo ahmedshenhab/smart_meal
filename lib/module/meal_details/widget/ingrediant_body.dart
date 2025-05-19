@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import '../cubit/meal_detail_state.dart';
 import '../../../reusable.dart';
@@ -11,6 +11,7 @@ class IngrediantBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = MealDetailCubit.get(context);
     return Column(
       children: [
         SizedBox(height: 10.h),
@@ -97,7 +98,7 @@ class IngrediantBody extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
 
-                          '${(MealDetailCubit.get(context).mealsModel.ingredients?[index].amount ?? 0) * (int.parse(MealDetailCubit.get(context).servingController.text))}g ${MealDetailCubit.get(context).mealsModel.ingredients?[index].ingredientName ?? ''}',
+                          '${(cubit.mealsModel.ingredients?[index].amount ?? 0) * cubit.servingCount}g ${cubit.mealsModel.ingredients?[index].ingredientName ?? ''}',
                           style: Theme.of(
                             context,
                           ).textTheme.bodyMedium!.copyWith(

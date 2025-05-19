@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/di/setup.dart';
-import 'package:smart_meal/core/network/local/sql/sqldb.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/setup/setup.dart';
+import 'package:smart_meal/core/services/sql/sqldb.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../../../../core/style/app_color.dart';
+import '../../../../../core/ui/style/app_color.dart';
 import '../../../../meal_details/meal_datails_screen.dart';
 import '../../../cubit/cubit.dart';
 import '../../../cubit/stataes.dart';
@@ -22,7 +23,10 @@ class SearchByIngrediantSection extends StatelessWidget {
       height: mediaQuery.size.height * 0.6,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        color: AppColor.brownBurn,
+        color:
+            context.isDark
+                ? AppColor.brownDark.withValues(alpha: 0.8)
+                : AppColor.brownBurn,
       ),
       child: Column(
         children: [
@@ -30,12 +34,12 @@ class SearchByIngrediantSection extends StatelessWidget {
           Text(
             S.of(context).dontKnowWhatToCook,
             style: theme.textTheme.bodyMedium!.copyWith(
-              color: Colors.white,
+              color: context.isDark ? AppColor.black : Colors.white,
               fontSize: 22.sp,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             S.of(context).searchWithIngredients,
             style: theme.textTheme.bodyMedium!.copyWith(
@@ -48,7 +52,7 @@ class SearchByIngrediantSection extends StatelessWidget {
             width: mediaQuery.size.width * 0.86,
             height: mediaQuery.size.height * 0.4,
             decoration: BoxDecoration(
-              color: AppColor.white,
+              color: context.isDark ? AppColor.black : AppColor.white,
               borderRadius: BorderRadius.circular(30.r),
             ),
             child: Column(
@@ -89,7 +93,16 @@ class SearchByIngrediantSection extends StatelessWidget {
                             children: [
                               const SizedBox(height: 60),
 
-                              Text(S.of(context).noMealsFound),
+                              Text(
+                                S.of(context).noMealsFound,
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                  color:
+                                      context.isDark
+                                          ? Colors.white
+                                          : AppColor.black,
+                                  fontSize: 20.sp,
+                                ),
+                              ),
                             ],
                           );
                         }
@@ -115,7 +128,9 @@ class SearchByIngrediantSection extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  getIt<DatabaseHelper>().insertName( state.meals[index].recipeName ?? '');
+                                  getIt<DatabaseHelper>().insertName(
+                                    state.meals[index].recipeName ?? '',
+                                  );
                                   Navigator.of(context).pushNamed(
                                     MealDetailsScreen.mealDetailsScreen,
                                     arguments: state.meals[index],
@@ -164,7 +179,7 @@ class SearchByIngrediantSection extends StatelessWidget {
           ),
         ],
         borderRadius: BorderRadius.circular(50.r),
-        color: Colors.grey.shade100,
+        color: context.isDark ? Colors.grey.shade800 : Colors.grey.shade100,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -223,7 +238,7 @@ class SearchWithIngrediant extends StatelessWidget {
         },
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColor.fieldColor,
+          fillColor: context.isDark ? AppColor.blackLight : AppColor.fieldColor,
           prefixIcon: Icon(
             Icons.search,
             color: AppColor.fieldHintSearchColor,

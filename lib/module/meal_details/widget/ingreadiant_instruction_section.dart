@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/search.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import '../cubit/meal_detail_state.dart';
 import 'ingrediant_body.dart';
@@ -98,6 +98,9 @@ class IngreadiantInstructionSection extends StatelessWidget {
               height: 30.h,
 
               child: TextField(
+                onChanged: (value) {
+                  BlocProvider.of<MealDetailCubit>(context).updateQuantity();
+                },
                 keyboardType: TextInputType.number,
                 controller: MealDetailCubit.get(context).servingController,
                 decoration: InputDecoration(
@@ -122,19 +125,19 @@ class IngreadiantInstructionSection extends StatelessWidget {
             ),
             SizedBox(width: 16.w),
 
-            InkWell(
-              onTap: () {
-                MealDetailCubit.get(context).updateQuantity();
-              },
-              child: Text(
-                S.of(context).update,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 18.sp,
-                  color: AppColor.deepOrange,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     MealDetailCubit.get(context).updateQuantity();
+            //   },
+            //   child: Text(
+            //     S.of(context).update,
+            //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            //       fontSize: 18.sp,
+            //       color: AppColor.deepOrange,
+            //       fontWeight: FontWeight.w600,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         SizedBox(height: 10.h),

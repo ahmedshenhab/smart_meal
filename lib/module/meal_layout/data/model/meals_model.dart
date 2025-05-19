@@ -2,6 +2,7 @@
 class MealsModel {
   factory MealsModel.fromJson(Map<String, dynamic> json) {
     return MealsModel(
+      imageUrl: json['imageUrl'],
       isFavorite: json['isFavorite'] ?? false,
       recipeId: json['recipeId'],
       recipeName: json['recipe_Name'],
@@ -27,6 +28,7 @@ class MealsModel {
   }
 
   MealsModel({
+    required this.imageUrl,
     required this.recipeId,
     required this.recipeName,
     required this.description,
@@ -42,7 +44,7 @@ class MealsModel {
     required this.type,
     required this.isFavorite,
   });
-
+  final String? imageUrl;
   final int? recipeId;
   final String? recipeName;
   final String? description;
@@ -78,6 +80,7 @@ class MealsModel {
     bool? isFavorite,
   }) {
     return MealsModel(
+      imageUrl: imageUrl ?? imageUrl,
       recipeId: recipeId ?? this.recipeId,
       recipeName: recipeName ?? this.recipeName,
       description: description ?? this.description,
@@ -108,4 +111,3 @@ class Ingredient {
   final String ingredientName;
   final num amount;
 }
-

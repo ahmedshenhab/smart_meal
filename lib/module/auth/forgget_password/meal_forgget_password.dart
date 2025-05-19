@@ -6,7 +6,7 @@ import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/auth/forgget_password/widget/forgget_password_form.dart';
 import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
 import 'package:smart_meal/module/auth/login/cubit/states.dart';
-import '../../../core/style/app_color.dart';
+import '../../../core/ui/style/app_color.dart';
 
 class MealForggetPassword extends StatelessWidget {
   const MealForggetPassword({super.key});

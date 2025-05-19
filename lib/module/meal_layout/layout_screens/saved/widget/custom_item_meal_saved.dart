@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../../core/style/app_color.dart';
+import '../../../../../core/ui/style/app_color.dart';
 import '../../../cubit/cubit.dart';
 import '../../../data/model/meals_model.dart';
 

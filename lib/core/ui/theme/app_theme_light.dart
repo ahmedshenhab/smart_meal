@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'app_color.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 
-class AppTheme {
+class AppThemeLight {
+  
+
   static ThemeData lighTheme = ThemeData(
-    appBarTheme: const AppBarTheme(backgroundColor: AppColor.scaffoldBackgroundLight),
+    brightness: Brightness.light,
+
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColor.scaffoldBackgroundLight,
+    ),
     scaffoldBackgroundColor: AppColor.scaffoldBackgroundLight,
 
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -42,35 +48,6 @@ class AppTheme {
         height: 1.3,
         fontWeight: FontWeight.bold,
         color: AppColor.black,
-      ),
-    ),
-  );
-  static ThemeData darkTheme = ThemeData(
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColor.deepOrange,
-        foregroundColor: AppColor.white,
-      ),
-    ),
-    iconButtonTheme: IconButtonThemeData(
-      style: IconButton.styleFrom(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
-        ),
-      ),
-    ),
-
-    textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
-
-    fontFamily: 'cambria',
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(
-        fontFamily: 'cambria',
-        fontSize: 22.sp,
-        height: 1.3,
-        fontWeight: FontWeight.bold,
-        color: AppColor.deepOrange,
       ),
     ),
   );

@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section1.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section4.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/sec4/home_section4.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section.dart';
 
 import 'widget/category_meal_section.dart';
@@ -23,7 +24,10 @@ class Home extends StatelessWidget {
             topLeft: Radius.circular(20.r),
             topRight: Radius.circular(20.r),
           ),
-          color: AppColor.scaffoldBackgroundheavy,
+          color:
+              context.isDark
+                  ? AppColor.black
+                  : AppColor.scaffoldBackgroundheavy,
         ),
         margin: EdgeInsets.only(
           left: mediaQuery.size.width * 0.02,

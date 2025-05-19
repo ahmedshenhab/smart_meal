@@ -1,10 +1,6 @@
-sealed class MealDetailStatess {
-  const MealDetailStatess();
-}
+sealed class MealDetailStatess {}
 
-final class MealDetailTitleButtonChangeState extends MealDetailStatess {
-  const MealDetailTitleButtonChangeState();
-}
+final class MealDetailTitleButtonChangeState extends MealDetailStatess {}
 
 final class MealDetailQuanttyUpdateState extends MealDetailStatess {}
 

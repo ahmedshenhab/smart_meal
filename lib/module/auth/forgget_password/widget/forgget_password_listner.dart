@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_meal/core/style/app_color.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
 import 'package:smart_meal/module/auth/login/cubit/states.dart';
 import 'package:smart_meal/reusable.dart';
