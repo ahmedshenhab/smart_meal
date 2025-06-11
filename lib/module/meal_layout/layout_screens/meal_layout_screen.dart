@@ -46,6 +46,7 @@ class _MealLayoutScreenState extends State<MealLayoutScreen> {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: IndexedStack(
+
             index: cubit.currentIndex,
             children: cubit.screens,
           ),

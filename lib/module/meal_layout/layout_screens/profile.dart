@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/profile/allergies.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/profile/widget/account.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/profile/widget/disease.dart';
-import '../../../core/ui/style/app_color.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

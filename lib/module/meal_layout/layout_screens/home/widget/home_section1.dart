@@ -29,7 +29,7 @@ class HomeSection1 extends StatelessWidget {
             Text(
               S.of(context).seachForMeal,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: context.isDark ? Colors.white : AppColor.deepOrange,
+                color: context.isDark ? Colors.white : AppColor.black,
               ),
             ),
             SizedBox(height: 7.h),

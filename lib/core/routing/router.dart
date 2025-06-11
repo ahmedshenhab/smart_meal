@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/module/auth/forgget_password/meal_forgget_password.dart';
-import 'package:smart_meal/module/recommendation_meal_screen/cubit/recommendation_cubit.dart';
-import 'package:smart_meal/module/recommendation_meal_screen/data/repo.dart';
 import 'package:smart_meal/module/recommendation_meal_screen/recommendation_meal_screen.dart';
 import '../setup/setup.dart';
 import '../services/sql/sqldb.dart';

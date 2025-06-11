@@ -1,9 +1,6 @@
-import 'dart:developer';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_meal/core/services/sql/sqldb.dart';
 import 'package:smart_meal/core/ui/theme/app_theme_dark.dart';
 import 'package:smart_meal/core/ui/theme/app_theme_light.dart';
 import 'core/setup/setup.dart';
@@ -24,7 +21,7 @@ void main() async {
 
   runApp(const MyApp());
 
-  log(ui.PlatformDispatcher.instance.locale.languageCode);
+
 }
 
 class MyApp extends StatelessWidget {
