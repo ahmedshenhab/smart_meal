@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import '../../core/ui/style/app_color.dart';
 import 'cubit/cubit.dart';
 import 'cubit/state.dart';
@@ -19,7 +20,16 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
+      backgroundColor:
+          context.isDark
+              ? AppColor.scaffolddark
+              : AppColor.scaffoldBackgroundLight,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor:
+            context.isDark
+                ? AppColor.scaffolddark
+                : AppColor.scaffoldBackgroundLight,
         automaticallyImplyLeading: false,
 
         title: Text(CategoryScreenCubit.get(context).title),
@@ -56,7 +66,7 @@ class CategoryScreen extends StatelessWidget {
                       topLeft: Radius.circular(20.r),
                       topRight: Radius.circular(20.r),
                     ),
-                    color: AppColor.white,
+                    color: context.isDark ? AppColor.black : AppColor.white,
                   ),
                   padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -71,7 +81,7 @@ class CategoryScreen extends StatelessWidget {
 
                       crossAxisSpacing: 10.w,
                       mainAxisSpacing: 20.h,
-                     
+                      childAspectRatio: 0.91,
                     ),
                     itemCount: state.meals.length,
                     itemBuilder:

@@ -10,11 +10,15 @@
   "validationPassword": "على الأقل 6 أحرف",
   "validate1tionEmail": "يرجى إدخال بريدك الإلكتروني",
   "validate2tionEmail": "يرجى إدخال بريد إلكتروني صالح",
+  "addToCart": "اضافة للسلة",
   
+"item": "عناصر",
   "forgetPassword": "هل نسيت كلمة المرور؟",
   "checkYourEmailAndPassword": "يرجى التحقق من بريدك الإلكتروني وكلمة المرور",
   
   "createAccount": "إنشاء حساب",
+  "Instructions:" : "التعليمات",
+
   "fullName": "الاسم الكامل",
   
   "haveAccount": "هل لديك حساب؟",

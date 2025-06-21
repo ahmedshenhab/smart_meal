@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Sesame": MessageLookupByLibrary.simpleMessage("Sesame"),
     "Soy": MessageLookupByLibrary.simpleMessage("Soy"),
     "account": MessageLookupByLibrary.simpleMessage("Account"),
+    "addToCart": MessageLookupByLibrary.simpleMessage("add to cart"),
     "breakfast": MessageLookupByLibrary.simpleMessage("Breakfast"),
     "buildRecommendation": MessageLookupByLibrary.simpleMessage(
       "search to build your recommendation",
@@ -122,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidIngredient": MessageLookupByLibrary.simpleMessage(
       "Invalid ingredient",
     ),
+    "item": MessageLookupByLibrary.simpleMessage("items"),
     "letUsCockForYou": MessageLookupByLibrary.simpleMessage(
       "Let us cook\n for you",
     ),

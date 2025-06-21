@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Sesame": MessageLookupByLibrary.simpleMessage("السمسم"),
     "Soy": MessageLookupByLibrary.simpleMessage("الصويا"),
     "account": MessageLookupByLibrary.simpleMessage("الحساب"),
+    "addToCart": MessageLookupByLibrary.simpleMessage("اضافة للسلة"),
     "breakfast": MessageLookupByLibrary.simpleMessage("إفطار"),
     "buildRecommendation": MessageLookupByLibrary.simpleMessage(
       "ابحث لبناء وصفات مقترحة",
@@ -118,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ingredients": MessageLookupByLibrary.simpleMessage("المكونات"),
     "instructions": MessageLookupByLibrary.simpleMessage("التعليمات"),
     "invalidIngredient": MessageLookupByLibrary.simpleMessage("مكون غير صالح"),
+    "item": MessageLookupByLibrary.simpleMessage("عناصر"),
     "letUsCockForYou": MessageLookupByLibrary.simpleMessage("دعنا نطبخ\nلك"),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "loginWithHeader": MessageLookupByLibrary.simpleMessage(

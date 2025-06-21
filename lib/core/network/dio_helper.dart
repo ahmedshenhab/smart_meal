@@ -2,11 +2,9 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:smart_meal/core/app_constant.dart';
 import 'package:smart_meal/core/network/api_endpoint.dart';
 import 'package:smart_meal/core/network/interceptor/app_interceptor.dart';
 import 'package:smart_meal/core/network/interceptor/logger_interceptor.dart';
-import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
 import 'package:smart_meal/core/setup/setup.dart';
 
 class DioHelper {
@@ -24,12 +22,7 @@ class DioHelper {
             receiveTimeout: const Duration(seconds: 20),
             sendTimeout: const Duration(seconds: 60),
 
-            headers: {
-              'Accept-Language': 'ar',
-
-              'Authorization':
-                  'Bearer ${CachHelper.getData(key: AppConstant.tokenKey)}',
-            },
+           
 
             baseUrl: ApiEndpoint.baseUrl,
           ),

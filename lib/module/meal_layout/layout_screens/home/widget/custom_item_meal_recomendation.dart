@@ -25,12 +25,15 @@ class CustomItemMealRecomendation extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      width: 150.w,
-      height: 145.h,
-
+      padding: EdgeInsetsDirectional.only(
+        bottom: 10.w,
+        start: 5.w,
+        end: 5.w,
+        top: 8.h,
+      ),
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: context.isDark ? AppColor.black : AppColor.white,
+        color: context.isDark ? AppColor.scaffolddark : AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(
@@ -38,66 +41,30 @@ class CustomItemMealRecomendation extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          Stack(
-            alignment: AlignmentDirectional.topEnd,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15.r),
-                child:
-                    meal.imageUrl == null || meal.imageUrl == ''
-                        ? Image.asset(
-                          'assets/images/m1.png',
-                          width: 135.w,
-                          height: 80.h,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15.r),
+            child:
+                meal.imageUrl == null || meal.imageUrl == ''
+                    ? Image.asset(
+                      'assets/images/m1.png',
+                      width: 135.w,
+                      height: 80.h,
 
-                          fit: BoxFit.cover,
-                        )
-                        : CachedNetworkImage(
-                          width: 135.w,
-                          height: 80.h,
-                          fit: BoxFit.cover,
-                          imageUrl: meal.imageUrl ?? '',
-                          placeholder:
-                              (context, url) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                          errorWidget:
-                              (context, url, error) => const Icon(Icons.error),
-                        ),
-              ),
-
-              // InkWell(
-              //   onTap: () {
-
-              //   },
-              //   child: CircleAvatar(
-              //     radius: 15.r,
-              //     backgroundColor:
-              //         MealLayoutCubit.get(
-              //                   context,
-              //                 ).isFavouriteMap[meal
-              //                     .recipeId] ==
-              //                 true
-              //             ? AppColor.deepOrange
-              //             : AppColor.white,
-
-              //     child: Icon(
-              //       Icons.bookmark,
-              //       color:
-              //           MealLayoutCubit.get(
-              //                     context,
-              //                   ).isFavouriteMap[meal
-              //                       .recipeId] ==
-              //                   true
-              //               ? AppColor.white
-              //               : AppColor.gray,
-              //     ),
-              //   ),
-              // ),
-            ],
+                      fit: BoxFit.cover,
+                    )
+                    : CachedNetworkImage(
+                      width: 135.w,
+                      height: 80.h,
+                      fit: BoxFit.cover,
+                      imageUrl: meal.imageUrl!,
+                      placeholder:
+                          (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                      errorWidget:
+                          (context, url, error) => const Icon(Icons.error),
+                    ),
           ),
 
-          SizedBox(height: 1.h),
           Text(
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -113,13 +80,14 @@ class CustomItemMealRecomendation extends StatelessWidget {
           ),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             spacing: 10.w,
             children: [
               Row(
                 spacing: 2.w,
                 children: [
                   Image.asset('assets/images/Union.png', height: 14.h),
+
                   Baseline(
                     baseline: 15.h,
                     baselineType: TextBaseline.alphabetic,

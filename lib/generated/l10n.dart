@@ -360,6 +360,11 @@ class S {
     return Intl.message('Filters', name: 'Filters', desc: '', args: []);
   }
 
+  /// `add to cart`
+  String get addToCart {
+    return Intl.message('add to cart', name: 'addToCart', desc: '', args: []);
+  }
+
   /// `save`
   String get save {
     return Intl.message('save', name: 'save', desc: '', args: []);
@@ -399,6 +404,13 @@ class S {
       args: [],
     );
   }
+
+  /// `items`
+  String get item {
+    return Intl.message('items', name: 'item', desc: '', args: []);
+  }
+
+  // skipped getter for the 'Instructions:' key
 
   /// `Delete All`
   String get deleteAll {

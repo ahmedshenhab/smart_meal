@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../cubit/meal_detail_cubit.dart';
 import 'item_instruction.dart';
 
@@ -23,7 +24,7 @@ class InstructionBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Text(
-            'Instructions:',
+            S.of(context).instructions,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.bold,
               fontFamily: 'SofiaSans',

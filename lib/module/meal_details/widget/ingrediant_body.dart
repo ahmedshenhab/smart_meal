@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/core/widgets/custom_outlined_button.dart';
+import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/ui/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import '../cubit/meal_detail_state.dart';
@@ -26,7 +27,7 @@ class IngrediantBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ingredients',
+                    S.of(context).ingredients,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 15.sp,
@@ -35,7 +36,7 @@ class IngrediantBody extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${MealDetailCubit.get(context).mealsModel.ingredients?.length ?? '0'}items',
+                    '${MealDetailCubit.get(context).mealsModel.ingredients?.length ?? '0'} ${S.of(context).item}',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: AppColor.gray.withValues(alpha: 0.9),
                       fontSize: 13.sp,
@@ -134,7 +135,7 @@ class IngrediantBody extends StatelessWidget {
             child: CustomElevatedButton(
               raduis: 16.r,
               child: Text(
-                'Add to cart',
+                S.of(context).addToCart,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: context.isDark ? AppColor.black : AppColor.white,
                   fontSize: 16.sp,

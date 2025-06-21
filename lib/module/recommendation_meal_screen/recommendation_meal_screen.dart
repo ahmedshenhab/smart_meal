@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/meal_details/meal_datails_screen.dart';
 import 'package:smart_meal/module/meal_layout/data/model/meals_model.dart';
@@ -17,15 +18,14 @@ class RecommendationMealScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0,
+        backgroundColor:
+            context.isDark ? AppColor.black : AppColor.scaffoldBackgroundLight,
 
         title: Text(S.of(context).recommended),
       ),
       body: Column(
         children: [
-          SizedBox(height: mediaQuery.size.height * 0.01),
-          // CustomSearchField(onChanged: (value) {}),
-          SizedBox(height: mediaQuery.size.height * 0.02),
-
           SizedBox(height: mediaQuery.size.height * 0.033),
 
           Expanded(
@@ -35,23 +35,24 @@ class RecommendationMealScreen extends StatelessWidget {
                   topLeft: Radius.circular(20.r),
                   topRight: Radius.circular(20.r),
                 ),
-                color: AppColor.white,
+                color: context.isDark ? AppColor.black : AppColor.white,
               ),
               padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
               margin: EdgeInsets.symmetric(horizontal: 20.w),
               child: GridView.builder(
                 padding: const EdgeInsets.all(0),
-          
+
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
-          
+
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-          
+
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 20.h,
+                  childAspectRatio: 0.96,
                 ),
-                itemCount:  meals.length,
+                itemCount: meals.length,
                 itemBuilder:
                     (context, index) => InkWell(
                       onTap: () {
@@ -63,12 +64,12 @@ class RecommendationMealScreen extends StatelessWidget {
                       },
                       child: CustomItemMealRecomendation(
                         meal: meals[index],
-          
+
                         boxShadow: BoxShadow(
                           offset: const Offset(0, 5),
                           color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 15,
-          
+
                           spreadRadius: 5,
                         ),
                       ),

@@ -49,6 +49,8 @@ class RecomendedSection extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
+            SizedBox(height: 20.h),
+
             BlocBuilder<RecommendationCubit, RecommendationStates>(
               buildWhen:
                   (previous, current) =>

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import '../../../core/ui/style/app_color.dart';
 import '../../meal_layout/cubit/cubit.dart';
 import '../../meal_layout/data/model/meals_model.dart';
@@ -30,7 +31,7 @@ class CustomItemMealCategory extends StatelessWidget {
 
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: AppColor.white,
+        color: context.isDark ? AppColor.scaffolddark : AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(
@@ -81,6 +82,8 @@ class CustomItemMealCategory extends StatelessWidget {
                                   .recipeId] ==
                               true
                           ? AppColor.deepOrange
+                          : context.isDark
+                          ? AppColor.black
                           : AppColor.white,
 
                   child: Icon(
@@ -91,7 +94,9 @@ class CustomItemMealCategory extends StatelessWidget {
                                 ).isFavouriteMap[searchByMealResponseModel
                                     .recipeId] ==
                                 true
-                            ? AppColor.white
+                            ? (context.isDark ? AppColor.black : AppColor.white)
+                            : context.isDark
+                            ? AppColor.veryDarkGray
                             : AppColor.gray,
                   ),
                 ),
@@ -107,7 +112,7 @@ class CustomItemMealCategory extends StatelessWidget {
             searchByMealResponseModel.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
-              color: AppColor.black,
+              color: context.isDark ? AppColor.white : AppColor.black,
               fontWeight: FontWeight.normal,
               fontSize: 13.sp,
             ),
