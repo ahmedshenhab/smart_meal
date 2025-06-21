@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import '../../../../../core/ui/style/app_color.dart';
 import '../../../data/model/meals_model.dart';
 
@@ -15,19 +16,15 @@ class CustomItemMealSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      width: 150.w,
-      height: 145.h,
-
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: AppColor.white,
+        color: context.isDark ? AppColor.scaffolddark : AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(
-        spacing: 2.h,
-        mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
+          SizedBox(height: 8.h),
+
           Stack(
             alignment: AlignmentDirectional.topEnd,
             children: [
@@ -35,7 +32,12 @@ class CustomItemMealSearch extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.r),
                 child:
                     meal?.imageUrl == null || meal?.imageUrl == ''
-                        ? Image.asset('assets/images/m1.png')
+                        ? Image.asset(
+                          'assets/images/m1.png',
+                          fit: BoxFit.cover,
+                          width: 135.w,
+                          height: 80.h,
+                        )
                         : CachedNetworkImage(
                           width: 135.w,
                           height: 80.h,
@@ -49,27 +51,6 @@ class CustomItemMealSearch extends StatelessWidget {
                               (context, url, error) => const Icon(Icons.error),
                         ),
               ),
-
-              //  InkWell(
-              //   onTap: () {
-              //     MealLayoutCubit.get(
-              //       context,
-              //     ).deleteFavoriteFromsaved(meal?.recipeId ?? 3);
-              //   },
-              //   child: CircleAvatar(
-              //     backgroundColor:
-              //         meal?.isFavorite ?? false
-              //             ? AppColor.deepOrange
-              //             : AppColor.white,
-              //     child: Icon(
-              //       Icons.bookmark,
-              //       color:
-              //           meal?.isFavorite ?? false
-              //               ? AppColor.white
-              //               : AppColor.gray,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
 
@@ -81,7 +62,7 @@ class CustomItemMealSearch extends StatelessWidget {
             meal?.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
-              color: AppColor.black,
+              color: context.isDark ? Colors.white : AppColor.black,
               fontWeight: FontWeight.normal,
               fontSize: 13.sp,
             ),

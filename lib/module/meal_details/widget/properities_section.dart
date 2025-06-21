@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/ui/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
@@ -49,7 +50,7 @@ class DetailsSection extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 localization.dinger,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColor.deepOrange,
+                  color: context.isDark ? AppColor.white : AppColor.deepOrange,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -62,16 +63,19 @@ class DetailsSection extends StatelessWidget {
         // Description
         CustomReadMoreText(
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: AppColor.gray.withValues(alpha: 0.8),
-            fontSize: 15,
+            color:
+                context.isDark
+                    ? AppColor.white.withValues(alpha: 0.5)
+                    : AppColor.gray.withValues(alpha: 0.8),
+            fontSize: 15.sp,
             fontFamily: 'SofiaSans',
             fontWeight: FontWeight.bold,
           ),
           linkStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: AppColor.black,
+            color: context.isDark ? AppColor.white : AppColor.black,
             fontWeight: FontWeight.bold,
             fontFamily: 'SofiaSans',
-            fontSize: 15.5,
+            fontSize: 15.5.sp,
           ),
           text: cubit.mealsModel.description ?? 'defult',
         ),

@@ -34,7 +34,7 @@ class RegisterListner extends StatelessWidget {
             if (rootNavigator.canPop()) {
               rootNavigator.pop();
             }
-            // if (state.==null){}
+           
 
             showDialog(
               context: context,

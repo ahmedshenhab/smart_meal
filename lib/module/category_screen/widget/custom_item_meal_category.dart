@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,11 +24,9 @@ class CustomItemMealCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     final theme = Theme.of(context);
     return Container(
       width: 150.w,
-      height: 145.h,
 
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
@@ -46,9 +43,15 @@ class CustomItemMealCategory extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child:  
-                    searchByMealResponseModel.imageUrl == null || searchByMealResponseModel.imageUrl == ''
-                        ? Image.asset('assets/images/m1.png')
+                child:
+                    searchByMealResponseModel.imageUrl == null ||
+                            searchByMealResponseModel.imageUrl == ''
+                        ? Image.asset(
+                          'assets/images/m1.png',
+                          fit: BoxFit.cover,
+                          width: 135.w,
+                          height: 80.h,
+                        )
                         : CachedNetworkImage(
                           width: 135.w,
                           height: 80.h,

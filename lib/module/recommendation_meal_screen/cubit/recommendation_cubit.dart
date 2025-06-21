@@ -8,7 +8,7 @@ class RecommendationCubit extends Cubit<RecommendationStates> {
   RecommendationCubit({required RepoRecommendation repo})
     : _repo = repo,
       super(RecommendationInitial());
-  List<MealsModel> meals = [];
+
   final RepoRecommendation _repo;
 
   static RecommendationCubit get(context) =>
@@ -28,53 +28,8 @@ class RecommendationCubit extends Cubit<RecommendationStates> {
         emit(RecommendationError(error: l.message!));
       },
       (r) {
-        meals = r;
         emit(RecommendationSuccess(meals: r));
       },
     );
   }
-
-  // void filterSearch() {
-  //   if (meals.isEmpty) {
-  //     // emit(CategoryScreenStates(meals: []));
-  //     return;
-  //   }
-
-  //   final filteredList =
-  //       meals.where((meal) {
-  //         return (meal.calories100g ?? 0) <= calories &&
-  //             (meal.protein100g ?? 0) <= protein &&
-  //             (meal.sugar100g ?? 0) <= sugar &&
-  //             (meal.fat100g ?? 0) <= fats &&
-  //             (meal.carb100 ?? 0) <= carbs;
-  //       }).toList();
-
-  //   // emit(CategoryScreenStates(meals: filteredList));
-  // }
-
-  // void serch(String name) {
-  //   if (meals.isEmpty) return;
-
-  //   final query = name.trim().toLowerCase();
-
-  //   final filteredList =
-  //       meals.where((meal) {
-  //         final mealName = (meal.recipeName ?? 'default').toLowerCase();
-
-  //         final matchesText =
-  //             mealName == query ||
-  //             mealName.startsWith(query) ||
-  //             mealName.contains(query);
-
-  //         final matchesNutrition =
-  //             (meal.calories100g ?? 0) <= calories &&
-  //             (meal.protein100g ?? 0) <= protein &&
-  //             (meal.sugar100g ?? 0) <= sugar &&
-  //             (meal.fat100g ?? 0) <= fats &&
-  //             (meal.carb100 ?? 0) <= carbs;
-
-  //         return matchesText && matchesNutrition;
-  //       }).toList();
-  //   // emit(CategoryScreenStates(meals: filteredList));
-  // }
 }

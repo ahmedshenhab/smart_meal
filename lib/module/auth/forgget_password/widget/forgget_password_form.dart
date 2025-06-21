@@ -23,7 +23,6 @@ class _ForggetPasswordFormState extends State<ForggetPasswordForm> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final cubit = BlocProvider.of<MealLoginCubit>(context);
-   
 
     return Form(
       autovalidateMode: AutovalidateMode.disabled,
@@ -77,7 +76,7 @@ class _ForggetPasswordFormState extends State<ForggetPasswordForm> {
                 ),
               ),
             ),
-            const ForggetPasswordListner()
+            const ForggetPasswordListner(),
           ],
         ),
       ),

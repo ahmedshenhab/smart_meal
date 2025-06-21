@@ -89,7 +89,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       ? Icons.visibility
                       : Icons.visibility_off,
                   size: 20.w,
-                  color: AppColor.gray,
+                  color: AppColor.grayTone,
                 ),
               ),
             ),

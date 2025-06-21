@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
@@ -37,6 +38,7 @@ class Disease extends StatelessWidget {
                 return ListTile(
                   title: Text(diseaseName),
                   trailing: Checkbox.adaptive(
+                    activeColor: AppColor.deepOrange,
                     value: updatedChecked,
                     onChanged: (value) {
                       cubit.toggleDisease(key, value);

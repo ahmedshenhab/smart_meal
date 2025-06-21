@@ -5,10 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/home_section1.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/sec4/home_section4.dart';
-import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/sec4/recomended_section.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section/search_by_ingrediant_section.dart';
 
-import 'widget/category_meal_section.dart';
+import 'widget/search_by_ingrediant_section/category_meal_section/category_meal_section.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -29,17 +29,18 @@ class Home extends StatelessWidget {
                   ? AppColor.black
                   : AppColor.scaffoldBackgroundheavy,
         ),
-        margin: EdgeInsets.only(
-          left: mediaQuery.size.width * 0.02,
-          right: mediaQuery.size.width * 0.02,
+        margin: EdgeInsetsDirectional.only(
+          start: mediaQuery.size.width * 0.02,
+          end: mediaQuery.size.width * 0.02,
           top: mediaQuery.size.height * 0.02,
         ),
-        padding: EdgeInsets.only(
-          left: mediaQuery.size.width * 0.02,
-          right: mediaQuery.size.width * 0.02,
+        padding: EdgeInsetsDirectional.only(
+          start: mediaQuery.size.width * 0.02,
+          end: mediaQuery.size.width * 0.02,
           top: mediaQuery.size.height * 0.01,
         ),
         child: ListView(
+          padding: EdgeInsets.only(bottom: mediaQuery.size.height * 0.06),
           children: [
             // Section 1 - Top section
             const HomeSection1(),
@@ -54,7 +55,7 @@ class Home extends StatelessWidget {
 
             SizedBox(height: 20.h), // Spacing between sections
             // Section 4
-            const HomeSection4(),
+            const RecomendedSection(),
 
             // Section 5 - Bottom section
             // const HomeSection5(),
@@ -143,7 +144,7 @@ class Home extends StatelessWidget {
 //             // ////4
 //             Transform.translate(
 //               offset: Offset(0, 900.h),
-//               child: const HomeSection4(),
+//               child: const RecomendedSection(),
 //             ),
 //             // ////5
 //             // const SizedBox(height: 20),

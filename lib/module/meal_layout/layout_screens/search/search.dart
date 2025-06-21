@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/ui/style/app_color.dart';
 import '../../../meal_details/meal_datails_screen.dart';
@@ -77,7 +78,11 @@ class _SearchState extends State<Search> {
                         onPressed: () => cubit.changeCategory(category.label),
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              isSelected ? Colors.orange : Colors.white,
+                              isSelected
+                                  ? (AppColor.primary)
+                                  : (context.isDark
+                                      ? AppColor.black
+                                      : AppColor.white),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40.r),
                           ),
@@ -85,7 +90,14 @@ class _SearchState extends State<Search> {
                         child: Text(
                           category.label,
                           style: theme.textTheme.bodyMedium!.copyWith(
-                            color: isSelected ? Colors.white : Colors.black,
+                            color:
+                                isSelected
+                                    ? context.isDark
+                                        ? AppColor.black
+                                        : Colors.white
+                                    : context.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                             fontFamily: 'Sofia Pro',
                             fontSize: 15.sp,
                           ),
@@ -107,7 +119,7 @@ class _SearchState extends State<Search> {
                   topLeft: Radius.circular(20.r),
                   topRight: Radius.circular(20.r),
                 ),
-                color: AppColor.white,
+                color: context.isDark ? AppColor.black : AppColor.white,
               ),
               padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 7.h),
               margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -122,13 +134,24 @@ class _SearchState extends State<Search> {
                     case SearchByMealLoading _:
                       return const Center(
                         child: CircularProgressIndicator(
-                          color: AppColor.deepOrange,
-                          backgroundColor: AppColor.deepOrange,
+                          color: AppColor.primary,
                         ),
                       );
                     case SearchByMealSuccess _:
                       return state.searchByMealResponseModel!.isEmpty
-                          ? Center(child: Text(S.of(context).noMealsFound))
+                          ? Center(
+                            child: Text(
+                              S.of(context).noMealsFound,
+                              style: TextStyle(
+                                color:
+                                    context.isDark
+                                        ? AppColor.white
+                                        : AppColor.black,
+                                fontSize: 15.sp,
+                                fontFamily: 'Sofia Pro',
+                              ),
+                            ),
+                          )
                           : GridView.builder(
                             padding: const EdgeInsets.all(0),
                             keyboardDismissBehavior:
@@ -138,6 +161,7 @@ class _SearchState extends State<Search> {
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 10.w,
                                   mainAxisSpacing: 20.h,
+                                  childAspectRatio: 0.92,
                                 ),
                             itemCount:
                                 state.searchByMealResponseModel?.length ?? 0,

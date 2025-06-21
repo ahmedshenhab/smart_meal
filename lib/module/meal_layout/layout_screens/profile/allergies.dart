@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/meal_layout/cubit/cubit.dart';
 import 'package:smart_meal/module/meal_layout/cubit/stataes.dart';
@@ -31,18 +31,19 @@ class Allergies extends StatelessWidget {
             return BlocBuilder<MealLayoutCubit, MealStates>(
               buildWhen:
                   (previous, current) =>
-                      current is MealChangeAllergiesState &&
-                      current.key == key,
+                      current is MealChangeAllergiesState && current.key == key,
               builder: (context, state) {
-                final updatedChecked = cubit.allergies[key]??false;
+                final updatedChecked = cubit.allergies[key] ?? false;
 
                 return ListTile(
                   title: Text(allergyName),
                   trailing: Checkbox.adaptive(
+                    
+                    activeColor: AppColor.deepOrange,
+
                     value: updatedChecked,
                     onChanged: (value) {
                       cubit.toggleAllergy(key, value);
-                 
                     },
                   ),
                 );

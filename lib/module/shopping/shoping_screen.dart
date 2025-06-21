@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../core/ui/style/app_color.dart';
 import 'cubit/shopping_cubit.dart';
@@ -35,7 +36,7 @@ class ShopingScreen extends StatelessWidget {
 
                     child: Icon(
                       Icons.shopping_cart_outlined,
-                      color: AppColor.black,
+                      color: context.isDark ? AppColor.white : AppColor.black,
                       size: 18.w,
                     ),
                   ),
@@ -47,7 +48,7 @@ class ShopingScreen extends StatelessWidget {
                           topLeft: Radius.circular(20.r),
                           topRight: Radius.circular(20.r),
                         ),
-                        color: AppColor.white,
+                        color: context.isDark ? AppColor.black : AppColor.white,
                       ),
 
                       padding: EdgeInsets.only(
@@ -62,30 +63,25 @@ class ShopingScreen extends StatelessWidget {
                             onPressed: () {
                               ShoppingCubit.get(context).deleteAllCarts();
                             },
-                            style: Theme.of(
-                              context,
-                            ).textButtonTheme.style!.copyWith(
-                              minimumSize: WidgetStateProperty.all(
-                                const Size(119, 30),
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 28.w,
+                                vertical: 5.h,
                               ),
-                              shape: WidgetStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.r),
-                                ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.r),
                               ),
-                              alignment: Alignment.center,
-
-                              padding: WidgetStateProperty.all(EdgeInsets.zero),
-                              backgroundColor: WidgetStateProperty.all(
-                                AppColor.deepOrange,
-                              ),
+                              backgroundColor: AppColor.primary,
                             ),
                             child: Text(
                               S.of(context).deleteAll,
                               style: Theme.of(
                                 context,
                               ).textTheme.bodyMedium!.copyWith(
-                                color: AppColor.white,
+                                color:
+                                    context.isDark
+                                        ? AppColor.black
+                                        : AppColor.white,
                                 fontSize: 15.sp,
                                 fontFamily: 'SofiaSans',
                                 fontWeight: FontWeight.bold,
@@ -113,7 +109,10 @@ class ShopingScreen extends StatelessWidget {
                                     top: 10,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color:
+                                        context.isDark
+                                            ? Colors.black
+                                            : Colors.white,
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withValues(
@@ -168,6 +167,10 @@ class ShopingScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18.sp,
                                                 fontFamily: 'SofiaSans',
+                                                color:
+                                                    context.isDark
+                                                        ? AppColor.white
+                                                        : AppColor.black,
                                               ),
                                             ),
                                           ),
@@ -193,9 +196,12 @@ class ShopingScreen extends StatelessWidget {
                                                 color: AppColor.deepOrange,
                                               ),
 
-                                              child: const Icon(
+                                              child: Icon(
                                                 Icons.close_outlined,
-                                                color: AppColor.white,
+                                                color:
+                                                    context.isDark
+                                                        ? AppColor.black
+                                                        : AppColor.white,
                                               ),
                                             ),
                                           ),

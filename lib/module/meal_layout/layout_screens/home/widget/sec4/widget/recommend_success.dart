@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/ui/style/app_color.dart';
@@ -13,7 +14,9 @@ class RecommendSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final displayedMeals = meals.take(2).toList();
     final mediaQuery = MediaQuery.of(context);
+  
 
     return Column(
       children: [
@@ -21,18 +24,17 @@ class RecommendSuccess extends StatelessWidget {
             ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...List.generate(meals.take(2).length, (index) {
+                ...List.generate(displayedMeals.length, (index) {
                   return InkWell(
                     onTap: () {
                       Navigator.pushNamed(
-                        arguments: meals[index],
                         context,
                         MealDetailsScreen.mealDetailsScreen,
+                        arguments: displayedMeals[index],
                       );
                     },
                     child: CustomItemMealRecomendation(
-                      meal: meals[index],
-
+                      meal: displayedMeals[index],
                       boxShadow: BoxShadow(
                         color: AppColor.black.withValues(alpha: 0.25),
                         offset: Offset(0.w, 5.h),
@@ -44,12 +46,14 @@ class RecommendSuccess extends StatelessWidget {
                 }),
               ],
             )
-            : Text(S.of(context).buildRecommendation),
+            : Text(
+              S.of(context).buildRecommendation,
+              textAlign: TextAlign.center,
+            ),
         SizedBox(height: 19.h),
 
         Visibility(
           visible: meals.length > 2,
-
           child: InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(

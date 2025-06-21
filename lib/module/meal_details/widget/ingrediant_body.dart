@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/widgets/custom_outlined_button.dart';
 import '../../../core/ui/style/app_color.dart';
 import '../cubit/meal_detail_cubit.dart';
 import '../cubit/meal_detail_state.dart';
-import '../../../reusable.dart';
 
 class IngrediantBody extends StatelessWidget {
   const IngrediantBody({super.key});
@@ -16,37 +17,38 @@ class IngrediantBody extends StatelessWidget {
       children: [
         SizedBox(height: 10.h),
 
-        // Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             'Ingredients',
-        //             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-        //               fontWeight: FontWeight.w700,
-        //               fontSize: 15.sp,
-        //               fontFamily: 'SofiaSans',
-        //             ),
-        //           ),
-        //           Text(
-        //             '${MealDetailCubit.get(context).mealsModel.ingredients?.length ?? '0'}items',
-        //             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-        //               color: AppColor.gray.withValues(alpha: 0.9),
-        //               fontSize: 13.sp,
-        //               fontFamily: 'SofiaSans',
-        //               fontWeight: FontWeight.bold,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        // SizedBox(height: 8.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Ingredients',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15.sp,
+                      fontFamily: 'SofiaSans',
+                      color: context.isDark ? AppColor.white : AppColor.black,
+                    ),
+                  ),
+                  Text(
+                    '${MealDetailCubit.get(context).mealsModel.ingredients?.length ?? '0'}items',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: AppColor.gray.withValues(alpha: 0.9),
+                      fontSize: 13.sp,
+                      fontFamily: 'SofiaSans',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 8.h),
         BlocBuilder<MealDetailCubit, MealDetailStatess>(
           buildWhen:
               (previous, current) =>
@@ -74,9 +76,9 @@ class IngrediantBody extends StatelessWidget {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        width: 238,
-                        height: 50.h,
 
+                        width: 238.w,
+                        height: 50.h,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -109,7 +111,9 @@ class IngrediantBody extends StatelessWidget {
                                 MealDetailCubit.get(
                                       context,
                                     ).selectedIngredientIndexes.contains(index)
-                                    ? AppColor.white
+                                    ? context.isDark
+                                        ? AppColor.black
+                                        : AppColor.white
                                     : AppColor.gray,
                           ),
                         ),
@@ -128,7 +132,16 @@ class IngrediantBody extends StatelessWidget {
             width: double.infinity,
             height: 52.h,
             child: CustomElevatedButton(
-              text: 'Add to Cart',
+              raduis: 16.r,
+              child: Text(
+                'Add to cart',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: context.isDark ? AppColor.black : AppColor.white,
+                  fontSize: 16.sp,
+                  fontFamily: 'SofiaSans',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () async {
                 await MealDetailCubit.get(context).addToCart();
               },

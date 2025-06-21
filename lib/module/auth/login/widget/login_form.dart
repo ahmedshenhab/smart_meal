@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/auth/constantauth.dart';
 import 'package:smart_meal/module/auth/forgget_password/meal_forgget_password.dart';
@@ -37,7 +38,6 @@ class _LoginFormState extends State<LoginForm> {
               labelText: S.of(context).emailAddress,
 
               validator: (value) {
-                // Enhanced validation
                 if (value!.isEmpty) {
                   return S.of(context).validate1tionEmail;
                 } else if (!Constantauth.isvalidEmail.hasMatch(value)) {
@@ -72,25 +72,16 @@ class _LoginFormState extends State<LoginForm> {
                 child: Icon(
                   isPasswordVisible ? Icons.visibility_off : Icons.visibility,
                   size: 20.w,
-                  color: AppColor.gray,
+                  color: context.isDark ? AppColor.grayTone : AppColor.gray,
                 ),
               ),
             ),
 
-            SizedBox(height: mediaQuery.size.height * 0.02),
+            SizedBox(height: 25.h),
 
-            TextButton(
-              style: Theme.of(context).textButtonTheme.style!.copyWith(
-                padding: WidgetStateProperty.all(EdgeInsets.zero),
-                alignment: Alignment.center,
-                minimumSize: WidgetStateProperty.all(Size.zero),
-
-                // shadowColor: WidgetStateProperty.all(Colors.transparent),
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
-                backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              ),
-              onPressed: () {
-               cubit.clearform();
+            GestureDetector(
+              onTap: () {
+                cubit.clearform();
 
                 Navigator.pushNamed(
                   context,
@@ -112,7 +103,10 @@ class _LoginFormState extends State<LoginForm> {
                   fontFamily: 'Poppins',
                   fontSize: 13.8.sp,
                   fontWeight: FontWeight.w100,
-                  color: AppColor.fieldColorHint,
+                  color:
+                      context.isDark
+                          ? AppColor.grayTone
+                          : AppColor.fieldColorHint,
                 ),
               ),
             ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/widgets/custom_outlined_button.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/auth/forgget_password/widget/forgget_password_form.dart';
 import 'package:smart_meal/module/auth/login/cubit/cubit.dart';
@@ -19,20 +21,21 @@ class MealForggetPassword extends StatelessWidget {
 
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppColor.scaffoldBackgroundheavy,
+      backgroundColor:
+          context.isDark
+              ? AppColor.scaffolddark
+              : AppColor.scaffoldBackgroundheavy,
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  'assets/images/logo_app.png',
+            Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Image.asset(
+                'assets/images/logo_app.png',
 
-                  width: 120.w,
-                  height: 100.h,
-                ),
-              ],
+                width: 120.w,
+                height: 100.h,
+              ),
             ),
 
             Expanded(
@@ -40,7 +43,7 @@ class MealForggetPassword extends StatelessWidget {
                 margin: EdgeInsets.only(left: 12.w, right: 12.w),
                 padding: EdgeInsets.only(top: 15.h),
                 decoration: BoxDecoration(
-                  color: AppColor.white,
+                  color: context.isDark ? AppColor.black : AppColor.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.r),
                     topRight: Radius.circular(45.r),
@@ -49,7 +52,18 @@ class MealForggetPassword extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(height: mediaQuery.size.height * 0.06),
+                      SizedBox(height: 20.h),
+                      Text(
+                        S.of(context).forgetPassword,
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          fontFamily: 'Poppins',
+                          fontSize: 24.sp,
+
+                          color:
+                              context.isDark ? AppColor.white : AppColor.black,
+                        ),
+                      ),
+                      SizedBox(height: 50.h),
 
                       const ForggetPasswordForm(),
                       SizedBox(height: mediaQuery.size.height * 0.06),
@@ -61,36 +75,37 @@ class MealForggetPassword extends StatelessWidget {
                                 current is MealForggetPasswordSuccessState ||
                                 current is MealForggetPasswordErrorState,
                         builder: (context, state) {
-                          return ElevatedButton(
-                            onPressed:
-                                state is! MealForggetPasswordLoadingState
-                                    ? () {
-                                      MealLoginCubit.get(
-                                        context,
-                                      ).forggtePassword();
-                                    }
-                                    : null,
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(
-                                mediaQuery.size.width * 0.86,
-                                48.h,
-                              ),
-
-                              disabledBackgroundColor: AppColor.gray,
-                              disabledForegroundColor: AppColor.gray,
-                              backgroundColor: AppColor.deepOrange,
-                              padding: const EdgeInsets.all(0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.r),
-                              ),
-                            ),
-                            child: Text(
-                              S.of(context).change,
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                fontFamily: 'SofiaSans',
-                                fontSize: 20.sp,
-                                color: AppColor.white,
-                              ),
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: CustomElevatedButton(
+                              raduis: 16.r,
+                              padding: EdgeInsets.symmetric(vertical: 12.h),
+                              fixedwidth: double.infinity,
+                              onPressed: () {
+                                if (MealLoginCubit.get(context)
+                                    .formStateForggetePassword
+                                    .currentState!
+                                    .validate()) {
+                                  MealLoginCubit.get(context).forggtePassword();
+                                }
+                              },
+                              child:
+                                  state is MealForggetPasswordLoadingState
+                                      ? const CircularProgressIndicator(
+                                        color: AppColor.white,
+                                      )
+                                      : Text(
+                                        S.of(context).change,
+                                        style: theme.textTheme.bodyMedium!
+                                            .copyWith(
+                                              fontFamily: 'SofiaSans',
+                                              fontSize: 20.sp,
+                                              color:
+                                                  context.isDark
+                                                      ? AppColor.black
+                                                      : AppColor.white,
+                                            ),
+                                      ),
                             ),
                           );
                         },

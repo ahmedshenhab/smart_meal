@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import '../../../core/ui/style/app_color.dart';
 
 class ProperitylItemMeal extends StatelessWidget {
@@ -26,7 +27,10 @@ class ProperitylItemMeal extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             title,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: AppColor.gray.withValues(alpha: 0.8),
+              color:
+                  context.isDark
+                      ? AppColor.white
+                      : AppColor.gray.withValues(alpha: 0.8),
               fontSize: 17.sp,
               height: 1.3,
               fontFamily: 'SofiaSans',

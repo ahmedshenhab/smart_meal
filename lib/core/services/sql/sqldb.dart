@@ -39,7 +39,7 @@ class DatabaseHelper {
     );
   }
 
-  void insertName(String name) async {
+  Future<void> insertName(String name) async {
     final db = await database;
     await db.insert(
       'meal',

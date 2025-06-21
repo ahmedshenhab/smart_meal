@@ -3,10 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/ui/style/app_color.dart';
 
 class AppThemeDark {
-
-   static ThemeData darkTheme = ThemeData(
-    brightness:  Brightness.dark,
-    scaffoldBackgroundColor:  AppColor.black,
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColor.black,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.deepOrange,
@@ -22,20 +21,11 @@ class AppThemeDark {
       ),
     ),
 
-    textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
-
     fontFamily: 'cambria',
-    textTheme: TextTheme(
-      
-      bodyMedium: TextStyle(
-        fontFamily: 'cambria',
-        fontSize: 22.sp,
-        height: 1.3,
-        fontWeight: FontWeight.bold,
-        color: AppColor.deepOrange,
-      ),
+    textTheme: ThemeData.dark().textTheme.apply(
+      fontFamily:  'cambria',
+      bodyColor: AppColor.white,
+      displayColor: AppColor.white,
     ),
   );
-
-  
 }

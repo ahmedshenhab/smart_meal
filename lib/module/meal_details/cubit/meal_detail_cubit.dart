@@ -1,11 +1,13 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_meal/core/app_constant.dart';
+import 'package:smart_meal/core/lang/localization_service.dart';
 import 'package:smart_meal/core/services/shared_prefrence/cach_helper.dart';
+import 'package:smart_meal/core/ui/style/app_color.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/profile/data/model/avoidance_model.dart';
+import 'package:smart_meal/reusable.dart';
 import '../../../core/services/sql/sqldb.dart';
 import 'meal_detail_state.dart';
 import '../../meal_layout/data/model/meals_model.dart';
@@ -116,6 +118,10 @@ class MealDetailCubit extends Cubit<MealDetailStatess> {
 
   Future<void> addToCart() async {
     if (selectedIngredientIndexes.isEmpty) {
+      buildshowToast(
+        color: AppColor.deepOrange,
+        msg: LocalizationService.instance.strings.Please_select_one_ingrediant,
+      );
       return;
     }
 
@@ -140,7 +146,6 @@ class MealDetailCubit extends Cubit<MealDetailStatess> {
       selectedIngredientIndexes.add(index);
     }
 
-    log(selectedIngredientIndexes.toString());
 
     emit(MealDetailToggleIngredientCartState());
   }

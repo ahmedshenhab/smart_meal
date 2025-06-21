@@ -1,3 +1,4 @@
+import 'dart:developer' as loger;
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -17,40 +18,43 @@ class RepoRecommendation {
   final Dio _dio;
   final DatabaseHelper _databaseHelper;
 
-Future<Either<ApiErrorModel, List<MealsModel>>> getRecommendation() async {
-  try {
-    final mealNames = await _databaseHelper.getAllNames();
+  Future<Either<ApiErrorModel, List<MealsModel>>> getRecommendation() async {
+    try {
+      final mealNames = await _databaseHelper.getAllNames();
 
-    if (mealNames.isEmpty) {
-      return right([]);
-    }
-
-    // Filter based on language
-    final filteredNames = mealNames.where((element) {
-      final name = element.name ?? '';
-      if ( ui.PlatformDispatcher.instance.locale.languageCode == 'ar') {
-        // Arabic letters
-        return RegExp(r'[\u0600-\u06FF]').hasMatch(name);
-      } else {
-        // English letters
-        return RegExp(r'[a-zA-Z]').hasMatch(name);
+      if (mealNames.isEmpty) {
+        return right([]);
       }
-    }).toList();
 
-    if (filteredNames.isEmpty) {
-      return right([]);
+      // Filter based on language
+      final filteredNames =
+          mealNames.where((element) {
+            final name = element.name ?? '';
+            if (ui.PlatformDispatcher.instance.locale.languageCode == 'ar') {
+              // Arabic letters
+
+              return RegExp(r'[\u0600-\u06FF]').hasMatch(name);
+            } else {
+              // English letters
+              loger.log('1');
+              return RegExp(r'[a-zA-Z]').hasMatch(name);
+            }
+          }).toList();
+
+      if (filteredNames.isEmpty) {
+        return right([]);
+      }
+
+      final randomIndex = Random().nextInt(filteredNames.length);
+      final mealName = filteredNames[randomIndex].name ?? 'chicken';
+
+      // loger.log( 'ddddddd$mealName');
+
+      final result = await _dio.get("${ApiEndpoint.searchFoodByName}$mealName");
+
+      return right(MealsModel.fromList(result.data));
+    } catch (e) {
+      return left(ApiErrorHandler.handle(e));
     }
-
-    final randomIndex = Random().nextInt(filteredNames.length);
-    final mealName = filteredNames[randomIndex].name ?? 'chicken';
-
-    final result = await _dio.get("${ApiEndpoint.searchFoodByName}$mealName");
-
-    return right(MealsModel.fromList(result.data));
-  } catch (e) {
-    return left(ApiErrorHandler.handle(e));
   }
-}
-
-
 }

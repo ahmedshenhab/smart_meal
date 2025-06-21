@@ -25,7 +25,6 @@ class MealDetailsScreen extends StatelessWidget {
             }
           },
           child: const CustomScrollView(
-            // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [SliverAppbarImage(), SliverToBoxAdapterBody()],
           ),
         ),

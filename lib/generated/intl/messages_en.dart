@@ -39,6 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "MoreFilters": MessageLookupByLibrary.simpleMessage("More Filters"),
     "Nuts": MessageLookupByLibrary.simpleMessage("Nuts"),
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
+    "Please_select_one_ingrediant": MessageLookupByLibrary.simpleMessage(
+      "Please select at least one ingrediant",
+    ),
     "Register": MessageLookupByLibrary.simpleMessage("Register"),
     "Seafood": MessageLookupByLibrary.simpleMessage("Seafood"),
     "Sesame": MessageLookupByLibrary.simpleMessage("Sesame"),
@@ -68,6 +71,44 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
+    "error_bad_request": MessageLookupByLibrary.simpleMessage("Bad request"),
+    "error_bad_response": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Try again.",
+    ),
+    "error_cancelled": MessageLookupByLibrary.simpleMessage(
+      "Request to server was cancelled.",
+    ),
+    "error_connection": MessageLookupByLibrary.simpleMessage(
+      "Connection error. Check your internet.",
+    ),
+    "error_connection_timeout": MessageLookupByLibrary.simpleMessage(
+      "Connection timed out with server.",
+    ),
+    "error_default": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong.",
+    ),
+    "error_forbidden": MessageLookupByLibrary.simpleMessage("Forbidden"),
+    "error_not_found": MessageLookupByLibrary.simpleMessage(
+      "Resource not found",
+    ),
+    "error_receive_timeout": MessageLookupByLibrary.simpleMessage(
+      "Receive timeout with server.",
+    ),
+    "error_send_timeout": MessageLookupByLibrary.simpleMessage(
+      "Send timeout with server.",
+    ),
+    "error_server": MessageLookupByLibrary.simpleMessage(
+      "Internal server error",
+    ),
+    "error_unauthorized": MessageLookupByLibrary.simpleMessage(
+      "Unauthorized access",
+    ),
+    "error_unknown": MessageLookupByLibrary.simpleMessage(
+      "Connection to server failed due to internet connection.",
+    ),
+    "error_unknown_occurred": MessageLookupByLibrary.simpleMessage(
+      "Unknown error occurred.",
+    ),
     "fats": MessageLookupByLibrary.simpleMessage("fats"),
     "forEverytime": MessageLookupByLibrary.simpleMessage("For Everytime"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("forget password?"),
@@ -82,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid ingredient",
     ),
     "letUsCockForYou": MessageLookupByLibrary.simpleMessage(
-      "let us cook\n for you",
+      "Let us cook\n for you",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Log in"),
     "loginWithHeader": MessageLookupByLibrary.simpleMessage("login with"),

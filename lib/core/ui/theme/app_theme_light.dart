@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_meal/core/ui/style/app_color.dart';
 
 class AppThemeLight {
-  
-
   static ThemeData lighTheme = ThemeData(
     brightness: Brightness.light,
 
@@ -41,14 +39,10 @@ class AppThemeLight {
     textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
 
     fontFamily: 'cambria',
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(
-        fontFamily: 'cambria',
-        fontSize: 22.sp,
-        height: 1.3,
-        fontWeight: FontWeight.bold,
-        color: AppColor.black,
-      ),
+    textTheme: ThemeData.light().textTheme.apply(
+      bodyColor: AppColor.black,
+      fontFamily: 'cambria',
+      displayColor: AppColor.black,
     ),
   );
 }

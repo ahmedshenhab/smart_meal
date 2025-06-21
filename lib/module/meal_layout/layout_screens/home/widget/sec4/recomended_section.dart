@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,14 +9,11 @@ import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/sec4/wi
 import 'package:smart_meal/module/recommendation_meal_screen/cubit/recommendation_cubit.dart';
 import 'package:smart_meal/module/recommendation_meal_screen/data/repo.dart';
 
-class HomeSection4 extends StatelessWidget {
-  const HomeSection4({super.key});
+class RecomendedSection extends StatelessWidget {
+  const RecomendedSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    log('home section 4');
-
-    final mediaQuery = MediaQuery.of(context);
     final theme = Theme.of(context);
 
     return BlocProvider(
@@ -27,19 +22,19 @@ class HomeSection4 extends StatelessWidget {
               RecommendationCubit(repo: getIt<RepoRecommendation>())
                 ..getRecommendation(),
       child: Container(
-        height: mediaQuery.size.height * 0.55,
+        padding: EdgeInsetsDirectional.only(top: 20.w, bottom: 30.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.r)),
           color: AppColor.brownBurn,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               S.of(context).makeForYou,
               style: theme.textTheme.bodyMedium!.copyWith(
-                color:   context.isDark ? AppColor.black : AppColor.white,
+                color: context.isDark ? AppColor.black : AppColor.white,
                 fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
             ),
@@ -49,10 +44,11 @@ class HomeSection4 extends StatelessWidget {
               style: theme.textTheme.bodyMedium!.copyWith(
                 color: Colors.deepOrange,
                 fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: mediaQuery.size.height * 0.05),
+
             BlocBuilder<RecommendationCubit, RecommendationStates>(
               buildWhen:
                   (previous, current) =>
@@ -82,6 +78,7 @@ class HomeSection4 extends StatelessWidget {
                             fontSize: 18.sp,
                           ),
                         ),
+                        SizedBox(height: 8.h),
                         InkWell(
                           onTap: () {
                             BlocProvider.of<RecommendationCubit>(
@@ -90,13 +87,13 @@ class HomeSection4 extends StatelessWidget {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 2.w,
-                              vertical: 1.h,
+                              horizontal: 12.w,
+                              vertical: 2.h,
                             ),
                             decoration: BoxDecoration(
                               color: AppColor.deepOrange,
 
-                              borderRadius: BorderRadius.circular(4.r),
+                              borderRadius: BorderRadius.circular(20.r),
                             ),
                             child: Text(
                               textAlign: TextAlign.center,
@@ -115,7 +112,6 @@ class HomeSection4 extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(height: 40.h),
           ],
         ),
       ),

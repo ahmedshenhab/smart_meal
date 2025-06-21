@@ -5,10 +5,11 @@ import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/core/setup/setup.dart';
 import 'package:smart_meal/core/services/sql/sqldb.dart';
 import 'package:smart_meal/generated/l10n.dart';
-import '../../../../../core/ui/style/app_color.dart';
-import '../../../../meal_details/meal_datails_screen.dart';
-import '../../../cubit/cubit.dart';
-import '../../../cubit/stataes.dart';
+import 'package:smart_meal/module/meal_layout/layout_screens/home/widget/search_by_ingrediant_section/widget/custom_search_with_ingrediant_field.dart';
+import '../../../../../../core/ui/style/app_color.dart';
+import '../../../../../meal_details/meal_datails_screen.dart';
+import '../../../../cubit/cubit.dart';
+import '../../../../cubit/stataes.dart';
 
 class SearchByIngrediantSection extends StatelessWidget {
   const SearchByIngrediantSection({super.key});
@@ -20,22 +21,20 @@ class SearchByIngrediantSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: mediaQuery.size.height * 0.6,
+      padding: EdgeInsetsDirectional.only(bottom: 25.w, top: 20.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        color:
-            context.isDark
-                ? AppColor.brownDark.withValues(alpha: 0.8)
-                : AppColor.brownBurn,
+        color: context.isDark ? AppColor.brownDark : AppColor.brownBurn,
       ),
       child: Column(
         children: [
-          SizedBox(height: 20.h),
           Text(
             S.of(context).dontKnowWhatToCook,
             style: theme.textTheme.bodyMedium!.copyWith(
               color: context.isDark ? AppColor.black : Colors.white,
               fontSize: 22.sp,
+
+              fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.center,
           ),
@@ -43,32 +42,36 @@ class SearchByIngrediantSection extends StatelessWidget {
           Text(
             S.of(context).searchWithIngredients,
             style: theme.textTheme.bodyMedium!.copyWith(
-              color: AppColor.deepOrange,
+              color: context.isDark ? AppColor.warmOrange : AppColor.deepOrange,
               fontSize: 22.sp,
+
+              fontWeight: FontWeight.w700,
             ),
           ),
           SizedBox(height: mediaQuery.size.height * 0.017),
           Container(
-            width: mediaQuery.size.width * 0.86,
+            width: double.infinity,
+            margin: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
             height: mediaQuery.size.height * 0.4,
             decoration: BoxDecoration(
               color: context.isDark ? AppColor.black : AppColor.white,
-              borderRadius: BorderRadius.circular(30.r),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             child: Column(
               children: [
-                SizedBox(height: mediaQuery.size.height * 0.008),
+                SizedBox(height: 4.h),
                 Text(
                   S.of(context).yourIngredients,
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: AppColor.brown,
+                    fontWeight: FontWeight.w700,
                     fontSize: 20.sp,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: mediaQuery.size.height * 0.015),
-                SearchWithIngrediant(theme: theme),
-                SizedBox(height: mediaQuery.size.height * 0.008),
+                SizedBox(height: 8.h),
+                const SearchWithIngrediant(),
+                SizedBox(height: 4.h),
+
                 BlocBuilder<MealLayoutCubit, MealStates>(
                   buildWhen:
                       (previous, current) =>
@@ -78,22 +81,19 @@ class SearchByIngrediantSection extends StatelessWidget {
                   builder: (context, state) {
                     switch (state) {
                       case MealSearchByIngrediantLoadingState _:
-                        return Column(
-                          children: [
-                            SizedBox(height: 60.h),
-                            const CircularProgressIndicator(
+                        return const Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(
                               color: AppColor.deepOrange,
                             ),
-                          ],
+                          ),
                         );
 
                       case MealSearchByIngrediantSuccessState _:
                         if (state.meals.isEmpty) {
-                          return Column(
-                            children: [
-                              const SizedBox(height: 60),
-
-                              Text(
+                          return Expanded(
+                            child: Center(
+                              child: Text(
                                 S.of(context).noMealsFound,
                                 style: theme.textTheme.bodyMedium!.copyWith(
                                   color:
@@ -103,16 +103,15 @@ class SearchByIngrediantSection extends StatelessWidget {
                                   fontSize: 20.sp,
                                 ),
                               ),
-                            ],
+                            ),
                           );
                         }
 
-                        return SizedBox(
-                          height: mediaQuery.size.height * 0.263,
+                        return Expanded(
                           child: GridView.builder(
-                            padding: EdgeInsets.only(
-                              right: 12.w,
-                              left: 12.w,
+                            padding: EdgeInsetsDirectional.only(
+                              start: 12.w,
+                              end: 12.w,
                               bottom: 6.h,
                               top: 6.h,
                             ),
@@ -127,14 +126,17 @@ class SearchByIngrediantSection extends StatelessWidget {
                                 ),
                             itemBuilder: (context, index) {
                               return InkWell(
-                                onTap: () {
-                                  getIt<DatabaseHelper>().insertName(
+                                onTap: () async {
+                                  await getIt<DatabaseHelper>().insertName(
                                     state.meals[index].recipeName ?? '',
                                   );
-                                  Navigator.of(context).pushNamed(
-                                    MealDetailsScreen.mealDetailsScreen,
-                                    arguments: state.meals[index],
-                                  );
+                                  if (context.mounted) {
+                                    // Check if the context is still mounted
+                                    Navigator.of(context).pushNamed(
+                                      MealDetailsScreen.mealDetailsScreen,
+                                      arguments: state.meals[index],
+                                    );
+                                  }
                                 },
                                 child: _buildResuiltIngrediant(
                                   state.meals[index].recipeName ?? 'defualt',
@@ -146,8 +148,8 @@ class SearchByIngrediantSection extends StatelessWidget {
                           ),
                         );
                       case MealSearchByIngrediantErrorState _:
-                        return Column(
-                          children: [SizedBox(height: 60.h), Text(state.error)],
+                        return Expanded(
+                          child: Center(child: Text(state.error)),
                         );
 
                       default:
@@ -155,6 +157,7 @@ class SearchByIngrediantSection extends StatelessWidget {
                     }
                   },
                 ),
+                SizedBox(height: 4.h),
               ],
             ),
           ),
@@ -181,79 +184,28 @@ class SearchByIngrediantSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.r),
         color: context.isDark ? Colors.grey.shade800 : Colors.grey.shade100,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Row(
+          children: [
+            Icon(
+              Icons.search,
+              size: 16.h,
+              color: AppColor.resuiltIconSearchColor,
+            ),
 
-        children: [
-          Icon(
-            Icons.search,
-            size: 17.h,
-            color: AppColor.resuiltIconSearchColor,
-          ),
-
-          SizedBox(
-            width: 90.w,
-            child: Text(
-              label,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: theme.textTheme.bodyMedium!.copyWith(
-                fontSize: 13.sp,
-                color: AppColor.resuiltIconSearchColor,
+            Expanded(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 13.sp,
+                  color: AppColor.resuiltIconSearchColor,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SearchWithIngrediant extends StatelessWidget {
-  const SearchWithIngrediant({super.key, required this.theme});
-
-  final ThemeData theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 36.h,
-      width: 266.w,
-      child: TextFormField(
-        controller: MealLayoutCubit.get(context).searchIngrediantController,
-
-        // validator: (value) {
-        //   final pattern = RegExp(r'^[A-Za-z]+$');
-        //   if (!pattern.hasMatch(value!)) {
-        //     return 'write one word';
-        //   }
-        //   return null; // Validation passed
-        // },
-        onChanged: (value) {
-          if (value.isEmpty) return;
-          MealLayoutCubit.get(context).searchByIngrediant(value);
-
-          // if (MealLayoutCubit.get(context).formKey.currentState!.validate()) {
-          // }
-        },
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: context.isDark ? AppColor.blackLight : AppColor.fieldColor,
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColor.fieldHintSearchColor,
-            size: 20.h,
-          ),
-          hintText: S.of(context).searchForIngredient,
-          hintStyle: theme.textTheme.bodyMedium!.copyWith(
-            fontFamily: 'Roboto',
-            fontSize: 14.sp,
-            color: AppColor.fieldHintSearchColor,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50.r),
-            borderSide: BorderSide.none,
-          ),
+          ],
         ),
       ),
     );

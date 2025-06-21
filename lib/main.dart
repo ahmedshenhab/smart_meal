@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/lang/localization_service.dart';
 import 'package:smart_meal/core/ui/theme/app_theme_dark.dart';
 import 'package:smart_meal/core/ui/theme/app_theme_light.dart';
 import 'core/setup/setup.dart';
@@ -11,17 +11,7 @@ import 'generated/l10n.dart';
 void main() async {
   await setupApp();
 
-  // final List<CartItem> x = await getIt<DatabaseHelper>().getAllNames();
-
-  // if (x.isNotEmpty) {
-  //   for (var e in x) {
-  //     log(e.name ?? '');
-  //   }
-  // }
-
   runApp(const MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
@@ -41,11 +30,19 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          locale: const Locale('ar'),
 
           supportedLocales: S.delegate.supportedLocales,
           debugShowCheckedModeBanner: false,
           darkTheme: AppThemeDark.darkTheme,
           theme: AppThemeLight.lighTheme,
+
+          builder: (context, child) {
+            final localizations = S.of(context);
+
+            LocalizationService.instance.updateLocalizations(localizations);
+            return child!;
+          },
 
           onGenerateRoute: AppRouter.onGenerateRoute,
           initialRoute: getIntialRoute,

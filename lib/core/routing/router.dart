@@ -37,6 +37,7 @@ class AppRouter {
               ),
         );
 
+
       case MealForggetPassword.mealForggetPassword:
         final cubit = setting.arguments as MealLoginCubit;
 

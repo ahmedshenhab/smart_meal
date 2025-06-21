@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../../core/ui/style/app_color.dart';
 import '../../../meal_details/meal_datails_screen.dart';
@@ -20,16 +21,15 @@ class Saved extends StatelessWidget {
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-
           children: [
             SizedBox(height: 30.h),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, ShopingScreen.shopingScreen);
               },
-              child: const Icon(
+              child: Icon(
                 Icons.shopping_cart_outlined,
-                color: AppColor.deepOrange,
+                color: context.isDark ? AppColor.white : AppColor.black,
                 size: 20,
               ),
             ),
@@ -43,7 +43,7 @@ class Saved extends StatelessWidget {
                     topLeft: Radius.circular(20.r),
                     topRight: Radius.circular(20.r),
                   ),
-                  color: AppColor.white,
+                  color: context.isDark ? AppColor.black : AppColor.white,
                 ),
 
                 padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 4.h),
@@ -58,7 +58,11 @@ class Saved extends StatelessWidget {
                     final cubit = MealLayoutCubit.get(context);
                     switch (state) {
                       case MealGetAllFavoriteLoadingState _:
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColor.primary,
+                          ),
+                        );
 
                       case MealGetAllFavoriteErrorState _:
                         return Column(
@@ -66,6 +70,13 @@ class Saved extends StatelessWidget {
                           children: [
                             Text(
                               state.error.message ?? '',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color:
+                                    context.isDark
+                                        ? AppColor.white
+                                        : AppColor.black,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             Visibility(
@@ -75,7 +86,16 @@ class Saved extends StatelessWidget {
                                 onPressed: () {
                                   MealLayoutCubit.get(context).getAllFavorite();
                                 },
-                                child: Text(S.of(context).tryAgain),
+                                child: Text(
+                                  S.of(context).tryAgain,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color:
+                                        context.isDark
+                                            ? AppColor.white
+                                            : AppColor.black,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -84,7 +104,16 @@ class Saved extends StatelessWidget {
                       case MealGetAllFavoriteSuccessState _:
                         if (cubit.favoriteMeals.isEmpty) {
                           return Center(
-                            child: Text(S.of(context).noMealsFound),
+                            child: Text(
+                              S.of(context).noMealsFound,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color:
+                                    context.isDark
+                                        ? AppColor.white
+                                        : AppColor.black,
+                              ),
+                            ),
                           );
                         }
 
@@ -97,6 +126,7 @@ class Saved extends StatelessWidget {
 
                                 crossAxisSpacing: 10.w,
                                 mainAxisSpacing: 10.h,
+                                childAspectRatio: 0.9,
                               ),
                           itemCount: cubit.favoriteMeals.length,
                           itemBuilder: (context, index) {
@@ -111,12 +141,17 @@ class Saved extends StatelessWidget {
 
                               child: CustomItemMealSaved(
                                 meal: cubit.favoriteMeals[index],
-                                boxShadow: BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                  offset: const Offset(0, 4),
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 15,
-                                ),
+                                boxShadow:
+                                    context.isDark
+                                        ? null
+                                        : BoxShadow(
+                                          blurStyle: BlurStyle.outer,
+                                          offset: const Offset(0, 4),
+                                          color: Colors.black.withValues(
+                                            alpha: 0.1,
+                                          ),
+                                          blurRadius: 15,
+                                        ),
                               ),
                             );
                           },

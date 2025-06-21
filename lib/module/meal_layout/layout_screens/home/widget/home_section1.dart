@@ -11,37 +11,50 @@ class HomeSection1 extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    return Stack(
-      alignment: AlignmentDirectional(-.92.w, -.1.h),
-      children: [
-        Container(
-          padding: EdgeInsetsDirectional.only(start: 40.w),
-          height: mediaQuery.size.height * 0.37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0.r)),
-            color: context.isDark ? Colors.black : Colors.white,
-          ),
-          child: Image.asset(fit: BoxFit.cover, 'assets/images/chefImage.png'),
-        ),
+    return Container(
+      height: mediaQuery.size.height * 0.35,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20.r)),
+        color: context.isDark ? AppColor.darkGray : AppColor.white,
+      ),
+      child: Stack(
+        children: [
+          Transform.translate(
+            offset: Offset(22.w, 0),
 
-        Column(
-          children: [
-            Text(
-              S.of(context).seachForMeal,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: context.isDark ? Colors.white : AppColor.black,
-              ),
+            child: Align(
+              child: Image.asset('assets/images/chefImage.png', width: 300.w),
             ),
-            SizedBox(height: 7.h),
-            Text(
-              S.of(context).letUsCockForYou,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(color: AppColor.brown),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.only(start: 6.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  S.of(context).seachForMeal,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 22.sp,
+                    color: context.isDark ? Colors.white : AppColor.black,
+                    fontFamily: 'cambria',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 7.h),
+                Text(
+                  S.of(context).letUsCockForYou,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.brown,
+                    fontSize: 22.sp,
+                    fontFamily: 'cambria',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

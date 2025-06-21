@@ -71,6 +71,7 @@ class CategoryScreen extends StatelessWidget {
 
                       crossAxisSpacing: 10.w,
                       mainAxisSpacing: 20.h,
+                     
                     ),
                     itemCount: state.meals.length,
                     itemBuilder:

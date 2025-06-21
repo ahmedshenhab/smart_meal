@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import 'package:smart_meal/module/meal_layout/layout_screens/search/search.dart';
 import '../../../core/ui/style/app_color.dart';
@@ -21,11 +22,9 @@ class IngreadiantInstructionSection extends StatelessWidget {
 
     return Column(
       children: [
-        // Toggle buttons
         Container(
-          width: 310.w,
-          height: 50.h,
           margin: EdgeInsets.symmetric(horizontal: 17.w),
+          padding: EdgeInsetsDirectional.symmetric(vertical: 4.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18.r),
             color: AppColor.scaffoldBackgroundheavy.withValues(alpha: 0.8),
@@ -44,9 +43,11 @@ class IngreadiantInstructionSection extends StatelessWidget {
                               current is MealDetailTitleButtonChangeState,
                       builder: (context, state) {
                         return AnimatedContainer(
-                          width: 130.w,
                           duration: const Duration(milliseconds: 200),
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 12.h,
+                            horizontal: 22.w,
+                          ),
                           decoration: BoxDecoration(
                             color:
                                 MealDetailCubit.get(context).selectedCategory ==
@@ -66,6 +67,10 @@ class IngreadiantInstructionSection extends StatelessWidget {
                                             context,
                                           ).selectedCategory ==
                                           e.key
+                                      ? context.isDark
+                                          ? AppColor.black
+                                          : AppColor.white
+                                      : context.isDark
                                       ? AppColor.white
                                       : AppColor.black,
                               fontSize: 16.sp,
@@ -88,7 +93,7 @@ class IngreadiantInstructionSection extends StatelessWidget {
               S.of(context).serving,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 18.sp,
-                color: AppColor.black,
+                color: context.isDark ? AppColor.white : AppColor.black,
               ),
             ),
             SizedBox(width: 20.w),
@@ -123,24 +128,10 @@ class IngreadiantInstructionSection extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 16.w),
-
-            // InkWell(
-            //   onTap: () {
-            //     MealDetailCubit.get(context).updateQuantity();
-            //   },
-            //   child: Text(
-            //     S.of(context).update,
-            //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            //       fontSize: 18.sp,
-            //       color: AppColor.deepOrange,
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
-        SizedBox(height: 10.h),
+
+        SizedBox(height: 20.h),
 
         BlocBuilder<MealDetailCubit, MealDetailStatess>(
           buildWhen:

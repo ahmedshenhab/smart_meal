@@ -25,10 +25,16 @@ class SearchTextField extends StatelessWidget {
             BlocProvider.of<SearchByMealCubit>(context).searchController,
         decoration: InputDecoration(
           hintText: 'Search',
+          hintStyle: TextStyle(
+            color: context.isDark ? AppColor.steelBlueGray : AppColor.gray,
+          ),
           prefixIcon: Icon(
             Icons.search,
 
-            color: AppColor.black.withValues(alpha: 0.7),
+            color:
+                context.isDark
+                    ? AppColor.skyBlue
+                    : AppColor.black.withValues(alpha: 0.7),
 
             size: 22.w,
           ),
@@ -37,7 +43,7 @@ class SearchTextField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: context.isDark ? Colors.grey.shade900 : AppColor.white,
+          fillColor: context.isDark ? AppColor.black : AppColor.white,
 
           // isCollapsed: true,
         ),

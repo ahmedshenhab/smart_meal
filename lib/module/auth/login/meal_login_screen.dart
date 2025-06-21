@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_meal/core/extention/extention.dart';
+import 'package:smart_meal/core/widgets/custom_outlined_button.dart';
 import 'package:smart_meal/generated/l10n.dart';
 import '../../../core/ui/style/app_color.dart';
 import 'cubit/cubit.dart';
@@ -18,47 +20,30 @@ class MealLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppColor.scaffoldBackgroundheavy,
+      backgroundColor:
+          context.isDark
+              ? AppColor.scaffolddark
+              : AppColor.scaffoldBackgroundheavy,
       body: SafeArea(
         child: Column(
           children: [
-            // Logo Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  'assets/images/logo_app.png',
+            Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Image.asset(
+                'assets/images/logo_app.png',
 
-                  width: 120.w,
-                  height: 100.h,
-                ),
-                // TextButton(
-                //   style: TextButton.styleFrom(
-                //     padding: EdgeInsets.zero,
-                //     overlayColor: Colors.transparent,
-                //   ),
-                //   onPressed: () {},
-                //   child: Text(
-                //     'Later',
-                //     style: theme.textTheme.bodyMedium!.copyWith(
-                //       fontSize: 17.sp,
-                //       fontFamily: 'SofiaSans',
-                //       color: AppColor.logInLaterColor,
-                //     ),
-                //   ),
-                // ),
-              ],
+                width: 120.w,
+                height: 100.h,
+              ),
             ),
 
-            // Login Card Section
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(left: 12.w, right: 12.w),
-                padding: EdgeInsets.only(top: 15.h),
+                margin: EdgeInsetsDirectional.symmetric(horizontal: 12.w),
+
                 decoration: BoxDecoration(
-                  color: AppColor.white,
+                  color: context.isDark ? AppColor.black : AppColor.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.r),
                     topRight: Radius.circular(45.r),
@@ -74,78 +59,40 @@ class MealLoginScreen extends StatelessWidget {
                           fontFamily: 'Poppins',
                           fontSize: 24.sp,
 
-                          color: AppColor.black,
+                          color:
+                              context.isDark ? AppColor.white : AppColor.black,
                         ),
                       ),
-                      SizedBox(height: mediaQuery.size.height * 0.06),
 
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     CustomOutlinedButton(
-                      //       onPressed: () {},
-                      //       icon: SvgPicture.asset(
-                      //         width: 25.w,
-                      //         'assets/images/google_icon.svg',
-                      //       ),
+                      SizedBox(height: 50.h),
 
-                      //       label: 'Sign up with Facebook',
-                      //     ),
-                      //     CustomOutlinedButton(
-                      //       onPressed: () {},
-
-                      //       icon: Icon(
-                      //         Icons.facebook_outlined,
-                      //         color: AppColor.blue,
-                      //         size: 25.w,
-                      //       ),
-
-                      //       label: 'Sign up with Facebook',
-                      //     ),
-                      //   ],
-                      // ),
-                      // SizedBox(height: mediaQuery.size.height * 0.03),
-
-                      // Text(
-                      //   '-OR-',
-                      //   style: theme.textTheme.bodyMedium!.copyWith(
-                      //     fontSize: 18.sp,
-                      //     fontFamily: 'Poppins',
-                      //     color: AppColor.fieldColorHint,
-                      //   ),
-                      // ),
-                      SizedBox(height: mediaQuery.size.height * 0.02),
-
-                      //login form
                       const LoginForm(),
-                      SizedBox(height: mediaQuery.size.height * 0.06),
-
-                      // Log In Button
-                      ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<MealLoginCubit>(
-                            context,
-                          ).checkValidate();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(mediaQuery.size.width * 0.86, 48.h),
-                          backgroundColor: AppColor.deepOrange,
-                          padding: const EdgeInsets.all(0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
+                      SizedBox(height: 58.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: CustomElevatedButton(
+                          raduis: 16.r,
+                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                          fixedwidth: double.infinity,
+                          child: Text(
+                            S.of(context).LogIn,
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              fontFamily: 'Poppins',
+                              fontSize: 18.sp,
+                              color:
+                                  context.isDark
+                                      ? AppColor.black
+                                      : AppColor.white,
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          S.of(context).LogIn,
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            fontFamily: 'SofiaSans',
-                            fontSize: 20.sp,
-                            color: AppColor.white,
-                          ),
+                          onPressed: () {
+                            BlocProvider.of<MealLoginCubit>(
+                              context,
+                            ).checkValidate();
+                          },
                         ),
                       ),
-
-                      SizedBox(height: mediaQuery.size.height * 0.038),
+                      SizedBox(height: 20.h),
 
                       RichText(
                         text: TextSpan(
@@ -154,7 +101,10 @@ class MealLoginScreen extends StatelessWidget {
                             fontFamily: 'SofiaSans',
                             fontSize: 14.sp,
                             // height: 0,
-                            color: AppColor.allreadyHaveAcountColor,
+                            color:
+                                context.isDark
+                                    ? AppColor.grayTone
+                                    : AppColor.gray,
                           ),
                           children: [
                             TextSpan(
@@ -164,8 +114,10 @@ class MealLoginScreen extends StatelessWidget {
                                 decorationThickness: 0.7.w,
                                 fontFamily: 'SofiaSans',
                                 fontSize: 18.sp,
-                                // height: 0,
-                                color: AppColor.allreadyHaveAcountColor,
+                                color:
+                                    context.isDark
+                                        ? AppColor.grayTone
+                                        : AppColor.gray,
                               ),
                               recognizer:
                                   TapGestureRecognizer()

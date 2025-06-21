@@ -1,38 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_meal/core/extention/extention.dart';
 import '../../../../../core/ui/style/app_color.dart';
 import '../../../cubit/cubit.dart';
 import '../../../data/model/meals_model.dart';
 
 class CustomItemMealSaved extends StatelessWidget {
-  const CustomItemMealSaved({
-    super.key,
-
-   
-    this.boxShadow,
-    this.meal,
-  });
-
+  const CustomItemMealSaved({super.key, this.boxShadow, required this.meal});
 
   final BoxShadow? boxShadow;
 
-  final MealsModel? meal;
+  final MealsModel meal;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      width: 150.w,
-      height: 145.h,
-
       decoration: BoxDecoration(
         boxShadow: boxShadow != null ? [boxShadow!] : [],
-        color: AppColor.white,
+        color: context.isDark ? AppColor.scaffolddark : AppColor.white,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Column(
         spacing: 2.h,
+
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
@@ -41,42 +34,52 @@ class CustomItemMealSaved extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(
-                  'assets/images/m1.png',
-                  width: 135.w,
-                  height: 80.h,
 
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    meal.imageUrl == '' || meal.imageUrl == null
+                        ? Image.asset(
+                          'assets/images/m1.png',
+                          fit: BoxFit.cover,
+                          width: 135.w,
+                          height: 80.h,
+                        )
+                        : CachedNetworkImage(
+                          width: 135.w,
+                          height: 80.h,
+                          fit: BoxFit.cover,
+                          imageUrl: meal.imageUrl!,
+                          placeholder:
+                              (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          errorWidget:
+                              (context, url, error) =>
+                                  const Center(child: Icon(Icons.error)),
+                        ),
               ),
 
-     
-             
+              InkWell(
+                onTap: () {
+                  Fluttertoast.cancel();
 
-                   InkWell(
-                    onTap: () {
-                      Fluttertoast.cancel();
-                      
-                      MealLayoutCubit.get(
-                        context,
-                      ).deleteFavoriteFromsaved(meal?.recipeId ?? 3);
-                    },
-                    child: CircleAvatar(
-                      backgroundColor:
-                          meal?.isFavorite ?? false
-                              ? AppColor.deepOrange
-                              : AppColor.white,
-                      child: Icon(
-                        Icons.bookmark,
-                        color:
-                            meal?.isFavorite ?? false
-                                ? AppColor.white
-                                : AppColor.gray,
-                      ),
-                    ),
+                  MealLayoutCubit.get(
+                    context,
+                  ).deleteFavoriteFromsaved(meal.recipeId ?? 3);
+                },
+                child: CircleAvatar(
+                  backgroundColor:
+                      meal.isFavorite
+                          ? (AppColor.deepOrange)
+                          : (context.isDark ? AppColor.black : AppColor.white),
+                  child: Icon(
+                    Icons.bookmark,
+                    color:
+                        meal.isFavorite
+                            ? (context.isDark ? AppColor.black : AppColor.white)
+                            : AppColor.gray,
                   ),
-                
-              
+                ),
+              ),
             ],
           ),
 
@@ -85,14 +88,13 @@ class CustomItemMealSaved extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
 
-            meal?.recipeName ?? 'default',
+            meal.recipeName ?? 'default',
             style: theme.textTheme.bodyMedium!.copyWith(
               fontFamily: 'RobotoSerif',
-              color: AppColor.black,
+              color: context.isDark ? AppColor.white : AppColor.black,
               fontWeight: FontWeight.normal,
               fontSize: 13.sp,
             ),
-            textAlign: TextAlign.center,
           ),
 
           Row(
@@ -112,7 +114,7 @@ class CustomItemMealSaved extends StatelessWidget {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        meal?.type ?? 'default',
+                        'default',
                         // 'breakfast',
                         style: theme.textTheme.bodyMedium!.copyWith(
                           color: AppColor.gray,
@@ -140,7 +142,7 @@ class CustomItemMealSaved extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
 
                         TextSpan(
-                          text: meal?.calories100g.toString() ?? 'default',
+                          text: meal.calories100g.toString(),
                           style: theme.textTheme.bodyMedium!.copyWith(
                             color: AppColor.gray,
                             fontFamily: 'Roboto',
